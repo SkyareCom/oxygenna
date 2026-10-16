@@ -1,0 +1,613 @@
+{
+  "project": "OXYGENNA — Medicina Hiperbárica",
+  "content_package": "fundamentos-pressao-gases-oxigenio",
+  "status": "authorial_content_preview_not_integrated",
+  "target_curriculum": {
+    "modules": 24,
+    "topics": 144
+  },
+  "version": "2026-10-15",
+  "sources": [
+    {
+      "org": "UHMS",
+      "title": "Hyperbaric Oxygen Therapy Indications, 15th Edition",
+      "url": "https://www.uhms.org/resources/featured-resources/hbo-indications.html"
+    },
+    {
+      "org": "ECHM",
+      "title": "Tenth European Consensus Conference on Hyperbaric Medicine (2017)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6147240/"
+    },
+    {
+      "org": "NCBI",
+      "title": "Hyperbaric Physics — StatPearls",
+      "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK448104/"
+    },
+    {
+      "org": "NCBI",
+      "title": "Hyperbaric Oxygen Therapy Contraindications — StatPearls (2025)",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK557661/"
+    },
+    {
+      "org": "DAN",
+      "title": "Decompression Illness: What Is It and What Is the Treatment?",
+      "url": "https://dan.org/health-medicine/health-resources/diseases-conditions/decompression-illness-what-is-it-and-what-is-the-treatment/"
+    },
+    {
+      "org": "DAN",
+      "title": "Middle Ear Equalization",
+      "url": "https://dan.org/health-medicine/health-resources/diseases-conditions/middle-ear-equalization/"
+    },
+    {
+      "org": "Review",
+      "title": "Essentials of Hyperbaric Oxygen Therapy: 2019 Review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690283/"
+    }
+  ],
+  "locales": {
+    "pt": {
+      "code": "pt-BR",
+      "module": "FUNDAMENTOS COMUNS",
+      "title": "Pressão, gases e oxigênio",
+      "intro": "Uma jornada da física dos gases à decisão clínica segura. Seis temas interligados, com visualizações matemáticas e raciocínio aplicado.",
+      "unit": "MÓDULO DIDÁTICO · 6 TEMAS",
+      "lessons": "Temas",
+      "done": "explorados",
+      "start": "Explorar conteúdo",
+      "listen": "Ouvir resumo",
+      "stop": "Parar áudio",
+      "next": "Próximo tema",
+      "prev": "Tema anterior",
+      "recap": "Síntese clínica",
+      "nuance": "Nuance importante",
+      "care": "Atenção clínica",
+      "simulation": "LABORATÓRIO INTERATIVO",
+      "simTitle": "Pressão × volume × oxigênio inspirado",
+      "simLead": "Modifique a pressão absoluta. O volume representa um gás ideal fechado em temperatura constante; a pressão inspirada de O₂ é calculada para ar ou oxigênio a 100%, com correção de vapor de água a 37 °C.",
+      "pressure": "Pressão absoluta",
+      "gas": "Gás respirado",
+      "air": "Ar (21% O₂)",
+      "oxygen": "O₂ (100%)",
+      "volume": "Volume relativo do gás",
+      "pio2": "PO₂ inspirada (umidificada)",
+      "model": "Modelo físico. Não corresponde à PaO₂ arterial, a uma dose terapêutica ou à resposta individual.",
+      "henry": "Oxigênio dissolvido e pressão arterial de O₂",
+      "henryText": "Exemplo teórico: O₂ dissolvido ≈ 0,0031 × PaO₂ (mL/dL, PaO₂ em mmHg). Valores não são previsões individuais.",
+      "case": "CASO CLÍNICO INTERATIVO",
+      "caseTitle": "Retorno do mergulho",
+      "caseLead": "Mergulhador apresenta desequilíbrio e parestesias 40 minutos após emergir. Está consciente e respira espontaneamente.",
+      "choose": "Escolha a melhor conduta",
+      "again": "Rever pergunta",
+      "complete": "Atividade concluída",
+      "progress": "Progresso local",
+      "references": "Referências de apoio",
+      "referencesNote": "Síntese original baseada em fontes científicas e normas consultáveis. A evidência e os protocolos devem ser atualizados por responsáveis clínicos.",
+      "disclaimer": "Material educacional para profissionais de saúde. Não substitui avaliação especializada, decisão médica nem protocolo institucional de recompressão.",
+      "audioFallback": "A narração depende do mecanismo de fala do navegador/dispositivo; o texto permanece disponível.",
+      "reset": "Reiniciar progresso",
+      "caseResult": "Raciocínio clínico",
+      "knowledge": "Como os conceitos se conectam",
+      "caseAnswers": [
+        {
+          "q": "Qual é a primeira conduta mais adequada?",
+          "a": [
+            "Oxigênio a alta concentração, estabilização e avaliação médica urgente; organizar contato com equipe de medicina do mergulho.",
+            "Aguardar 24 horas, pois parestesias são comuns.",
+            "Recomprimir imediatamente na água sem avaliação."
+          ],
+          "correct": 0,
+          "explain": "Suspeita de doença descompressiva: ofertar O₂ prontamente, estabilizar, documentar exame neurológico e encaminhar para avaliação especializada e recompressão quando indicada. Em caso grave, estabilização antecede transferência para câmara."
+        },
+        {
+          "q": "Os sintomas desaparecem após oxigênio. Isso encerra a investigação?",
+          "a": [
+            "Sim, a melhora exclui doença descompressiva.",
+            "Não. A melhora transitória não exclui lesão nem necessidade de avaliação e possível recompressão.",
+            "Só importa a profundidade máxima, não o exame clínico."
+          ],
+          "correct": 1,
+          "explain": "Manifestações podem melhorar com O₂ e reaparecer; o plano de avaliação não deve ser cancelado apenas pela melhora clínica inicial."
+        },
+        {
+          "q": "Qual informação acrescenta maior valor à decisão?",
+          "a": [
+            "Somente a marca do equipamento.",
+            "Perfil dos mergulhos, mistura respirada, intervalos, velocidades de subida, início dos sintomas e exame neurológico.",
+            "Somente a frequência cardíaca."
+          ],
+          "correct": 1,
+          "explain": "A reconstrução temporal da exposição, o exame e a evolução orientam a equipe. Não há um único dado isolado que substitua a avaliação clínica."
+        }
+      ],
+      "topics": [
+        {
+          "id": "pressao",
+          "title": "Pressão absoluta e exposição hiperbárica",
+          "subtitle": "Entender a unidade certa muda toda a interpretação.",
+          "lead": "A pressão atmosférica ao nível do mar é aproximadamente 1 atmosfera absoluta (ATA), equivalente a 101,3 kPa ou 760 mmHg. A exposição hiperbárica acrescenta pressão ao ambiente: 2,4 ATA significam 2,4 vezes a pressão atmosférica de referência, não “2,4 atmosferas adicionais”.",
+          "points": [
+            "A pressão absoluta inclui a atmosfera já presente. Um manômetro que indica pressão relativa ou manométrica não representa diretamente a pressão absoluta da câmara.",
+            "No mergulho em água do mar, a pressão cresce em torno de 1 ATA a cada 10 metros de profundidade. Trata-se de aproximação didática: salinidade, densidade e altitude afetam a equivalência.",
+            "Pressurização e respiração de oxigênio são variáveis distintas. Um ambiente pressurizado com ar não reproduz a exposição de quem inspira oxigênio medicinal em pressão elevada."
+          ],
+          "pearl": "Diferencie ATA, pressão manométrica e pressão parcial do gás antes de analisar qualquer protocolo.",
+          "caution": "As pressões de câmaras e mergulhos não devem ser intercambiadas sem considerar o gás efetivamente respirado e a duração da exposição.",
+          "refs": [
+            "UHMS",
+            "NCBI"
+          ]
+        },
+        {
+          "id": "boyle",
+          "title": "Boyle: compressão e expansão dos gases",
+          "subtitle": "A mesma lei explica bolhas, ouvidos e pulmões.",
+          "lead": "Para uma massa fixa de gás, mantendo aproximadamente a temperatura constante, pressão absoluta e volume variam inversamente: P₁V₁ = P₂V₂. Um litro a 1 ATA ocuparia 0,40 L a 2,5 ATA nesse modelo ideal.",
+          "points": [
+            "Durante a compressão, cavidades gasosas que não equalizam a pressão — sobretudo ouvido médio e seios paranasais — podem sofrer barotrauma. A deglutição e outras manobras apropriadas facilitam a ventilação do ouvido médio.",
+            "Na descompressão, o gás preso tende a expandir. O risco é especialmente relevante em pneumotórax não drenado e em aprisionamento aéreo pulmonar.",
+            "A lei descreve o componente físico; em tecidos vivos, ventilação das cavidades, elasticidade, perfusão e velocidade de mudança de pressão influenciam o dano."
+          ],
+          "pearl": "Volume e pressão devem ser calculados em ATA, jamais a partir de uma pressão manométrica isolada.",
+          "caution": "Pneumotórax não tratado é contraindicação absoluta à oxigenoterapia hiperbárica até adequado manejo; a expansão do gás na descompressão pode ser ameaçadora à vida.",
+          "refs": [
+            "NCBI",
+            "DAN"
+          ]
+        },
+        {
+          "id": "dalton",
+          "title": "Dalton: a pressão parcial importa",
+          "subtitle": "Mais pressão não significa automaticamente mais oxigênio terapêutico.",
+          "lead": "Em uma mistura gasosa, cada componente contribui com uma fração da pressão total. Para O₂ seco: PO₂ = FiO₂ × Pambiente. Nas vias aéreas, a umidificação reduz a pressão disponível para os gases secos; a 37 °C, utilizamos cerca de 47 mmHg para a pressão do vapor de água.",
+          "points": [
+            "À superfície, ar com 21% de O₂ produz PO₂ de aproximadamente 160 mmHg no gás atmosférico seco; após umidificação, cerca de 150 mmHg antes das trocas alveolares.",
+            "A 2,4 ATA, respirar O₂ a 100% pode elevar muito a pressão inspirada de O₂. Isso não equivale numericamente à PaO₂ arterial: ventilação, PaCO₂, shunt e gradiente alvéolo-arterial modificam o resultado.",
+            "A relação é relevante tanto para oxigenoterapia hiperbárica quanto para toxicidade por O₂ em mergulhos com misturas enriquecidas."
+          ],
+          "pearl": "O resultado do simulador é PO₂ inspirada após umidificação — não é pressão arterial de oxigênio, nem prescrição.",
+          "caution": "FiO₂, pressão absoluta, tempo de exposição e pausas no O₂ influenciam risco e efeito; interpretar uma única variável isoladamente é inadequado.",
+          "refs": [
+            "NCBI",
+            "UHMS"
+          ]
+        },
+        {
+          "id": "henry",
+          "title": "Henry: oxigênio além da hemoglobina",
+          "subtitle": "O plasma torna-se uma via de transporte clinicamente relevante.",
+          "lead": "Pela lei de Henry, o conteúdo de gás dissolvido em um líquido aumenta com a pressão parcial do gás, em temperatura controlada. Como a hemoglobina já está próxima da saturação em muitos indivíduos saudáveis em ar ambiente, a elevação acentuada da PaO₂ amplia sobretudo a parcela de oxigênio fisicamente dissolvida.",
+          "points": [
+            "Uma aproximação fisiológica comum utiliza 0,0031 mL O₂/dL por mmHg de PaO₂. Assim, PaO₂ de 100 mmHg corresponde a cerca de 0,31 mL/dL dissolvidos; 1.500 mmHg corresponderiam a aproximadamente 4,65 mL/dL.",
+            "Esses números não devem ser confundidos com conteúdo arterial total de O₂, que também depende de hemoglobina e saturação. Tampouco a elevação da concentração plasmática garante oxigenação adequada em todo tecido sem perfusão.",
+            "A hiperóxia pode modificar gradientes de difusão e processos celulares, mas o benefício clínico varia significativamente conforme diagnóstico, vascularização e evidência de cada indicação."
+          ],
+          "pearl": "O aumento da fração dissolvida explica por que a oxigenoterapia hiperbárica não se resume à saturação medida no oxímetro.",
+          "caution": "Modelos de solubilidade são simplificações: não calculam oferta tecidual, extração periférica nem o efeito clínico individual.",
+          "refs": [
+            "NCBI",
+            "Review"
+          ]
+        },
+        {
+          "id": "dose",
+          "title": "Dose terapêutica e operação da câmara",
+          "subtitle": "Pressão, gás, duração e segurança formam uma única prescrição.",
+          "lead": "A oxigenoterapia hiperbárica clínica utiliza câmaras apropriadas, oxigênio medicinal e perfis definidos por diagnóstico. As exposições fundamentadas em evidências costumam ocorrer em torno de 1,9 a 3 ATA, com duração, intervalos e número de sessões ajustados pela equipe especializada.",
+          "points": [
+            "Câmaras monopacientes e multipacientes diferem no ambiente pressurizado, no modo de oferta do O₂ e nos procedimentos operacionais. É obrigatório distinguir o gás dentro da câmara do gás que chega às vias aéreas do paciente.",
+            "O plano considera indicação, urgência, resposta, riscos de toxicidade, intervalos de ar quando previstos e possibilidades de monitorização. Não existe um cronograma universal apropriado para todas as indicações.",
+            "Oxigenoterapia hiperbárica é intervenção complementar a medidas essenciais — por exemplo, desbridamento e antimicrobianos em infecções necrosantes — e não deve atrasá-las."
+          ],
+          "pearl": "Uma “dose” de OHB só é interpretável com pressão absoluta, FiO₂, tempo útil de exposição, pausas e número de sessões.",
+          "caution": "Nunca converter estes exemplos educacionais em parâmetros de equipamento ou tratamento sem protocolo institucional aprovado e prescrição responsável.",
+          "refs": [
+            "UHMS",
+            "ECHM",
+            "NCBI"
+          ]
+        },
+        {
+          "id": "seguranca",
+          "title": "Barotrauma, toxicidade e triagem",
+          "subtitle": "Antecipar eventos adversos é parte do tratamento.",
+          "lead": "A seleção do paciente integra benefício esperado, avaliação otorrinolaringológica quando necessária, condições cardiopulmonares, glicemia, medicamentos e compatibilidade de dispositivos. Os eventos comuns incluem desconforto ou barotrauma de ouvido; complicações graves são menos frequentes, porém exigem preparo.",
+          "points": [
+            "Pneumotórax não tratado impede a exposição hiperbárica até intervenção adequada. Doença pulmonar com aprisionamento aéreo, obstruções nasais, infecções de vias aéreas, convulsões prévias e insuficiência cardíaca requerem avaliação individual do risco.",
+            "A toxicidade neurológica do O₂ pode manifestar-se por convulsões, e a toxicidade pulmonar relaciona-se à pressão parcial e à exposição acumulada. Alterações visuais, incluindo miopia transitória, são possíveis em séries de sessões.",
+            "Risco de incêndio é crítico em ambientes enriquecidos com oxigênio. Materiais, cosméticos, equipamentos e fontes de ignição devem obedecer às regras específicas de segurança da câmara."
+          ],
+          "pearl": "Segurança é uma etapa contínua: antes, durante e após cada exposição, com equipe e equipamentos adequados.",
+          "caution": "Sintomas neurológicos, respiratórios ou otológicos novos durante a exposição exigem abordagem conforme protocolos de emergência da unidade.",
+          "refs": [
+            "NCBI",
+            "DAN",
+            "UHMS"
+          ]
+        }
+      ],
+      "badgeModules": "24 MÓDULOS",
+      "badgeThemes": "144 TEMAS",
+      "badgeSection": "6 TEMAS NESTE CONTEÚDO",
+      "replay": "Refazer atividade",
+      "graphEyebrow": "HENRY · O₂ DISSOLVIDO",
+      "footerShort": "CONTEÚDO INTERATIVO · VERSÃO DE REVISÃO",
+      "sliderAria": "Pressão absoluta em ATA"
+    },
+    "en": {
+      "code": "en-US",
+      "module": "SHARED FOUNDATIONS",
+      "title": "Pressure, gases & oxygen",
+      "intro": "From gas physics to safe clinical reasoning. Six connected lessons with mathematical visualizations and applied decisions.",
+      "unit": "LEARNING MODULE · 6 TOPICS",
+      "lessons": "Topics",
+      "done": "explored",
+      "start": "Explore lesson",
+      "listen": "Listen to summary",
+      "stop": "Stop audio",
+      "next": "Next topic",
+      "prev": "Previous topic",
+      "recap": "Clinical synthesis",
+      "nuance": "Key nuance",
+      "care": "Clinical caution",
+      "simulation": "INTERACTIVE LAB",
+      "simTitle": "Pressure × volume × inspired oxygen",
+      "simLead": "Adjust absolute pressure. Volume represents a sealed ideal gas at constant temperature. Inspired oxygen pressure is calculated for air or 100% O₂ after correction for water vapor at 37 °C.",
+      "pressure": "Absolute pressure",
+      "gas": "Breathing gas",
+      "air": "Air (21% O₂)",
+      "oxygen": "O₂ (100%)",
+      "volume": "Relative gas volume",
+      "pio2": "Humidified inspired PO₂",
+      "model": "Physical model, not arterial PaO₂, a therapeutic prescription or a prediction of individual response.",
+      "henry": "Dissolved oxygen and arterial PO₂",
+      "henryText": "Theoretical example: dissolved O₂ ≈ 0.0031 × PaO₂ (mL/dL with PaO₂ in mmHg). These are not patient-specific predictions.",
+      "case": "INTERACTIVE CLINICAL CASE",
+      "caseTitle": "After the dive",
+      "caseLead": "A diver develops imbalance and tingling 40 minutes after surfacing. They are conscious and breathing spontaneously.",
+      "choose": "Choose the best action",
+      "again": "Review question",
+      "complete": "Activity completed",
+      "progress": "Local progress",
+      "references": "Supporting references",
+      "referencesNote": "Original educational synthesis informed by scientific sources and accessible standards. Clinical protocols require review and updating by qualified teams.",
+      "disclaimer": "Educational material for healthcare professionals. Does not replace specialist assessment, medical judgment or institutional recompression protocols.",
+      "audioFallback": "Narration depends on device/browser speech capabilities. All text remains available.",
+      "reset": "Reset progress",
+      "caseResult": "Clinical reasoning",
+      "knowledge": "Linking the concepts",
+      "caseAnswers": [
+        {
+          "q": "What is the best initial action?",
+          "a": [
+            "Give high-concentration oxygen, stabilize and arrange urgent medical assessment and dive-medicine consultation.",
+            "Wait 24 hours because tingling after diving is common.",
+            "Attempt immediate in-water recompression without assessment."
+          ],
+          "correct": 0,
+          "explain": "For suspected decompression illness, start oxygen early, stabilize, document a neurological examination and arrange specialist evaluation and recompression if indicated."
+        },
+        {
+          "q": "Symptoms resolve on oxygen. Is the assessment complete?",
+          "a": [
+            "Yes. Improvement rules out decompression illness.",
+            "No. Transient improvement does not exclude injury or the need for further assessment.",
+            "Only the maximum diving depth matters."
+          ],
+          "correct": 1,
+          "explain": "Symptoms can improve temporarily and recur. Initial improvement alone must not cancel assessment or treatment planning."
+        },
+        {
+          "q": "What additional information best supports assessment?",
+          "a": [
+            "Only the brand of dive gear.",
+            "Dive profile, breathing mix, ascent rates, timing of symptoms and neurological findings.",
+            "Only the heart rate."
+          ],
+          "correct": 1,
+          "explain": "A timeline of exposure and symptoms together with clinical examination is more useful than any single isolated variable."
+        }
+      ],
+      "topics": [
+        {
+          "id": "pressao",
+          "title": "Absolute pressure and hyperbaric exposure",
+          "subtitle": "The correct units change interpretation.",
+          "lead": "At sea level, atmospheric pressure is about one atmosphere absolute (ATA), or 101.3 kPa and 760 mmHg. At 2.4 ATA, the absolute pressure is 2.4 times the reference atmospheric pressure—not an additional 2.4 atmospheres.",
+          "points": [
+            "Absolute pressure includes the atmosphere already present. Gauge readings are not interchangeable with ATA without conversion.",
+            "In seawater, ambient pressure rises by roughly 1 ATA for every 10 m of depth. This is an educational approximation dependent on local conditions.",
+            "Pressurization and breathing oxygen are separate variables. A pressurized air exposure is not physiologically identical to breathing medical oxygen under pressure."
+          ],
+          "pearl": "Distinguish ATA, gauge pressure, and gas partial pressure before interpreting any protocol.",
+          "caution": "Always account for the actual breathing gas and time under pressure.",
+          "refs": [
+            "UHMS",
+            "NCBI"
+          ]
+        },
+        {
+          "id": "boyle",
+          "title": "Boyle: compressing and expanding gases",
+          "subtitle": "The same law underlies bubbles and ear injuries.",
+          "lead": "For a fixed amount of gas at approximately constant temperature, absolute pressure and volume vary inversely: P₁V₁ = P₂V₂. In this ideal model, 1 L at 1 ATA becomes 0.40 L at 2.5 ATA.",
+          "points": [
+            "During compression, air-filled cavities that fail to equalize—especially middle ears and sinuses—may develop barotrauma.",
+            "During decompression, trapped gas expands. This is critical for an undrained pneumothorax or pulmonary air trapping.",
+            "Living systems are not perfect sealed isothermal containers: tissue compliance, ventilation and rate of pressure change also matter."
+          ],
+          "pearl": "Use absolute pressure, not a gauge reading, in Boyle-law calculations.",
+          "caution": "Untreated pneumothorax is an absolute contraindication to hyperbaric oxygen therapy until adequately managed.",
+          "refs": [
+            "NCBI",
+            "DAN"
+          ]
+        },
+        {
+          "id": "dalton",
+          "title": "Dalton: partial pressure drives exposure",
+          "subtitle": "Increasing pressure alone is not an oxygen prescription.",
+          "lead": "Each gas in a mixture contributes a fraction of total pressure. For dry inspired oxygen PO₂ = FiO₂ × ambient pressure. At 37 °C, the humidified inspired gas is corrected by approximately 47 mmHg of water-vapor pressure.",
+          "points": [
+            "At 1 ATA, air contains approximately 160 mmHg O₂ when dry and approximately 150 mmHg after humidification, before alveolar gas exchange.",
+            "At 2.4 ATA, 100% oxygen markedly increases inspired PO₂. This cannot be equated to arterial PaO₂ because ventilation, carbon dioxide, shunt and gas exchange affect the result.",
+            "Partial pressure is also central to understanding oxygen toxicity in diving with enriched gas mixes."
+          ],
+          "pearl": "The calculator displays humidified inspired PO₂, not an arterial blood gas value.",
+          "caution": "FiO₂, absolute pressure, exposure duration and breaks all matter for risk and benefit.",
+          "refs": [
+            "NCBI",
+            "UHMS"
+          ]
+        },
+        {
+          "id": "henry",
+          "title": "Henry: oxygen beyond hemoglobin",
+          "subtitle": "Dissolved plasma oxygen becomes important.",
+          "lead": "Henry’s law links dissolved gas concentration with its partial pressure at a controlled temperature. Because hemoglobin is already near saturation in many healthy people breathing air, marked increases in PaO₂ primarily boost dissolved oxygen.",
+          "points": [
+            "A common physiologic approximation is 0.0031 mL O₂/dL per mmHg PaO₂: about 0.31 mL/dL at PaO₂ 100 mmHg and 4.65 mL/dL at PaO₂ 1,500 mmHg.",
+            "These are not total arterial oxygen content values. Total content also depends on hemoglobin and saturation. Dissolved oxygen does not correct absent perfusion.",
+            "Hyperoxia can affect diffusion gradients and cell responses, but clinical benefit depends on the diagnosis, blood supply and evidence."
+          ],
+          "pearl": "The dissolved fraction explains why pulse oximetry cannot describe the full effect of hyperbaric oxygen.",
+          "caution": "Solubility models do not predict individual tissue oxygen delivery or clinical benefit.",
+          "refs": [
+            "NCBI",
+            "Review"
+          ]
+        },
+        {
+          "id": "dose",
+          "title": "Treatment dose and chamber operation",
+          "subtitle": "Pressure, gas and duration belong in one order.",
+          "lead": "Evidence-based clinical hyperbaric oxygen is delivered in suitable chambers using medical oxygen and condition-specific profiles. Common protocols employ about 1.9–3 ATA, with time and treatment frequency determined by specialists.",
+          "points": [
+            "Monoplace and multiplace chambers differ in pressurizing gas, methods of oxygen delivery and operational procedures. Distinguish chamber atmosphere from the gas breathed by a patient.",
+            "A treatment profile reflects urgency, therapeutic goals, monitoring, toxicity risk and any protocol-specific air breaks. No single schedule covers all indications.",
+            "Hyperbaric treatment is adjunctive for several illnesses; for necrotizing infection it must not delay surgery and antimicrobial therapy."
+          ],
+          "pearl": "A dose requires absolute pressure, FiO₂, effective exposure time, breaks and number of sessions.",
+          "caution": "Examples are not instructions to operate a chamber or prescribe treatment.",
+          "refs": [
+            "UHMS",
+            "ECHM",
+            "NCBI"
+          ]
+        },
+        {
+          "id": "seguranca",
+          "title": "Barotrauma, toxicity and screening",
+          "subtitle": "Preventing complications is part of therapy.",
+          "lead": "Patient selection includes expected benefit, ear and sinus considerations, cardiovascular and lung disease, glucose control, medications and device compatibility. Middle-ear discomfort and barotrauma are common; serious adverse events are less frequent but demand readiness.",
+          "points": [
+            "Untreated pneumothorax is a contraindication until appropriately managed. Air trapping, upper respiratory infection, seizure history and heart failure need case-by-case assessment.",
+            "CNS oxygen toxicity can cause seizures; lung effects relate to oxygen partial pressure and cumulative dose. Temporary refractive changes may occur across a treatment course.",
+            "Fire prevention is critical in oxygen-enriched settings. Approved materials, devices and strict ignition-source rules are mandatory."
+          ],
+          "pearl": "Safety screening and monitoring continue before, during and after each exposure.",
+          "caution": "New neurologic, respiratory or ear symptoms require action under the unit’s emergency plan.",
+          "refs": [
+            "NCBI",
+            "DAN",
+            "UHMS"
+          ]
+        }
+      ],
+      "badgeModules": "24 MODULES",
+      "badgeThemes": "144 TOPICS",
+      "badgeSection": "6 TOPICS IN THIS LESSON",
+      "replay": "Repeat activity",
+      "graphEyebrow": "HENRY · DISSOLVED O₂",
+      "footerShort": "INTERACTIVE CONTENT · REVIEW EDITION",
+      "sliderAria": "Absolute pressure in ATA"
+    },
+    "es": {
+      "code": "es-ES",
+      "module": "FUNDAMENTOS COMUNES",
+      "title": "Presión, gases y oxígeno",
+      "intro": "De la física de los gases al razonamiento clínico seguro. Seis temas relacionados, con simulaciones matemáticas y decisiones aplicadas.",
+      "unit": "MÓDULO DIDÁCTICO · 6 TEMAS",
+      "lessons": "Temas",
+      "done": "explorados",
+      "start": "Explorar tema",
+      "listen": "Escuchar resumen",
+      "stop": "Detener audio",
+      "next": "Tema siguiente",
+      "prev": "Tema anterior",
+      "recap": "Síntesis clínica",
+      "nuance": "Matiz importante",
+      "care": "Precaución clínica",
+      "simulation": "LABORATORIO INTERACTIVO",
+      "simTitle": "Presión × volumen × oxígeno inspirado",
+      "simLead": "Modifique la presión absoluta. El volumen representa un gas ideal encerrado a temperatura constante. La presión inspirada de O₂ se calcula para aire u oxígeno al 100 %, corrigiendo el vapor de agua a 37 °C.",
+      "pressure": "Presión absoluta",
+      "gas": "Gas respirado",
+      "air": "Aire (21 % O₂)",
+      "oxygen": "O₂ (100 %)",
+      "volume": "Volumen relativo del gas",
+      "pio2": "PO₂ inspirada humidificada",
+      "model": "Modelo físico: no representa PaO₂ arterial, una prescripción terapéutica ni una respuesta individual.",
+      "henry": "Oxígeno disuelto y PO₂ arterial",
+      "henryText": "Ejemplo teórico: O₂ disuelto ≈ 0,0031 × PaO₂ (mL/dL; PaO₂ en mmHg). No son predicciones para un paciente.",
+      "case": "CASO CLÍNICO INTERACTIVO",
+      "caseTitle": "Después de la inmersión",
+      "caseLead": "Un buceador presenta inestabilidad y parestesias 40 minutos después de salir a superficie. Está consciente y respira espontáneamente.",
+      "choose": "Seleccione la mejor conducta",
+      "again": "Revisar pregunta",
+      "complete": "Actividad completada",
+      "progress": "Progreso local",
+      "references": "Referencias de apoyo",
+      "referencesNote": "Síntesis educativa original fundamentada en fuentes científicas y normas accesibles. Los protocolos clínicos deben ser revisados y actualizados por profesionales responsables.",
+      "disclaimer": "Material educativo para profesionales sanitarios. No sustituye la valoración especializada, la decisión médica ni los protocolos institucionales de recompresión.",
+      "audioFallback": "La narración depende de las funciones de voz del navegador/dispositivo. El texto siempre está disponible.",
+      "reset": "Restablecer progreso",
+      "caseResult": "Razonamiento clínico",
+      "knowledge": "Cómo se relacionan los conceptos",
+      "caseAnswers": [
+        {
+          "q": "¿Cuál es la conducta inicial más adecuada?",
+          "a": [
+            "Administrar oxígeno de alta concentración, estabilizar y solicitar evaluación médica urgente y apoyo de medicina del buceo.",
+            "Esperar 24 horas: las parestesias después de bucear son habituales.",
+            "Intentar una recompresión inmediata bajo el agua sin evaluación."
+          ],
+          "correct": 0,
+          "explain": "Ante posible enfermedad descompresiva, iniciar oxígeno, estabilizar, documentar la exploración neurológica y organizar evaluación especializada y recompresión si está indicada."
+        },
+        {
+          "q": "Los síntomas desaparecen con oxígeno. ¿Termina la evaluación?",
+          "a": [
+            "Sí, la mejoría descarta enfermedad descompresiva.",
+            "No. Una mejoría temporal no excluye lesión ni la necesidad de evaluación.",
+            "Solo importa la profundidad máxima alcanzada."
+          ],
+          "correct": 1,
+          "explain": "Los síntomas pueden mejorar de forma transitoria y volver a aparecer. La mejoría inicial no cancela la evaluación."
+        },
+        {
+          "q": "¿Qué información apoya mejor la decisión?",
+          "a": [
+            "Solo la marca del equipo.",
+            "Perfil de inmersiones, mezclas respiradas, ascensos, inicio de síntomas y exploración neurológica.",
+            "Solo la frecuencia cardíaca."
+          ],
+          "correct": 1,
+          "explain": "La cronología de la exposición y los síntomas junto con la evaluación clínica aportan más que una única variable aislada."
+        }
+      ],
+      "topics": [
+        {
+          "id": "pressao",
+          "title": "Presión absoluta y exposición hiperbárica",
+          "subtitle": "Las unidades correctas cambian la interpretación.",
+          "lead": "Al nivel del mar la presión atmosférica equivale aproximadamente a una atmósfera absoluta (ATA): 101,3 kPa o 760 mmHg. A 2,4 ATA, la presión absoluta es 2,4 veces la presión de referencia, no 2,4 atmósferas adicionales.",
+          "points": [
+            "La presión absoluta incluye la atmósfera existente. Una lectura manométrica no equivale a ATA sin conversión.",
+            "En agua de mar, la presión aumenta aproximadamente 1 ATA por cada 10 m de profundidad, con variaciones según las condiciones.",
+            "La presurización y la inspiración de oxígeno son variables distintas. Respirar aire presurizado no reproduce respirar oxígeno medicinal a mayor presión."
+          ],
+          "pearl": "Diferencie ATA, presión manométrica y presión parcial antes de interpretar un protocolo.",
+          "caution": "Considere siempre el gas realmente respirado y la duración de la exposición.",
+          "refs": [
+            "UHMS",
+            "NCBI"
+          ]
+        },
+        {
+          "id": "boyle",
+          "title": "Boyle: compresión y expansión de gases",
+          "subtitle": "La misma ley explica burbujas y barotrauma.",
+          "lead": "Para una cantidad fija de gas a temperatura aproximadamente constante, presión absoluta y volumen varían inversamente: P₁V₁ = P₂V₂. En el modelo ideal, 1 L a 1 ATA se convierte en 0,40 L a 2,5 ATA.",
+          "points": [
+            "Durante la compresión, los espacios con aire que no equilibran la presión —especialmente oído medio y senos paranasales— pueden sufrir barotrauma.",
+            "En la descompresión, el gas retenido se expande. Esto es crítico en el neumotórax no drenado o el atrapamiento aéreo pulmonar.",
+            "Los tejidos no son recipientes ideales: su elasticidad, ventilación y velocidad de cambio de presión también influyen."
+          ],
+          "pearl": "Utilice presión absoluta, no manométrica, en los cálculos de Boyle.",
+          "caution": "El neumotórax no tratado es contraindicación absoluta para oxigenoterapia hiperbárica hasta su manejo adecuado.",
+          "refs": [
+            "NCBI",
+            "DAN"
+          ]
+        },
+        {
+          "id": "dalton",
+          "title": "Dalton: importa la presión parcial",
+          "subtitle": "Más presión no implica por sí sola tratamiento con oxígeno.",
+          "lead": "Cada gas de una mezcla aporta una fracción de la presión total. Para O₂ seco, PO₂ = FiO₂ × presión ambiente. A 37 °C, se corrige la presión inspirada por aproximadamente 47 mmHg de vapor de agua.",
+          "points": [
+            "A 1 ATA, el aire tiene unos 160 mmHg de PO₂ seca y unos 150 mmHg tras humidificación, antes del intercambio alveolar.",
+            "A 2,4 ATA, respirar oxígeno al 100 % eleva mucho la PO₂ inspirada. No equivale a la PaO₂ arterial, que depende también de ventilación, CO₂ y del intercambio gaseoso.",
+            "La presión parcial también es decisiva para comprender la toxicidad del O₂ en el buceo con mezclas enriquecidas."
+          ],
+          "pearl": "El simulador muestra PO₂ inspirada humidificada; no es gasometría arterial.",
+          "caution": "FiO₂, presión absoluta, duración y pausas modifican tanto los beneficios como los riesgos.",
+          "refs": [
+            "NCBI",
+            "UHMS"
+          ]
+        },
+        {
+          "id": "henry",
+          "title": "Henry: oxígeno más allá de la hemoglobina",
+          "subtitle": "El oxígeno plasmático disuelto adquiere relevancia.",
+          "lead": "La ley de Henry relaciona el gas disuelto con su presión parcial a temperatura controlada. Como la hemoglobina suele estar casi saturada en personas sanas que respiran aire, una gran elevación de PaO₂ aumenta principalmente el oxígeno disuelto.",
+          "points": [
+            "Una aproximación fisiológica utiliza 0,0031 mL O₂/dL por mmHg: aproximadamente 0,31 mL/dL con PaO₂ de 100 mmHg y 4,65 mL/dL con PaO₂ de 1.500 mmHg.",
+            "Esto no representa el contenido arterial total, que depende también de hemoglobina y saturación. El oxígeno disuelto no compensa la ausencia de perfusión.",
+            "La hiperoxia puede modificar los gradientes de difusión y respuestas celulares, pero el beneficio clínico depende del diagnóstico y de la evidencia."
+          ],
+          "pearl": "La fracción disuelta explica por qué la oximetría de pulso no expresa todo el efecto de la oxigenoterapia hiperbárica.",
+          "caution": "Los modelos de solubilidad no predicen la oferta tisular ni el beneficio clínico individual.",
+          "refs": [
+            "NCBI",
+            "Review"
+          ]
+        },
+        {
+          "id": "dose",
+          "title": "Dosis terapéutica y operación de la cámara",
+          "subtitle": "Presión, gas y tiempo constituyen una prescripción.",
+          "lead": "La oxigenoterapia hiperbárica clínica se realiza en cámaras adecuadas, con oxígeno medicinal y perfiles adaptados a cada enfermedad. Muchos protocolos fundamentados utilizan aproximadamente 1,9–3 ATA, con duración y frecuencia prescritas por especialistas.",
+          "points": [
+            "Las cámaras monopaciente y multiplaza difieren en la atmósfera presurizada y la administración de oxígeno. Es necesario diferenciar el gas de la cámara del gas inspirado por el paciente.",
+            "El perfil considera indicación, urgencia, monitorización, toxicidad y pausas respirando aire cuando estén previstas. No hay un esquema único para todas las indicaciones.",
+            "En varias enfermedades la terapia es coadyuvante: por ejemplo, nunca debe retrasar cirugía y antibióticos en infecciones necrosantes."
+          ],
+          "pearl": "Una dosis exige especificar presión absoluta, FiO₂, tiempo efectivo, pausas y número de sesiones.",
+          "caution": "Los ejemplos educativos no son instrucciones para operar equipos ni prescribir tratamiento.",
+          "refs": [
+            "UHMS",
+            "ECHM",
+            "NCBI"
+          ]
+        },
+        {
+          "id": "seguranca",
+          "title": "Barotrauma, toxicidad y evaluación previa",
+          "subtitle": "Prevenir complicaciones forma parte del tratamiento.",
+          "lead": "La selección evalúa beneficios, oídos y senos paranasales, enfermedades cardiopulmonares, glucemia, fármacos y dispositivos. El barotrauma de oído es relativamente frecuente; los eventos graves son menos comunes, pero requieren preparación.",
+          "points": [
+            "El neumotórax no tratado impide la terapia hasta un manejo correcto. Atrapamiento aéreo, infección respiratoria alta, antecedentes convulsivos e insuficiencia cardíaca requieren evaluación individual.",
+            "La toxicidad neurológica por O₂ puede causar convulsiones; la pulmonar depende de presión parcial y exposición acumulada. Pueden aparecer cambios refractivos temporales.",
+            "La prevención de incendios es esencial en ambientes enriquecidos con oxígeno. Materiales, dispositivos y fuentes de ignición están sujetos a normas rigurosas."
+          ],
+          "pearl": "La seguridad se evalúa antes, durante y después de cada sesión.",
+          "caution": "Síntomas neurológicos, respiratorios u otológicos nuevos exigen una respuesta según el plan de emergencias de la unidad.",
+          "refs": [
+            "NCBI",
+            "DAN",
+            "UHMS"
+          ]
+        }
+      ],
+      "badgeModules": "24 MÓDULOS",
+      "badgeThemes": "144 TEMAS",
+      "badgeSection": "6 TEMAS EN ESTE CONTENIDO",
+      "replay": "Repetir actividad",
+      "graphEyebrow": "HENRY · O₂ DISUELTO",
+      "footerShort": "CONTENIDO INTERACTIVO · VERSIÓN DE REVISIÓN",
+      "sliderAria": "Presión absoluta en ATA"
+    }
+  }
+}
