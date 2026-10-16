@@ -1,0 +1,23 @@
+name: OXYGENNA — validação de conteúdo Fundamentos
+on:
+  push:
+    paths:
+      - "content/fundamentos/**"
+      - "tests/fundamentos.test.mjs"
+      - ".github/workflows/fundamentos-content.yml"
+  pull_request:
+    paths:
+      - "content/fundamentos/**"
+      - "tests/fundamentos.test.mjs"
+      - ".github/workflows/fundamentos-content.yml"
+jobs:
+  fundamentos-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm test
