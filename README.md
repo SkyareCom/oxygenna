@@ -1,13 +1,21 @@
 # OXYGENNA — Medicina Hiperbárica
 
-Este repositório está sendo preparado para receber os conteúdos autorais da seção **CÂMARA**, preservando integralmente o front aprovado do aplicativo.
+## Conteúdos da CÂMARA já versionados
 
-**Importante:** o código-fonte da interface do app publicado ainda não está presente neste repositório. Materiais adicionados aqui não são automaticamente publicados em `medicina-hiperbarica-campus.celsomurakami.chatgpt.site`.
+Este repositório contém os **oito capítulos básicos da seção CÂMARA**, organizados em `content/camara/`, com textos, pontos-chave, nuances clínicas, atividades, roteiros de narração e quatro diagramas SVG independentes.
 
-## Conteúdo
+- **Dados:** [chapters.pt-BR.json](content/camara/chapters.pt-BR.json)
+- **Adaptador não intrusivo:** [index.mjs](content/camara/index.mjs)
+- **Ilustrações:** [assets/](content/camara/assets/)
+- **Instruções:** [README da CÂMARA](content/camara/README.md)
+- **Validação:** `npm test` e [GitHub Actions](../../actions/workflows/camara-content.yml)
 
-Os oito capítulos básicos da área CÂMARA terão textos, pontos-chave, nuances clínicas, atividades, ilustrações e roteiros de áudio em arquivos independentes de interface. Nenhum arquivo deste pacote deve alterar HTML, CSS, navegação ou layouts do aplicativo.
+## Limites do repositório
 
-## Integração pendente
+O repositório estava vazio quando foi indicado. **O código-fonte do front aprovado e sua configuração de publicação não estão presentes.** Assim, a camada de conteúdo está implementada e testada no GitHub, mas **ainda não está conectada nem publicada** no aplicativo hospedado em:
 
-Quando o código-fonte aprovado estiver disponível, conectar o registro das lições ao renderizador **já existente** da aba CÂMARA, verificar duplicações e executar testes de regressão antes de publicar.
+https://medicina-hiperbarica-campus.celsomurakami.chatgpt.site
+
+**Front congelado:** não foram criados nem substituídos arquivos HTML, CSS, páginas, navegação, cabeçalho ou rodapé. O adaptador só registra conteúdos no renderizador preexistente quando ele for disponibilizado.
+
+Para integração real na interface aprovada, é necessário versionar o código-fonte original no repositório e conectar o adaptador à aba CÂMARA existente. Não recriar a interface.
