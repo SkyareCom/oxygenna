@@ -1,8 +1,12 @@
 {
-  "name": "oxygenna-content",
-  "version": "0.1.0",
+  "name": "oxygenna",
+  "version": "1.0.0",
   "private": true,
+  "description": "OXYGENNA — campus de medicina hiperbárica e do mergulho",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "test": "node --test tests/*.test.mjs"
   }

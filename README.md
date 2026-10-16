@@ -1,21 +1,59 @@
 # OXYGENNA — Medicina Hiperbárica
 
-## Conteúdos da CÂMARA já versionados
+Aplicativo educacional em português, inglês e espanhol sobre medicina hiperbárica e medicina do mergulho.
 
-Este repositório contém os **oito capítulos básicos da seção CÂMARA**, organizados em `content/camara/`, com textos, pontos-chave, nuances clínicas, atividades, roteiros de narração e quatro diagramas SVG independentes.
+## Versão funcional importada
 
-- **Dados:** [chapters.pt-BR.json](content/camara/chapters.pt-BR.json)
-- **Adaptador não intrusivo:** [index.mjs](content/camara/index.mjs)
-- **Ilustrações:** [assets/](content/camara/assets/)
-- **Instruções:** [README da CÂMARA](content/camara/README.md)
-- **Validação:** `npm test` e [GitHub Actions](../../actions/workflows/camara-content.yml)
+Esta importação conserva o código da versão publicada do OXYGENNA, incluindo seu front aprovado, logotipo, imagens, tipografia Saira Semi Condensed, navegação e persistência de progresso.
 
-## Limites do repositório
+- Programa estruturado em 24 módulos e 144 temas.
+- 13 sínteses iniciais com atividades de consolidação.
+- 30 fichas de condições clínicas, com indicação, limites de evidência, roteiro educacional e referências.
+- Integração das fichas aos capítulos principais, com atalhos nos capítulos relacionados.
+- Laboratório interativo de unidades e leis dos gases.
+- Seção Medicina Hiperbárica em Foco.
 
-O repositório estava vazio quando foi indicado. **O código-fonte do front aprovado e sua configuração de publicação não estão presentes.** Assim, a camada de conteúdo está implementada e testada no GitHub, mas **ainda não está conectada nem publicada** no aplicativo hospedado em:
+O programa de 144 temas não significa que 144 aulas completas já estejam publicadas. Os roteiros clínicos são educacionais e ainda não receberam validação clínica independente. Não substituem avaliação individual ou protocolos institucionais.
 
-https://medicina-hiperbarica-campus.celsomurakami.chatgpt.site
+## Executar localmente
 
-**Front congelado:** não foram criados nem substituídos arquivos HTML, CSS, páginas, navegação, cabeçalho ou rodapé. O adaptador só registra conteúdos no renderizador preexistente quando ele for disponibilizado.
+O app é estático e não depende de instalação de pacotes:
 
-Para integração real na interface aprovada, é necessário versionar o código-fonte original no repositório e conectar o adaptador à aba CÂMARA existente. Não recriar a interface.
+```sh
+python3 -m http.server 8080 --directory dist
+```
+
+Abra `http://localhost:8080`. Os módulos JavaScript precisam ser servidos por HTTP; abrir o HTML diretamente como arquivo pode bloquear imports.
+
+## Verificar
+
+Com Node.js 20 ou superior:
+
+```sh
+npm test
+```
+
+A pasta `tests/` verifica conteúdo, idiomas, vínculos, modelos físicos, navegação e progresso. A versão importada, junto aos pacotes preservados, passou em 43 testes; a revisão visual real em navegador não foi executada nesta etapa.
+
+## Estrutura
+
+- `dist/`: aplicativo executável, conteúdo e recursos visuais.
+- `tests/`: verificações automatizadas.
+- `docs/`: decisões e histórico de alterações.
+- `.openai/hosting.json`: identidade do projeto Sites original; não contém credenciais.
+
+A importação para o GitHub não altera a audiência ou a hospedagem do aplicativo publicado. Nenhum token, senha ou credencial é necessário para executar esta versão.
+
+## Referências e recursos
+
+As referências científicas e seus tipos de acesso estão no catálogo do app. Capas fornecidas orientam o escopo bibliográfico; os livros integrais não foram copiados. As licenças das fontes estão em `dist/assets/`. A fotografia da câmara de Jacobi é de Amqw23/Wikimedia Commons, sob CC BY-SA 4.0; a atribuição também aparece no app.
+
+## Pacotes de conteúdo preservados
+
+Os pacotes que já estavam no repositório permanecem disponíveis:
+
+- [Câmara](content/camara/README.md): oito capítulos, atividades, roteiros de narração e diagramas.
+- [Fundamentos](content/fundamentos/README.md): conteúdo em português, inglês e espanhol.
+- `tests/camara.test.mjs`, `tests/fundamentos.test.mjs` e seus fluxos do GitHub Actions.
+
+Esses pacotes mantêm seus adaptadores próprios. A importação do código-fonte original em `dist/` não realiza automaticamente a integração deles na interface nem produz áudio.
