@@ -1,0 +1,165 @@
+/*
+ OXYGENNA | Medicina Hiperbárica em Foco
+ Inserção não destrutiva: acrescenta um card abaixo de "Ver todos os capítulos"
+ e abre uma tela interna ilustrada. Não altera cards, módulos ou rodapé existentes.
+ Uso no app: inclua este arquivo após o código principal e execute na HOME.
+*/
+(function () {
+  'use strict';
+  const CARD_ID = 'oxygenna-em-foco-card';
+  const STYLE_ID = 'oxygenna-em-foco-style';
+  const DIALOG_ID = 'oxygenna-em-foco-dialog';
+  let currentSubject = null;
+
+  const topics = [
+    { id: 'esporte', icon: '◉', label: 'MEDICINA DO ESPORTE', subtitle: 'Desempenho, recuperação e segurança', detail: 'Pesquisas sobre oxigenoterapia hiperbárica na recuperação de atletas, lesões e retorno seguro às atividades. Resultados preliminares não devem ser confundidos com indicações clínicas estabelecidas.' },
+    { id: 'regenerativa', icon: '✧', label: 'MEDICINA REGENERATIVA', subtitle: 'Reparo e cicatrização dos tecidos', detail: 'Explore hipóteses e estudos sobre oxigenação tecidual, cicatrização e respostas biológicas à exposição hiperbárica. A utilidade clínica depende da condição, do protocolo e da qualidade das evidências.' },
+    { id: 'plastica', icon: '✦', label: 'CIRURGIA PLÁSTICA', subtitle: 'Reconstrução e recuperação tecidual', detail: 'Conteúdos sobre cicatrização complexa, enxertos e retalhos comprometidos e aplicações investigacionais no contexto estético. Nem todo procedimento de cirurgia plástica constitui indicação de oxigenoterapia hiperbárica.' },
+    { id: 'ciencia', icon: '⌁', label: 'PESQUISAS E INOVAÇÕES', subtitle: 'Publicações, consensos e evidências', detail: 'Espaço para novidades científicas verificadas, revisões, diretrizes e resultados de ensaios clínicos. Cada atualização deverá trazer data, fonte e nível de evidência, sem inventar estudos ou benefícios.' }
+  ];
+
+  function chamberSVG() {
+    return `<svg aria-hidden="true" viewBox="0 0 240 156" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <defs><linearGradient id="oxglow" x1="28" y1="20" x2="185" y2="145" gradientUnits="userSpaceOnUse"><stop stop-color="#a4f4f3"/><stop offset="1" stop-color="#267da0"/></linearGradient><linearGradient id="oxbody" x1="40" y1="45" x2="203" y2="115" gradientUnits="userSpaceOnUse"><stop stop-color="#e9fcff"/><stop offset="1" stop-color="#8ac9d8"/></linearGradient></defs>
+      <circle cx="183" cy="45" r="34" stroke="#a4f4f3" stroke-opacity=".35"/><circle cx="183" cy="45" r="24" stroke="#a4f4f3" stroke-opacity=".24"/>
+      <path d="M35 112h172" stroke="#c1f6f7" stroke-opacity=".35" stroke-width="2"/>
+      <path d="M63 105h114v12H63z" fill="#113e59" stroke="#b3eef3" stroke-width="1.5"/><path d="M79 116l-5 12m92-12 5 12" stroke="#79d8e4" stroke-width="6" stroke-linecap="round"/>
+      <rect x="26" y="49" width="182" height="60" rx="30" fill="url(#oxbody)" stroke="#c8f8fb" stroke-width="3"/>
+      <rect x="59" y="55" width="93" height="48" rx="21" fill="#195d7c" stroke="#c8f8fb" stroke-width="2.5"/>
+      <rect x="65" y="60" width="81" height="38" rx="18" fill="url(#oxglow)" opacity=".9"/>
+      <path d="M78 83h14l7-13 10 23 7-11h15" stroke="#f2feff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <ellipse cx="181" cy="79" rx="18" ry="23" stroke="#488ca6" stroke-width="3"/><circle cx="181" cy="79" r="7" stroke="#488ca6" stroke-width="2"/>
+      <path d="M43 53v51M49 52v53" stroke="#81c3d1" stroke-width="2"/><circle cx="23" cy="36" r="7" stroke="#a4f4f3" stroke-width="1.5"/><circle cx="15" cy="25" r="3" fill="#a4f4f3"/><circle cx="206" cy="18" r="4" fill="#a4f4f3"/>
+      <text x="19" y="16" fill="#e9fcff" font-family="Arial,sans-serif" font-size="12" font-weight="700">O₂</text><text x="205" y="38" fill="#e9fcff" font-family="Arial,sans-serif" font-size="11" font-weight="700">O₂</text>
+    </svg>`;
+  }
+
+  function addStyles() {
+    if (document.getElementById(STYLE_ID)) return;
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+    style.textContent = `
+      #${CARD_ID}, #${DIALOG_ID} {font-family: 'Saira Semi Condensed', 'Saira', system-ui, sans-serif;}
+      #${CARD_ID} {box-sizing:border-box;width:100%;grid-column:1/-1;flex-basis:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;cursor:pointer;border:1px solid rgba(149,235,234,.45);border-radius:16px;background:linear-gradient(115deg,#082c41 0%,#114c63 58%,#12697d 100%);color:#f4fcfe;padding:16px 17px;margin:16px 0 20px;min-height:148px;box-shadow:none;position:relative;overflow:hidden;}
+      #${CARD_ID}:focus-visible {outline:3px solid #95f3ed;outline-offset:3px}
+      #${CARD_ID} .oxcopy {position:relative;z-index:1;flex:1 1 58%;min-width:0;}
+      #${CARD_ID} .oxkicker, #${CARD_ID} .oxtitle, #${CARD_ID} .oxdesc, #${CARD_ID} .oxaction {display:block;}
+      #${CARD_ID} .oxkicker {color:#a9edf1;font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:7px;}
+      #${CARD_ID} .oxtitle {font-size:16px;line-height:1.18;font-weight:600;letter-spacing:.2px;margin:0 0 7px;}
+      #${CARD_ID} .oxdesc {font-size:12px;line-height:1.35;margin:0 0 11px;color:#d4eaf0;}
+      #${CARD_ID} .oxaction {font-size:12px;letter-spacing:.4px;font-weight:600;color:#a9edf1;}
+      #${CARD_ID} .oxgraphic {flex:0 0 36%;max-width:160px;align-self:center;pointer-events:none;}
+      #${CARD_ID} .oxgraphic svg {width:100%;height:auto;display:block;}
+      #${DIALOG_ID} {position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;padding:0;background:#071d2b;color:#f5fcfd;box-sizing:border-box;overflow:hidden;}
+      #${DIALOG_ID}::backdrop {background:rgba(0,0,0,.65)}
+      #${DIALOG_ID} .oxscreen {height:100%;display:flex;flex-direction:column;overflow:hidden;}
+      #${DIALOG_ID} .oxhead {flex:0 0 auto;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(148,229,235,.2);padding:16px max(18px,env(safe-area-inset-right));}
+      #${DIALOG_ID} .oxback {border:1px solid rgba(173,237,238,.42);background:#12374b;border-radius:10px;color:#f4fcfe;min-width:70px;min-height:39px;font-size:12px;font-weight:600;cursor:pointer;}
+      #${DIALOG_ID} .oxbrand {font-size:10px;letter-spacing:1px;color:#9fdde4;}
+      #${DIALOG_ID} .oxmain {padding:16px 18px calc(28px + env(safe-area-inset-bottom));overflow:auto;}
+      #${DIALOG_ID} .oxbanner {display:flex;align-items:center;gap:12px;background:linear-gradient(130deg,#0e354a,#14546a);border:1px solid rgba(173,237,238,.25);border-radius:15px;padding:16px;margin-bottom:15px;}
+      #${DIALOG_ID} .oxbanner svg {width:38%;max-width:180px;}
+      #${DIALOG_ID} h1 {font-size:20px;line-height:1.15;margin:4px 0 10px;font-weight:600;}
+      #${DIALOG_ID} .oxintro {font-size:12px;color:#d2e2eb;line-height:1.6;}
+      #${DIALOG_ID} .oxtopic {display:flex;align-items:center;gap:12px;width:100%;padding:14px 12px;min-height:65px;background:#102e41;border:1px solid #396376;border-radius:12px;margin:9px 0;color:#f2fbfe;text-align:left;cursor:pointer;}
+      #${DIALOG_ID} .oxtopic b {font-size:16px;font-weight:600;display:block;}
+      #${DIALOG_ID} .oxtopic small {font-size:12px;color:#accbd5;display:block;margin-top:3px;}
+      #${DIALOG_ID} .oxtopic .oxicon {font-size:22px;color:#b8eaf1;width:30px;text-align:center;}
+      #${DIALOG_ID} .oxfoot {font-size:12px;line-height:1.55;color:#99bdc8;margin-top:20px;}
+      #${DIALOG_ID} .oxdetail {padding:16px;border-radius:12px;background:#102e41;border:1px solid #396376;font-size:12px;line-height:1.7;}
+      @media(max-width:360px){#${CARD_ID} .oxtitle{font-size:16px}#${CARD_ID} .oxgraphic{flex-basis:35%}#${CARD_ID} .oxdesc{font-size:10px}}
+      @media(prefers-reduced-motion:no-preference){#${CARD_ID}:hover{filter:brightness(1.08)}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function buildCard() {
+    const card = document.createElement('button');
+    card.id = CARD_ID;
+    card.type = 'button';
+    card.setAttribute('aria-label','Explorar Medicina Hiperbárica em Foco');
+    card.innerHTML = `<span class="oxcopy"><span class="oxkicker">CIÊNCIA · NOTÍCIAS · INOVAÇÃO</span><span class="oxtitle">MEDICINA HIPERBÁRICA EM FOCO</span><span class="oxdesc">Novidades, aplicações emergentes e atualizações científicas.</span><span class="oxaction">EXPLORAR →</span></span><span class="oxgraphic">${chamberSVG()}</span>`;
+    card.addEventListener('click', openScreen);
+    return card;
+  }
+
+  function ensureDialog() {
+    let dialog = document.getElementById(DIALOG_ID);
+    if (dialog) return dialog;
+    dialog = document.createElement('dialog');
+    dialog.id = DIALOG_ID;
+    dialog.innerHTML = `<div class="oxscreen"><header class="oxhead"><button class="oxback" type="button">← VOLTAR</button><div><div class="oxbrand">OXYGENNA · MEDICINA HIPERBÁRICA</div><strong>EM FOCO</strong></div></header><main class="oxmain"></main></div>`;
+    document.body.appendChild(dialog);
+    dialog.querySelector('.oxback').addEventListener('click', () => {
+      if (currentSubject !== null) {currentSubject = null; renderScreen();}
+      else dialog.close();
+    });
+    dialog.addEventListener('close', () => {currentSubject = null;});
+    return dialog;
+  }
+
+  function renderScreen() {
+    const dialog = ensureDialog();
+    const main = dialog.querySelector('.oxmain');
+    if (!currentSubject) {
+      main.innerHTML = `<section class="oxbanner"><div><div class="oxbrand">CONHECIMENTO EM ATUALIZAÇÃO</div><h1>MEDICINA HIPERBÁRICA EM FOCO</h1><p class="oxintro">Notícias, pesquisas e caminhos emergentes em medicina hiperbárica.</p></div>${chamberSVG()}</section><p class="oxintro">Explore temas científicos. Notícias verificadas poderão ser adicionadas com fonte, data e classificação da evidência.</p><div class="oxcategories"></div><p class="oxfoot">Conteúdo educacional. Aplicações investigacionais não devem ser apresentadas como indicações clínicas estabelecidas.</p>`;
+      const container=main.querySelector('.oxcategories');
+      topics.forEach(t => {
+        const b=document.createElement('button');
+        b.type='button';b.className='oxtopic';
+        b.innerHTML=`<span class="oxicon">${t.icon}</span><span><b>${t.label}</b><small>${t.subtitle}</small></span>`;
+        b.addEventListener('click',()=>{currentSubject=t.id;renderScreen();});
+        container.appendChild(b);
+      });
+    } else {
+      const subject = topics.find(t=>t.id===currentSubject);
+      main.innerHTML=`<p class="oxbrand">MEDICINA HIPERBÁRICA EM FOCO</p><h1>${subject.label}</h1><div class="oxdetail">${subject.detail}</div><p class="oxfoot">Publicações e notícias específicas serão adicionadas somente após checagem de fontes e datas.</p>`;
+    }
+    main.scrollTop=0;
+  }
+
+  function openScreen() {
+    currentSubject=null;
+    renderScreen();
+    const d=ensureDialog();
+    if (!d.open) d.showModal();
+  }
+
+  function isVisible(el) {
+    return !!(el.getClientRects().length) && getComputedStyle(el).visibility !== 'hidden';
+  }
+
+  function locateAnchor() {
+    // Procura o CTA já existente, sem depender de classes privadas do framework.
+    const query='ver todos os capítulos';
+    const els=document.querySelectorAll('button, a, [role="button"]');
+    for (const el of els) {
+      const label=(el.textContent||'').replace(/\s+/g,' ').trim().toLocaleLowerCase('pt-BR');
+      if (label.includes(query) && isVisible(el) && !el.closest('#'+DIALOG_ID)) return el;
+    }
+    return null;
+  }
+
+  function insertCard() {
+    addStyles();
+    const anchor=locateAnchor();
+    if (!anchor) return;
+    let card=document.getElementById(CARD_ID);
+    if (!card) card=buildCard();
+    // O bloco ocupa uma linha própria imediatamente abaixo de "Ver todos os capítulos".
+    const host=anchor.closest('section')?.querySelector(':scope > .oxygenna-em-foco-host') || null;
+    if (host) { host.replaceChildren(card); return; }
+    if (card.previousElementSibling!==anchor) anchor.insertAdjacentElement('afterend',card);
+  }
+
+  let scheduled=false;
+  function scheduleInsert() {
+    if(scheduled) return;
+    scheduled=true;
+    requestAnimationFrame(()=>{scheduled=false;insertCard();});
+  }
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',insertCard,{once:true});
+  else insertCard();
+  const observer=new MutationObserver(scheduleInsert);
+  observer.observe(document.documentElement,{childList:true,subtree:true});
+})();
