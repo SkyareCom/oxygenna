@@ -1,0 +1,102 @@
+/**
+ * OXYGENNA — CÂMARA: somente conteúdo interno da aba.
+ * Todas as regras são restritas a .oxc (nenhum seletor global).
+ * Reutiliza a fonte Saira Semi Condensed já configurada no aplicativo.
+ * NÃO define, remove nem reposiciona header, footer, menu ou página principal.
+ */
+.oxc {
+  --oxc-bg: #071f30;
+  --oxc-panel: #0d3043;
+  --oxc-panel-deep: #0a2537;
+  --oxc-border: #977b47;
+  --oxc-gold: #f7c75b;
+  --oxc-primary: #e9f7fa;
+  --oxc-muted: #adc4cb;
+  font-family: "Saira Semi Condensed", var(--oxygenna-font, sans-serif);
+  color: var(--oxc-primary);
+  max-width: 880px;
+  margin-inline: auto;
+  padding: 8px 12px 24px;
+  font-size: 12px;
+  line-height: 1.5;
+  color-scheme: dark;
+}
+.oxc, .oxc * { box-sizing: border-box; }
+.oxc .oxc-intro { padding: 10px 4px 18px; }
+.oxc .oxc-kicker { font-size: 10px; font-weight: 600; letter-spacing: .12em; color: var(--oxc-gold); text-transform: uppercase; }
+.oxc .oxc-h2 { font-size: 20px; line-height: 1.2; font-weight: 600; margin: 6px 0 10px; }
+.oxc .oxc-h3 { font-size: 14px; font-weight: 600; margin: 0 0 9px; letter-spacing: .035em; color: var(--oxc-gold); }
+.oxc .oxc-caption, .oxc .oxc-subtitle, .oxc .oxc-muted { color: var(--oxc-muted); font-size: 12px; line-height: 1.5; }
+.oxc .oxc-caption, .oxc .oxc-subtitle { margin: 5px 0 0; }
+.oxc .oxc-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; margin-bottom: 12px; }
+.oxc button { font-family: inherit; cursor: pointer; font-weight: 600; }
+.oxc button:disabled { opacity: .57; cursor: default; }
+.oxc .oxc-topic {
+  border: 1px solid var(--oxc-border); border-radius: 11px;
+  background: var(--oxc-panel);
+  color: var(--oxc-primary);
+  min-height: 55px; width: 100%; padding: 10px 10px;
+  display: flex; gap: 9px; align-items: center;
+  text-align: left;
+  font-size: 12px;
+}
+.oxc .oxc-topic:active, .oxc .oxc-action:active, .oxc .oxc-navbtn:active { transform: translateY(1px); }
+.oxc .oxc-num { min-width: 26px; font-size: 12px; color: var(--oxc-gold); }
+.oxc .oxc-topic-title { font-size: 14px; line-height: 1.15; flex: 1; }
+.oxc .oxc-topic-arrow { color: var(--oxc-gold); font-size: 20px; line-height: 1; }
+.oxc .oxc-card {
+  background: var(--oxc-panel);
+  border: 1px solid var(--oxc-border);
+  border-radius: 12px;
+  padding: 13px 12px;
+  margin: 10px 0;
+}
+.oxc .oxc-p { font-size: 12px; line-height: 1.6; margin: 6px 0 10px; font-weight: 400; }
+.oxc .oxc-prose .oxc-p:last-child { margin-bottom: 0; }
+.oxc .oxc-lesson-header { padding: 0 2px 7px; }
+.oxc .oxc-back { border: 0; background: transparent; color: var(--oxc-gold); font-size: 10px; padding: 9px 0 14px; }
+.oxc .oxc-media { margin: 12px 0; background: var(--oxc-bg); border: 1px solid var(--oxc-border); border-radius: 12px; overflow: hidden; }
+.oxc .oxc-diagram { width: 100%; max-height: 275px; object-fit: contain; display: block; padding: 12px; }
+.oxc .oxc-figure-caption { padding: 8px 12px 11px; font-size: 10px; color: var(--oxc-muted); }
+.oxc .oxc-list { padding: 0 0 0 18px; margin: 8px 0 0; font-size: 12px; }
+.oxc .oxc-list li { padding-left: 3px; margin: 6px 0; }
+.oxc .oxc-list li::marker { color: var(--oxc-gold); }
+.oxc .oxc-nuance { background: #102c40; }
+.oxc .oxc-summary { border-color: #537986; }
+.oxc .oxc-graph-card .oxc-label { font-size: 10px; font-weight: 600; display: flex; justify-content: space-between; color: var(--oxc-muted); padding: 10px 0 6px; gap: 10px; }
+.oxc .oxc-number { font-size: 12px; font-weight: 600; color: var(--oxc-gold); }
+.oxc .oxc-range { width: 100%; accent-color: var(--oxc-gold); min-height: 32px; }
+.oxc .oxc-calculation { font-size: 12px; color: var(--oxc-primary); margin: 6px 0 2px; }
+.oxc .oxc-activity { border-color: #b69353; }
+.oxc .oxc-question { font-size: 14px; font-weight: 600; margin: 5px 0 13px; line-height: 1.4; }
+.oxc .oxc-answer-list { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.oxc .oxc-answer {
+  background: var(--oxc-bg); border: 1px solid #476776; border-radius: 10px;
+  color: var(--oxc-primary); font-size: 12px; text-align: left;
+  padding: 10px 12px; min-height: 45px; line-height: 1.45;
+}
+.oxc .oxc-answer.oxc-correct { border-color: #7bc9a2; background: #12483c; }
+.oxc .oxc-answer.oxc-wrong { border-color: #db9981; background: #502d32; }
+.oxc .oxc-feedback { min-height: 14px; font-size: 12px; color: var(--oxc-gold); margin: 10px 0 0; line-height: 1.6; }
+.oxc .oxc-input-line { display: flex; gap: 8px; flex-wrap: wrap; }
+.oxc .oxc-input { font-family: inherit; flex: 1 1 110px; min-width: 90px; border: 1px solid #668999; background: #071f30; color: var(--oxc-primary); font-size: 14px; border-radius: 8px; padding: 10px; }
+.oxc .oxc-action { border: 1px solid var(--oxc-gold); background: var(--oxc-gold); color: #071f30; padding: 10px 13px; min-height: 42px; border-radius: 10px; font-size: 12px; }
+.oxc .oxc-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0 5px; }
+.oxc .oxc-navbtn { min-height: 44px; padding: 9px 6px; border: 1px solid var(--oxc-gold); border-radius: 10px; background: var(--oxc-bg); color: var(--oxc-gold); font-size: 12px; }
+.oxc .oxc-nav-next { color: #071f30; background: var(--oxc-gold); }
+.oxc .oxc-check { display: flex; align-items: center; min-height: 34px; gap: 10px; font-size: 12px; }
+.oxc .oxc-check input { accent-color: var(--oxc-gold); width: 16px; height: 16px; }
+.oxc .oxc-evidence-item { border: 1px solid #446779; background: var(--oxc-bg); border-radius: 7px; padding: 9px 10px; margin: 8px 0; font-size: 12px; }
+.oxc .oxc-progress { width: 100%; height: 5px; border-radius: 12px; overflow: hidden; accent-color: var(--oxc-gold); }
+.oxc .oxc-references { display: flex; gap: 8px; flex-wrap: wrap; }
+.oxc .oxc-references .oxc-h3, .oxc .oxc-references .oxc-muted { flex: 0 0 100%; }
+.oxc .oxc-ref-link { color: var(--oxc-gold); font-size: 10px; padding: 7px 10px; border: 1px solid #547487; border-radius: 8px; text-decoration: none; }
+.oxc button:focus-visible, .oxc a:focus-visible, .oxc input:focus-visible { outline: 2px solid var(--oxc-gold); outline-offset: 3px; }
+@media(max-width: 340px) {
+  .oxc { padding-inline: 6px; }
+  .oxc .oxc-grid { grid-template-columns: 1fr; }
+  .oxc .oxc-topic-title { font-size: 14px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .oxc .oxc-topic:active, .oxc .oxc-action:active, .oxc .oxc-navbtn:active { transform: none; }
+}
