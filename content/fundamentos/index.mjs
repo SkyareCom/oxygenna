@@ -99,7 +99,11 @@ export function validateFundamentalsContent() {
       fundamentalsContent.target_curriculum.topics !== 144) {
     throw new Error("Metas de currículo divergentes");
   }
-  if (sourceOrgs.size !== fundamentalsContent.sources.length) throw new Error("Fontes duplicadas");
+  // Várias publicações podem compartilhar a mesma instituição (NCBI, DAN etc.).
+  // A unicidade pertence à URL bibliográfica, não ao nome da instituição.
+  if (new Set(fundamentalsContent.sources.map(s => s.url)).size !== fundamentalsContent.sources.length) {
+    throw new Error("URLs bibliográficas duplicadas");
+  }
   for (const source of fundamentalsContent.sources) {
     if (!source.title || !/^https:\/\//.test(source.url)) throw new Error("Fonte inválida");
   }
