@@ -1,0 +1,484 @@
+{
+  "schemaVersion": "1.0.0",
+  "project": "OXYGENNA — Medicina Hiperbárica",
+  "delivery": "CAMARA content only; immutable existing front",
+  "locale": "pt-BR",
+  "integrationTarget": "existing CAMARA renderer",
+  "status": "staged-in-github; not deployed",
+  "lessons": [
+    {
+      "id": "camara-01",
+      "section": "CAMARA",
+      "title": "O que é uma câmara hiperbárica",
+      "kicker": "A TERAPIA EM SEU AMBIENTE",
+      "objective": "Distinguir câmara, exposição hiperbárica e oxigenoterapia hiperbárica.",
+      "paragraphs": [
+        "A câmara hiperbárica permite elevar e controlar a pressão ambiente ao redor de uma ou mais pessoas. A oxigenoterapia hiperbárica (OHB) associa essa exposição à inalação de oxigênio em concentração elevada, segundo indicação médica e protocolo técnico.",
+        "Sob maior pressão parcial inspirada de O₂, aumenta especialmente a fração de oxigênio dissolvida no plasma. A resposta clínica depende de perfusão, doença de base, dose efetiva e efeitos biológicos específicos; não decorre apenas de estar em uma câmara pressurizada.",
+        "Pressão absoluta, gás respirado, duração, pausas de ar quando prescritas, monitorização e segurança operacional formam um tratamento integrado. A câmara é o equipamento; a OHB é uma intervenção médica."
+      ],
+      "keyPoints": [
+        "A pressão não equivale à fração inspirada de O₂.",
+        "OHB não é sinônimo de qualquer experiência em ambiente pressurizado.",
+        "Técnica, indicação e perfusão condicionam o benefício."
+      ],
+      "clinicalNuance": "Câmaras multiplace podem ser pressurizadas com ar e fornecer O₂ individualmente por máscara ou capuz. A concentração no ambiente não é necessariamente a concentração inspirada pelo paciente.",
+      "audio": {
+        "script": "A câmara cria o ambiente físico; a terapia surge da combinação cuidadosamente prescrita entre pressão, oxigênio, tempo e segurança.",
+        "language": "pt-BR",
+        "durationTargetSeconds": 40,
+        "status": "narration_script_ready_no_audio_asset"
+      },
+      "media": [
+        {
+          "type": "diagram",
+          "asset": "assets/camara-tipos.svg",
+          "caption": "Arquiteturas individuais e coletivas"
+        },
+        {
+          "type": "animation-plan",
+          "id": "camara-corte",
+          "motion": "Corte da câmara e transição para a microcirculação",
+          "reducedMotionFallback": "imagem estática com legenda"
+        }
+      ],
+      "activity": {
+        "type": "single-choice",
+        "data": {
+          "question": "Qual afirmação distingue corretamente câmara de OHB?",
+          "options": [
+            "Toda pressurização é, por si só, OHB.",
+            "OHB integra pressão e inalação controlada de O₂ conforme protocolo.",
+            "Basta atingir saturação arterial de 100% para reproduzir OHB."
+          ],
+          "correctIndex": 1,
+          "explanation": "A pressão e a concentração respirada são variáveis distintas; ambas integram o tratamento."
+        }
+      },
+      "sourceIds": [
+        "uhms",
+        "physio"
+      ],
+      "deduplicationTag": "equipamento-vs-terapia"
+    },
+    {
+      "id": "camara-02",
+      "section": "CAMARA",
+      "title": "Pressão: o conceito que muda tudo",
+      "kicker": "FÍSICA FUNDAMENTAL",
+      "objective": "Interpretar pressão absoluta, pressão manométrica e compressão gasosa.",
+      "paragraphs": [
+        "Ao nível do mar, a pressão atmosférica média corresponde a cerca de 1 ATA ou 760 mmHg. A pressão absoluta inclui a pressão atmosférica e a pressão adicional aplicada; por isso, um manômetro marcando zero de pressão relativa não significa ausência de pressão.",
+        "A lei de Boyle descreve o gás com quantidade e temperatura constantes: P₁V₁ = P₂V₂. Numa compressão ideal de 1 para 2 ATA, um volume gasoso cai aproximadamente à metade. Líquidos e tecidos não apresentam a mesma redução volumétrica.",
+        "O raciocínio é relevante para bolhas, cavidades aéreas e dispositivos contendo gás. A velocidade de alteração da pressão e a capacidade de equalização também influenciam segurança e tolerância."
+      ],
+      "keyPoints": [
+        "1 ATA é uma pressão absoluta de referência, não pressão relativa zero.",
+        "Em gases ideais isotérmicos, o volume varia inversamente à pressão.",
+        "A anatomia não pode ser modelada inteira como uma bolha."
+      ],
+      "clinicalNuance": "Não usar Boyle isoladamente para estimar lesão clínica. Cavidades abertas, tecidos elásticos, tempo de exposição e comunicação com o ambiente alteram o comportamento real.",
+      "audio": {
+        "script": "Pressão absoluta, e não apenas a leitura relativa do manômetro, é a medida que governa o volume de um gás.",
+        "language": "pt-BR",
+        "durationTargetSeconds": 40,
+        "status": "narration_script_ready_no_audio_asset"
+      },
+      "media": [
+        {
+          "type": "diagram",
+          "asset": "assets/pressao-volume.svg",
+          "caption": "Compressão volumétrica ideal"
+        },
+        {
+          "type": "interactive-graph",
+          "engine": "boyleNormalized",
+          "rangeATA": [
+            1,
+            3
+          ],
+          "caption": "Volume relativo em processo isotérmico ideal"
+        },
+        {
+          "type": "animation-plan",
+          "id": "pressao-camera",
+          "motion": "Compressão progressiva de bolha ilustrativa",
+          "reducedMotionFallback": "imagem estática com legenda"
+        }
+      ],
+      "activity": {
+        "type": "calculation",
+        "engine": "boyleNormalized",
+        "prompt": "Quanto resta de V₁ após comprimir idealmente de 1 para 2,5 ATA?",
+        "expected": 0.4,
+        "tolerance": 0.01,
+        "explanation": "Boyle: V₂/V₁ = 1/2,5 = 0,40."
+      },
+      "sourceIds": [
+        "physio"
+      ],
+      "deduplicationTag": "fisica-pressao"
+    },
+    {
+      "id": "camara-03",
+      "section": "CAMARA",
+      "title": "Como o oxigênio atua na câmara",
+      "kicker": "DA PRESSÃO À FISIOLOGIA",
+      "objective": "Distinguir oxigênio ligado à hemoglobina, dissolvido no plasma e pressão parcial.",
+      "paragraphs": [
+        "Em condições usuais, a hemoglobina carrega a maior parte do oxigênio do sangue. Mesmo com saturação já elevada, a pressão parcial maior pode aumentar muito o O₂ fisicamente dissolvido no plasma, componente particularmente relevante na OHB.",
+        "Pela lei de Dalton, a pressão parcial depende da fração do gás e da pressão total. Pela lei de Henry, sob condições controladas, a quantidade dissolvida num líquido cresce com a pressão parcial em equilíbrio. A chegada do O₂ ao tecido ainda depende de perfusão e gradientes de difusão.",
+        "A hiperóxia pode apoiar processos de cicatrização, atividade antimicrobiana e sinalização biológica em indicações definidas. Não restaura automaticamente fluxo arterial ausente nem substitui desbridamento, antimicrobianos ou medidas cirúrgicas."
+      ],
+      "keyPoints": [
+        "A hemoglobina permanece fundamental para o transporte de O₂.",
+        "O componente plasmático dissolvido aumenta com a pressão parcial.",
+        "Oxigênio disponível não equivale a perfusão restabelecida."
+      ],
+      "clinicalNuance": "Pressão inspirada estimada, pressão alveolar e PaO₂ arterial são grandezas diferentes. Uma simulação não pode apresentar a primeira como medida clínica das outras.",
+      "audio": {
+        "script": "O ganho hiperbárico está no oxigênio dissolvido; a indicação e a fisiologia determinam se ele se converte em benefício.",
+        "language": "pt-BR",
+        "durationTargetSeconds": 40,
+        "status": "narration_script_ready_no_audio_asset"
+      },
+      "media": [
+        {
+          "type": "diagram",
+          "asset": "assets/oxigenio-plasma.svg",
+          "caption": "Hemácia, plasma e gradiente tecidual"
+        },
+        {
+          "type": "interactive-graph",
+          "engine": "inspiredOxygenHumidified",
+          "rangeATA": [
+            1,
+            3
+          ],
+          "FiO2": [
+            0.21,
+            1
+          ],
+          "caption": "PIO₂ estimada — não é PaO₂"
+        }
+      ],
+      "activity": {
+        "type": "single-choice",
+        "data": {
+          "question": "Por que há ganho de O₂ mesmo com hemoglobina quase saturada?",
+          "options": [
+            "Eleva-se sobretudo o O₂ dissolvido no plasma.",
+            "O número de hemácias dobra durante cada sessão.",
+            "Toda isquemia é imediatamente revertida pela pressão."
+          ],
+          "correctIndex": 0,
+          "explanation": "Henry descreve o aumento da fração dissolvida, sem garantir perfusão ou resposta clínica."
+        }
+      },
+      "sourceIds": [
+        "physio",
+        "uhms"
+      ],
+      "deduplicationTag": "transporte-oxigenio"
+    },
+    {
+      "id": "camara-04",
+      "section": "CAMARA",
+      "title": "Tipos de câmara: monoplace e multiplace",
+      "kicker": "ENGENHARIA E ASSISTÊNCIA",
+      "objective": "Reconhecer os dois modelos e suas implicações assistenciais.",
+      "paragraphs": [
+        "Câmaras monoplace acomodam geralmente uma pessoa; muitos modelos são pressurizados com oxigênio. Câmaras multiplace permitem diversos ocupantes e costumam utilizar ar comprimido no ambiente com administração individual de O₂ por máscara ou capuz.",
+        "A arquitetura influencia acompanhamento interno, acesso ao paciente, comunicação, monitorização e resposta a eventos adversos. O formato por si só não define qualidade nem eficácia.",
+        "Dispositivos, tubulações, materiais, vestimentas e circuitos respiratórios devem ser compatíveis com o equipamento e com as normas aplicáveis. Nenhuma adaptação improvisada é aceitável."
+      ],
+      "keyPoints": [
+        "Monoplace é geralmente individual.",
+        "Multiplace permite múltiplos ocupantes e equipe interna quando prevista.",
+        "Segurança depende da instalação, do protocolo e da equipe."
+      ],
+      "clinicalNuance": "Uma câmara multiplace pode ter atmosfera de ar e paciente inalando O₂ de modo separado. O gás da câmara e o gás respirado não devem ser confundidos.",
+      "audio": {
+        "script": "Há diferentes arquiteturas para um mesmo princípio: ambiente pressurizado, oxigênio prescrito e assistência adequada.",
+        "language": "pt-BR",
+        "durationTargetSeconds": 40,
+        "status": "narration_script_ready_no_audio_asset"
+      },
+      "media": [
+        {
+          "type": "diagram",
+          "asset": "assets/camara-tipos.svg",
+          "caption": "Comparação esquemática de arquiteturas"
+        },
+        {
+          "type": "animation-plan",
+          "id": "camera-travelling",
+          "motion": "Panorâmica técnica entre configuração individual e coletiva",
+          "reducedMotionFallback": "imagem estática com legenda"
+        }
+      ],
+      "activity": {
+        "type": "single-choice",
+        "data": {
+          "question": "Como se administra O₂ numa multiplace pressurizada com ar?",
+          "options": [
+            "Pela atmosfera inteira, necessariamente a 100% de O₂.",
+            "Por máscara ou capuz conectado a sistema individual adequado.",
+            "Por injeção de oxigênio líquido na cabine."
+          ],
+          "correctIndex": 1,
+          "explanation": "A pressão da câmara e o circuito de oxigênio do paciente podem ser independentes."
+        }
+      },
+      "sourceIds": [
+        "uhms",
+        "fda"
+      ],
+      "deduplicationTag": "tipos-camara"
+    },
+    {
+      "id": "camara-05",
+      "section": "CAMARA",
+      "title": "O que o paciente sente na pressurização",
+      "kicker": "EXPERIÊNCIA E MONITORIZAÇÃO",
+      "objective": "Reconhecer sensações habituais e sintomas de alerta.",
+      "paragraphs": [
+        "Durante a compressão, plenitude auricular e mudanças na percepção acústica são comuns. Cavidades aéreas, especialmente o ouvido médio e seios da face, precisam acompanhar a pressão ambiente.",
+        "Preparação, instruções de equalização, comunicação acessível com a equipe e ritmo individualizado de compressão favorecem tolerância. A sensação de confinamento merece atenção antecipada em pessoas suscetíveis.",
+        "Dor progressiva, vertigem, perda auditiva, dor torácica, dispneia ou manifestações neurológicas não devem ser normalizadas. O paciente deve avisar imediatamente a equipe para reavaliação e conduta segura."
+      ],
+      "keyPoints": [
+        "Pressão nos ouvidos pode surgir durante a compressão.",
+        "Dor persistente não deve ser suportada em silêncio.",
+        "Comunicação ativa faz parte da segurança."
+      ],
+      "clinicalNuance": "A ausência de dor não dispensa observação. Sintomas auditivos persistentes após a sessão ou vertigem exigem avaliação clínica, pois barotrauma de ouvido interno e outras causas podem requerer condutas distintas.",
+      "audio": {
+        "script": "O paciente não precisa tolerar dor para receber uma sessão eficaz: antecipação e comunicação são parte do cuidado.",
+        "language": "pt-BR",
+        "durationTargetSeconds": 40,
+        "status": "narration_script_ready_no_audio_asset"
+      },
+      "media": [
+        {
+          "type": "diagram",
+          "asset": "assets/ouvido-equalizacao.svg",
+          "caption": "Cavidades aéreas e tuba auditiva"
+        },
+        {
+          "type": "animation-plan",
+          "id": "compressao-ouvido",
+          "motion": "Mudança de pressão sobre o tímpano",
+          "reducedMotionFallback": "imagem estática com legenda"
+        }
+      ],
+      "activity": {
+        "type": "single-choice",
+        "data": {
+          "question": "A dor auricular aumenta durante a compressão. Qual a resposta correta?",
+          "options": [
+            "Persistir, pois dor indica que o procedimento está agindo.",
+            "Avisar imediatamente a equipe para interromper ou ajustar a compressão conforme protocolo.",
+            "Realizar Valsalva vigorosa até desaparecer a dor."
+          ],
+          "correctIndex": 1,
+          "explanation": "Dor crescente sugere falha de equalização; não deve ser ignorada ou tratada com manobras forçadas."
+        }
+      },
+      "sourceIds": [
+        "dan",
+        "patient"
+      ],
+      "deduplicationTag": "sensacoes-paciente"
+    },
+    {
+      "id": "camara-06",
+      "section": "CAMARA",
+      "title": "Equalização: proteção das cavidades aéreas",
+      "kicker": "OUVIDO E SEGURANÇA",
+      "objective": "Compreender equalização e prevenção de barotrauma.",
+      "paragraphs": [
+        "A tuba auditiva permite comunicar o ouvido médio com a nasofaringe. Quando o ambiente se pressuriza, a ventilação dessa cavidade precisa acompanhar a mudança para reduzir a diferença de pressão sobre a membrana timpânica.",
+        "Deglutir, bocejar ou executar manobras suaves previamente ensinadas pode favorecer a equalização. O momento importa: ela deve ocorrer precocemente, antes de dor e bloqueio progressivo.",
+        "Manobras vigorosas ou insistentes podem produzir lesões, inclusive de ouvido interno. Se a equalização falhar, deve-se comunicar a equipe, evitar forçar e seguir a conduta estabelecida pelo serviço."
+      ],
+      "keyPoints": [
+        "Equalizar cedo é melhor que insistir após dor.",
+        "Manobras devem ser suaves, não violentas.",
+        "Falha de equalização exige orientação da equipe."
+      ],
+      "clinicalNuance": "Ouvido médio e ouvido interno são estruturas diferentes: dor, vertigem e perda auditiva precisam de avaliação adequada. Não presumir que qualquer sintoma se resolve aumentando a força da manobra.",
+      "audio": {
+        "script": "Equalização é uma medida de proteção fisiológica, não um teste de resistência.",
+        "language": "pt-BR",
+        "durationTargetSeconds": 40,
+        "status": "narration_script_ready_no_audio_asset"
+      },
+      "media": [
+        {
+          "type": "diagram",
+          "asset": "assets/ouvido-equalizacao.svg",
+          "caption": "Tímpano e ventilação do ouvido médio"
+        },
+        {
+          "type": "animation-plan",
+          "id": "tuba-abertura",
+          "motion": "Abertura transitória da tuba auditiva",
+          "reducedMotionFallback": "imagem estática com legenda"
+        }
+      ],
+      "activity": {
+        "type": "single-choice",
+        "data": {
+          "question": "Não foi possível equalizar e surgiu dor intensa. O que fazer?",
+          "options": [
+            "Forçar mais para vencer a obstrução.",
+            "Avisar a equipe e evitar pressurização continuada sem reavaliação.",
+            "Ignorar a sensação até atingir a pressão-alvo."
+          ],
+          "correctIndex": 1,
+          "explanation": "O risco de barotrauma aumenta quando persiste uma diferença de pressão não equalizada."
+        }
+      },
+      "sourceIds": [
+        "dan",
+        "equal"
+      ],
+      "deduplicationTag": "equalizacao"
+    },
+    {
+      "id": "camara-07",
+      "section": "CAMARA",
+      "title": "Segurança: preparação e monitorização",
+      "kicker": "SEGURANÇA OPERACIONAL",
+      "objective": "Reconhecer medidas essenciais antes e durante uma sessão.",
+      "paragraphs": [
+        "Oxigênio em concentração elevada intensifica a combustão; ele não é combustível, mas facilita e acelera incêndios. A seleção de materiais, remoção de fontes de ignição e observância das normas do equipamento são prioridades absolutas.",
+        "Antes da sessão, equipe e paciente verificam itens permitidos, condições clínicas relevantes, possibilidade de equalização, comunicação e planos de intercorrência. Durante a exposição, monitorização e procedimentos dependem da instalação e do estado clínico.",
+        "Entre os possíveis eventos adversos estão barotraumas, desconforto de confinamento, alterações visuais transitórias e, mais raramente, toxicidade pelo oxigênio. Suspeita de pneumotórax não tratado requer avaliação urgente antes de pressurização."
+      ],
+      "keyPoints": [
+        "Ambiente com mais O₂ exige controle rigoroso de ignição.",
+        "Checklist e treinamento não são opcionais.",
+        "Monitorização e resposta a eventos adversos integram o tratamento."
+      ],
+      "clinicalNuance": "O pneumotórax não tratado é contraindicação absoluta à OHB em condições usuais; emergências excepcionais exigem avaliação especializada e medidas de segurança específicas. O módulo não autoriza manobras nem parâmetros terapêuticos.",
+      "audio": {
+        "script": "Segurança resulta de processo controlado, não de improvisação.",
+        "language": "pt-BR",
+        "durationTargetSeconds": 40,
+        "status": "narration_script_ready_no_audio_asset"
+      },
+      "media": [
+        {
+          "type": "checklist",
+          "id": "pre-camara",
+          "items": [
+            "Avaliação clínica concluída",
+            "Materiais e vestimentas aprovados",
+            "Comunicação com equipe testada",
+            "Plano de equalização e intercorrência explicado"
+          ]
+        },
+        {
+          "type": "animation-plan",
+          "id": "checagem-seguranca",
+          "motion": "Inspeção técnica do ambiente sem alterar a interface",
+          "reducedMotionFallback": "imagem estática com legenda"
+        }
+      ],
+      "activity": {
+        "type": "single-choice",
+        "data": {
+          "question": "Qual afirmação sobre oxigênio e incêndio é correta?",
+          "options": [
+            "Oxigênio é um combustível, como a gasolina.",
+            "Oxigênio não é combustível, mas aumenta fortemente a intensidade da combustão.",
+            "Pressão elimina riscos de ignição."
+          ],
+          "correctIndex": 1,
+          "explanation": "Oxigênio é comburente e exige rígido controle de materiais e fontes de ignição."
+        }
+      },
+      "sourceIds": [
+        "fda",
+        "uhms"
+      ],
+      "deduplicationTag": "seguranca-operacional"
+    },
+    {
+      "id": "camara-08",
+      "section": "CAMARA",
+      "title": "Indicações, limites e expectativas",
+      "kicker": "EVIDÊNCIA CLÍNICA",
+      "objective": "Diferenciar usos reconhecidos, usos experimentais e limites da OHB.",
+      "paragraphs": [
+        "OHB possui indicações clínicas delimitadas e revisadas periodicamente. Entre elas estão doença descompressiva, embolia gasosa, intoxicação por monóxido de carbono em casos selecionados, determinadas infecções necrosantes e condições específicas de isquemia e lesão tecidual.",
+        "Cada indicação exige critérios próprios de seleção, momento de início, acompanhamento e integração com o tratamento principal. Feridas complexas, lesões tardias da radioterapia, enxertos comprometidos e perda auditiva neurossensorial súbita demandam avaliação conforme diretrizes pertinentes.",
+        "Não existe justificativa científica para chamar OHB de tratamento universal. Resultados experimentais ou estudos preliminares não equivalem a indicação estabelecida, e a disponibilidade da câmara não substitui raciocínio clínico."
+      ],
+      "keyPoints": [
+        "Indicação depende de evidência e critérios clínicos.",
+        "OHB frequentemente complementa terapias indispensáveis.",
+        "Promessas de benefícios universais não são aceitáveis."
+      ],
+      "clinicalNuance": "As listas de indicações variam entre sociedades, órgãos regulatórios e contextos de cobertura. O módulo apresenta fundamentos; as fichas de INDICAÇÕES e PROTOCOLOS continuam como locais únicos para detalhes terapêuticos.",
+      "audio": {
+        "script": "O uso apropriado da OHB começa pela seleção correta dos pacientes e por expectativas proporcionais às evidências.",
+        "language": "pt-BR",
+        "durationTargetSeconds": 40,
+        "status": "narration_script_ready_no_audio_asset"
+      },
+      "media": [
+        {
+          "type": "evidence-map",
+          "id": "mapa-indicacoes",
+          "categories": [
+            "Indicações reconhecidas",
+            "Indicações condicionais",
+            "Usos em investigação"
+          ]
+        },
+        {
+          "type": "animation-plan",
+          "id": "decisao-evidencia",
+          "motion": "Transição entre pergunta clínica, evidência e indicação",
+          "reducedMotionFallback": "imagem estática com legenda"
+        }
+      ],
+      "activity": {
+        "type": "single-choice",
+        "data": {
+          "question": "Qual abordagem representa uso responsável da OHB?",
+          "options": [
+            "Indicar para toda doença acompanhada de inflamação.",
+            "Relacionar indicação e evidência, explicar limites e integrar com tratamento de base.",
+            "Substituir cirurgia e antimicrobianos sempre que houver câmara disponível."
+          ],
+          "correctIndex": 1,
+          "explanation": "A OHB exige indicação definida e geralmente integra um plano terapêutico multidisciplinar."
+        }
+      },
+      "sourceIds": [
+        "uhms",
+        "fda"
+      ],
+      "deduplicationTag": "limites-indicacoes"
+    }
+  ],
+  "sources": {
+    "uhms": "https://uhms.org/resources/featured-resources/hbo-indications.html",
+    "fda": "https://www.fda.gov/medical-devices/letters-health-care-providers/follow-instructions-safe-use-hyperbaric-oxygen-therapy-devices-letter-health-care-providers",
+    "dan": "https://dan.org/health-medicine/health-resource/dive-medical-reference-books/ears-diving/ear-injuries/",
+    "equal": "https://world.dan.org/health-medicine/health-resource/smart-guides/beat-the-squeeze-equalize-like-a-pro/how-to-equalize/",
+    "physio": "https://www.ncbi.nlm.nih.gov/books/NBK470481/",
+    "patient": "https://www.ncbi.nlm.nih.gov/books/NBK499820/"
+  },
+  "constraints": {
+    "noFrontModification": true,
+    "noCSS": true,
+    "noRoutingChanges": true,
+    "noExistingCardChanges": true,
+    "noDuplicateClinicalProtocols": true
+  }
+}
