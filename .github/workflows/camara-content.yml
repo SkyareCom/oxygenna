@@ -1,0 +1,25 @@
+name: OXYGENNA — validação de conteúdo CÂMARA
+on:
+  push:
+    paths:
+      - "content/camara/**"
+      - "tests/camara.test.mjs"
+      - "package.json"
+      - ".github/workflows/camara-content.yml"
+  pull_request:
+    paths:
+      - "content/camara/**"
+      - "tests/camara.test.mjs"
+      - "package.json"
+      - ".github/workflows/camara-content.yml"
+jobs:
+  content-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm test
