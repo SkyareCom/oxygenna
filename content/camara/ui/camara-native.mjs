@@ -6,6 +6,12 @@
 import {cameraLessons, cameraContent, boyleNormalized, inspiredOxygenHumidified, checkCameraAnswer} from "../index.mjs";
 
 const CSS_URL = new URL("./camara-native.css", import.meta.url);
+const ASSETS = Object.freeze({
+  "assets/camara-tipos.svg": new URL("../assets/camara-tipos.svg", import.meta.url).href,
+  "assets/pressao-volume.svg": new URL("../assets/pressao-volume.svg", import.meta.url).href,
+  "assets/oxigenio-plasma.svg": new URL("../assets/oxigenio-plasma.svg", import.meta.url).href,
+  "assets/ouvido-equalizacao.svg": new URL("../assets/ouvido-equalizacao.svg", import.meta.url).href
+});
 const HEADER = "CÂMARA";
 const mainLessons = Object.freeze([...cameraLessons]);
 
@@ -137,7 +143,8 @@ export function mountOxygennaCamera(root, {existingLessons = [], onNarrate, onVi
         const figure=elem("figure","oxc-media");
         const img=elem("img","oxc-diagram");
         // Recursos existentes são reutilizados, sem gerar substitutos.
-        img.src=new URL("../"+media.asset,import.meta.url).href;
+        img.src=ASSETS[media.asset] || "";
+        if(!ASSETS[media.asset]) throw new Error("Diagrama não reconhecido: "+media.asset);
         img.alt=media.caption||"Ilustração educativa da câmara hiperbárica";
         img.loading="lazy";
         put(figure,img,elem("figcaption","oxc-figure-caption",media.caption||""));
