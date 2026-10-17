@@ -52,7 +52,7 @@ test('não há gerador de catálogo duplicado e módulos 07/08 ficam fora de CÂ
  assert.ok(!view.includes('camara-chapter-grid'),'nenhum card paralelo');
  assert.ok(!app.includes('renderCamaraCatalog'),'não inserir catálogo na aba');
  assert.ok(!css.includes('.camara-chapter-grid'),'CSS antigo eliminado');
- assert.ok(html.includes('app.mjs?rev=topic-cards-20261017'),'novo JS deve carregar com versão');
+ assert.ok(html.includes('app.mjs?rev=m01-media-20261017'),'novo JS deve carregar com versão');
  assert.equal(Object.values(CAMARA_MODULE_LESSONS).flat().length,8);
  assert.ok(!('07' in CAMARA_MODULE_LESSONS));
  assert.ok(!('08' in CAMARA_MODULE_LESSONS));
@@ -123,8 +123,9 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   assert.ok(!main().includes('camara-chapter-grid'));
   go('#topic/01/1/chamber');
   assert.ok(main().includes('A medicina hiperbárica estuda aplicações clínicas'));
-  assert.ok(main().includes('camara-quiz'));
+  assert.ok(main().includes('m01-quiz'));
   assert.ok(footer().includes('href="#chamber" class="active"'));
+  go('#camara/camara-01'); // Rota legada mantém seus exercícios e registro de progresso.
   const target={dataset:{camaraAnswer:'1',camaraId:'camara-01'},hasAttribute:()=>false};
   for(const cb of answerEvents)cb({target:{closest:sel=>sel==='button'?target:null},preventDefault(){}});
   const progress=JSON.parse(store.get('hyperbaric-campus-v1'));

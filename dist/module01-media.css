@@ -1,0 +1,56 @@
+/* OXYGENNA Módulo 01: mídia pedagógica escopada, sem alterar HOME e rodapé. */
+.topic .m01-media{display:grid;gap:13px;margin:14px 0 24px;font-family:var(--sans,'Saira Semi Condensed',sans-serif)}
+.topic .m01-media .m01-kicker{color:var(--gold,#F7C75B);font:600 12px/1.4 var(--sans);letter-spacing:1.4px}
+.topic .m01-media .m01-hint{color:var(--muted,#bbcdd1);font-size:12px;line-height:1.5;margin:2px 0 9px}
+.topic .m01-media .m01-figure{margin:0;border:1px solid var(--card-border-gold,#b59b6c);background:#071d29;border-radius:13px;overflow:hidden}
+.topic .m01-media .m01-figure img{width:100%;height:auto;display:block;object-fit:contain;aspect-ratio:4/3}
+.topic .m01-media .m01-figure figcaption{font:400 11px/1.4 var(--sans);color:var(--muted,#bbcdd1);padding:9px 11px}
+.topic .m01-media .m01-panel{border:1px solid var(--card-border-gold,#b59b6c);border-radius:13px;background:#0b2531;padding:14px;min-width:0}
+.topic .m01-media .m01-panel h2{font:600 16px/1.25 var(--sans);color:var(--gold,#F7C75B);margin:0 0 9px}
+.topic .m01-media .m01-panel p{font:400 12px/1.5 var(--sans)}
+.topic .m01-media :is(button,summary,input){font-family:var(--sans)}
+.topic .m01-media button{min-height:42px;border:1px solid rgba(212,207,189,.52);background:#103241;color:#eef6f7;border-radius:9px;padding:9px 12px;font-size:12px;cursor:pointer;text-align:left}
+.topic .m01-media button[aria-pressed="true"]{border-color:var(--gold,#F7C75B);background:#234047;color:#ffdfa4}
+.topic .m01-media button:focus-visible{outline:2px solid var(--gold,#F7C75B);outline-offset:2px}
+.topic .m01-media .m01-stepper{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.topic .m01-media .m01-stepper button{display:flex;align-items:center;gap:8px}
+.topic .m01-media .m01-stepper b{color:var(--gold,#F7C75B);font-weight:600}
+.topic .m01-media .m01-step-output,.topic .m01-media .m01-component-output{background:#102d3a;border-radius:9px;padding:12px;margin:10px 0 0;font-size:13px;line-height:1.5}
+.topic .m01-media .m01-hotspot-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.topic .m01-media .m01-hotspot-list button:last-child{grid-column:1/-1}
+.topic .m01-media .m01-component-output strong{color:var(--gold,#F7C75B);font-size:14px}
+.topic .m01-media .m01-component-output p{margin:4px 0 0}
+.topic .m01-media :is(.m01-pressure,.m01-oxygen) label{display:block;font-size:12px;font-weight:600;line-height:1.5}
+.topic .m01-media :is(.m01-pressure,.m01-oxygen) input[type="range"]{width:100%;accent-color:var(--gold,#F7C75B);margin:13px 0 17px}
+.topic .m01-media :is(.m01-pressure,.m01-oxygen) output{color:var(--gold,#F7C75B)}
+.topic .m01-media .m01-plot{width:100%;max-height:170px;margin:5px 0 12px}
+.topic .m01-media .m01-two-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.topic .m01-media .m01-two-values>div,.topic .m01-media .m01-number{background:#113343;border-radius:9px;padding:11px}
+.topic .m01-media :is(.m01-two-values,.m01-number) strong{display:block;color:var(--gold,#F7C75B);font-size:16px}
+.topic .m01-media :is(.m01-two-values,.m01-number) span{display:block;color:var(--muted,#bbcdd1);font-size:11px;line-height:1.35;margin-top:4px}
+.topic .m01-media .m01-progress{height:5px;background:#112e39;border-radius:9px;overflow:hidden}
+.topic .m01-media .m01-progress i{display:block;height:100%;background:var(--gold,#F7C75B);transition:width .25s}
+.topic .m01-media .m01-scene{padding:14px 0 6px}
+.topic .m01-media .m01-scene strong{font-size:15px;color:#f5f8f9}
+.topic .m01-media .m01-scene p{margin:8px 0 0}
+.topic .m01-media .m01-controls{display:flex;gap:8px;margin:9px 0}
+.topic .m01-media .m01-controls button{flex:1;text-align:center}
+.topic .m01-media .m01-glossary details{border-top:1px solid rgba(212,207,189,.22);padding:10px 0}
+.topic .m01-media .m01-glossary summary{cursor:pointer;color:#f4f7f8;font-size:14px}
+.topic .m01-media .m01-glossary details p{margin:7px 0;color:var(--muted,#bbcdd1)}
+.topic .m01-media .m01-quiz fieldset{border:0;padding:0;margin:8px 0 0;display:grid;gap:7px}
+.topic .m01-media .m01-quiz legend{font-size:12px;color:var(--muted,#bbcdd1);margin-bottom:9px}
+.topic .m01-media .m01-quiz button{display:flex;align-items:start;gap:10px}
+.topic .m01-media .m01-quiz button b{color:var(--gold,#F7C75B);font-size:13px}
+.topic .m01-media .m01-feedback:not(:empty){margin-top:11px;padding:9px;border-radius:8px;background:#123544;color:#dcecef;font-size:12px;line-height:1.5}
+.topic .m01-media .m01-feedback[data-correct="true"]{border-left:2px solid #76c7ac}
+@media(max-width:355px){.topic .m01-media .m01-stepper,.topic .m01-media .m01-hotspot-list{grid-template-columns:1fr}.topic .m01-media .m01-hotspot-list button:last-child{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){.topic .m01-media .m01-progress i{transition:none}}
+
+/* Atlas real: cada fotografia aparece somente no tema correspondente. */
+.topic .m01-media .m01-sprite{display:block;width:100%;aspect-ratio:4/3;background-image:url('./assets/m01-atlas.avif');background-repeat:no-repeat;background-size:200% 300%;background-color:#071d29}
+.topic .m01-media [data-m01-photo="timeline"]{background-position:0% 0%}
+.topic .m01-media [data-m01-photo="oxygen"]{background-position:100% 0%}
+.topic .m01-media [data-m01-photo="chambers"]{background-position:0% 50%}
+.topic .m01-media [data-m01-photo="explore"]{background-position:100% 50%}
+.topic .m01-media [data-m01-photo="journey"]{background-position:0% 100%}
