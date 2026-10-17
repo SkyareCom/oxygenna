@@ -1,5 +1,5 @@
 import {renderChapterClinical} from './clinical-view.mjs';
-import {renderCamaraModuleContent} from './camara-view.mjs';
+import {renderCamaraModuleContent} from './camara-view.mjs?rev=camara-6mod-20261017';
 import {phases,curriculumUI,getModule} from './curriculum.mjs';
 import {navigationUI,sectionModules,normalizeContext,getCurriculumItems,moduleHref,lessonHref,mapHref} from './navigation.mjs';
 

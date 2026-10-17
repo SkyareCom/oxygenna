@@ -1,6 +1,6 @@
-import {camaraLessons,camaraLesson,camaraData,camaraBoyle,camaraPIO2} from './camara-data.mjs';
+import {camaraLessons,camaraLesson,camaraBoyle,camaraPIO2} from './camara-data.mjs';
 import {camaraDepth} from './camara-depth.mjs';
-import {camaraModuleForLesson,camaraLessonsForModule} from './camara-module-map.mjs';
+import {camaraModuleForLesson,camaraLessonsForModule} from './camara-module-map.mjs?rev=camara-6mod-20261017';
 
 /**
  * OXYGENNA — CÂMARA, dentro do frontend ORIGINAL.
@@ -30,19 +30,6 @@ export function camaraGraphText(engine,ata,lang='pt'){
  if(engine==='boyleNormalized')return 'V / V₀ = '+(100*camaraBoyle(ata)).toLocaleString(lang==='en'?'en-US':lang==='es'?'es-ES':'pt-BR',{maximumFractionDigits:1})+'%';
  if(engine==='inspiredOxygenHumidified')return 'PIO₂ estimada: '+camaraPIO2(ata,1).toLocaleString(lang==='en'?'en-US':lang==='es'?'es-ES':'pt-BR',{maximumFractionDigits:0})+' mmHg — não é PaO₂';
  throw new RangeError('Gráfico não suportado');
-}
-export function renderCamaraCatalog({lang='pt',e,icon,completed=[]}){
- const n=ui(lang),done=new Set(completed);
- return '<section class="camara-library" aria-labelledby="camara-library-title">'+
-  '<p class="tag" id="camara-library-title">'+e(n.title)+'</p>'+
-  '<p class="subtle camara-intro">'+e(n.subtitle)+'</p>'+
-  (n.sourceContent?'<p class="micro" lang="pt-BR">'+e(n.sourceContent)+'</p>':'')+
-  '<div class="camara-chapter-grid">'+camaraLessons.map((l,i)=>'<a class="lesson-link camara-chapter-card" href="#camara/'+e(l.id)+'" aria-label="'+e(n.read+': '+l.title)+'">'+
-   '<span class="lesson-number">'+String(i+1).padStart(2,'0')+'</span><strong lang="pt-BR">'+e(l.title)+'</strong>'+icon(done.has(l.id)?'check':'right')+'</a>').join('')+'</div>'+
-  '<p class="subtle camara-progress">'+camaraLessons.filter(l=>done.has(l.id)).length+' / 8 '+e(n.ready)+'</p>'+
-  '<details class="camara-references"><summary>'+e(n.sources)+'</summary><p class="subtle">'+e(n.sourceDesc)+'</p>'+
-   Object.entries(camaraData.sources).map(([key,url])=>'<a class="source" href="'+e(url)+'" rel="noopener noreferrer" target="_blank"><strong>'+e(key.toUpperCase())+' ↗</strong></a>').join('')+'</details>'+
- '</section>';
 }
 function renderMedia(m,{lang,e}){
  const n=ui(lang);

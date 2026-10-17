@@ -6,7 +6,7 @@ import {lessons} from '../dist/content.mjs';
 test('footer filters select coherent, ordered modules without hiding the full curriculum',async()=>{
  const {getCurriculumItems}=await import('../dist/navigation.mjs');
  const ids=filter=>getCurriculumItems(filter).map(m=>m.id);
- assert.deepEqual(ids('chamber'),['01','02','03','04','05','06','07','08']);
+ assert.deepEqual(ids('chamber'),['01','02','03','04','05','06']);
  assert.deepEqual(ids('indications'),['07','09','10','11','12','13','14','15','19']);
  assert.deepEqual(ids('protocols'),['06','08','18','21','22','23','24']);
  assert.deepEqual(ids(''),modules.map(m=>m.id));

@@ -20,7 +20,7 @@ test('os oito conteúdos aparecem dentro de capítulos pré-existentes, sem grad
  assert.equal(ids.length,8);
  assert.equal(new Set(ids).size,8);
  assert.deepEqual(ids.slice().sort(),camaraLessons.map(x=>x.id).sort());
- assert.deepEqual(Object.keys(CAMARA_MODULE_LESSONS),['01','02','04','06','07','08']);
+ assert.deepEqual(Object.keys(CAMARA_MODULE_LESSONS),['01','02','04','05','06']);
  for(const lesson of camaraLessons){
   const moduleId=camaraModuleForLesson(lesson.id);
   const html=renderCamaraModuleContent(moduleId,ctx);
@@ -42,6 +42,20 @@ test('cada página mantém back contextual, conteúdo, atividade e a navegação
  }
  assert.equal(renderCamaraDetail('unknown',ctx),'<p>404</p>');
  assert.equal(activeSection('camara/camara-01'),'chamber');
+});
+test('não há gerador de catálogo duplicado e módulos 07/08 ficam fora de CÂMARA',()=>{
+ const view=readFileSync(new URL('../dist/camara-view.mjs',import.meta.url),'utf8');
+ const app=readFileSync(new URL('../dist/app.mjs',import.meta.url),'utf8');
+ const css=readFileSync(new URL('../dist/camara.css',import.meta.url),'utf8');
+ const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
+ assert.ok(!view.includes('renderCamaraCatalog'),'grade antiga não deve mais existir');
+ assert.ok(!view.includes('camara-chapter-grid'),'nenhum card paralelo');
+ assert.ok(!app.includes('renderCamaraCatalog'),'não inserir catálogo na aba');
+ assert.ok(!css.includes('.camara-chapter-grid'),'CSS antigo eliminado');
+ assert.ok(html.includes('app.mjs?rev=camara-6mod-20261017'),'novo JS deve carregar com versão');
+ assert.equal(Object.values(CAMARA_MODULE_LESSONS).flat().length,8);
+ assert.ok(!('07' in CAMARA_MODULE_LESSONS));
+ assert.ok(!('08' in CAMARA_MODULE_LESSONS));
 });
 test('atividades científicas validam resultado, unidades e resposta',()=>{
  assert.equal(camaraBoyle(2.5),0.4);
@@ -93,8 +107,10 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   assert.ok(main().includes('href="#module/01/chamber"'),'original chapter links remain');
   assert.ok(main().includes('href="#lab"'),'original laboratory link remains');
   assert.ok(!main().includes('camara-chapter-grid'),'grade duplicada não aparece na aba');
-  assert.ok(main().includes('href="#module/07/chamber"'));
-  assert.ok(main().includes('href="#module/08/chamber"'));
+  assert.ok(!main().includes('href="#module/07/chamber"'));
+  assert.ok(!main().includes('href="#module/08/chamber"'));
+  assert.ok(main().includes('href="#module/05/chamber"'));
+  assert.equal((main().match(/href="#module\/0[1-6]\/chamber"/g)||[]).length,6);
   const footer=()=>html.match(/<nav class="bottom-nav[\s\S]*?<\/nav>/)?.[0]??'';
   assert.equal((footer().match(/<a /g)||[]).length,5);
   go('#module/01/chamber');

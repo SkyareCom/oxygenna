@@ -1,21 +1,5 @@
-/* Apenas os componentes novos da seção CÂMARA.
-   Preserva a folha principal, Saira Semi Condensed e toda a navegação original. */
-.chamber .camara-library{margin:22px 0 28px}
-.chamber .camara-library .tag{font-size:12px;color:var(--gold)}
-.chamber .camara-intro{margin:6px 0 13px;font-size:12px}
-.chamber .camara-chapter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.chamber .camara-chapter-card{
- min-height:55px;height:auto;display:flex;align-items:center;gap:8px;
- padding:10px 8px;background:#0a2431;border:1px solid var(--card-border-gold);
- border-radius:12px;text-decoration:none;
-}
-.chamber .camara-chapter-card>.lesson-number{font-size:12px;min-width:20px;color:var(--gold)}
-.chamber .camara-chapter-card>strong{flex:1;min-width:0;font-size:14px;line-height:1.2;font-weight:600;overflow-wrap:anywhere}
-.chamber .camara-chapter-card .icon{width:13px;height:13px;flex-shrink:0;color:var(--gold)}
-.chamber .camara-chapter-card:is(:hover,:focus-visible){border-color:var(--gold)}
-.chamber .camara-progress{font-size:12px;margin:12px 0}
-.chamber .camara-references{margin:20px 0 0}
-.chamber .camara-references .source{margin-top:6px}
+/* OXYGENNA — CÂMARA: apenas conteúdo incorporado nos módulos originais e rotas legadas.
+   Nenhuma grade adicional de capítulos é criada por este arquivo. */
 .camara .panel{border:1px solid var(--card-border-gold);border-radius:12px;background:#0a2431}
 .camara .panel h2{font-family:var(--sans);font-size:16px;font-weight:600;line-height:1.25;color:var(--gold)}
 .camara .camara-prose p,.camara .camara-objective p,.camara .camara-nuance p,
@@ -40,9 +24,7 @@
 .camara .camara-evidence-item{margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
 .camara .camara-step-nav{margin:18px 0 6px}
 .camara .camara-step-nav a{font-family:var(--sans);min-height:44px}
-@media(min-width:440px){.chamber .camara-chapter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:340px){.chamber .camara-chapter-card{padding:9px 6px;gap:5px}.chamber .camara-chapter-card>strong{font-size:12px}.camara .camara-step-nav a{font-size:11px}}
-@media(prefers-reduced-motion:reduce){.chamber .camara-chapter-card{transition:none}}
+
 
 /* Aprofundamento didático — escopo estrito das páginas de conteúdo CÂMARA. */
 .camara .camara-extended-content{display:grid;gap:10px;margin:14px 0}
@@ -94,3 +76,5 @@
 .module .camara-inline-body .camara-checklist input{accent-color:var(--gold)}
 .module .camara-inline-body .camara-evidence-item{font-size:13px;border:1px solid var(--line);padding:10px;border-radius:8px;margin:6px 0}
 @media(prefers-reduced-motion:reduce){.module .camara-inline-chapter>summary .icon{transition:none}}
+
+@media(max-width:340px){.camara .camara-step-nav a{font-size:11px}}
