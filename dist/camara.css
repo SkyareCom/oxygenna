@@ -43,3 +43,18 @@
 @media(min-width:440px){.chamber .camara-chapter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:340px){.chamber .camara-chapter-card{padding:9px 6px;gap:5px}.chamber .camara-chapter-card>strong{font-size:12px}.camara .camara-step-nav a{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.chamber .camara-chapter-card{transition:none}}
+
+/* Aprofundamento didático — escopo estrito das páginas de conteúdo CÂMARA. */
+.camara .camara-extended-content{display:grid;gap:10px;margin:14px 0}
+.camara .camara-explainer{margin:0}
+.camara .camara-explainer h2{font-size:16px;font-weight:600;line-height:1.25;color:var(--gold);margin:0 0 9px}
+.camara .camara-explainer p{font-size:14px;line-height:1.65;margin:0;color:var(--text)}
+.camara .camara-visual-sequence{margin:0}
+.camara .camara-visual-sequence h2{font-size:16px;font-weight:600;margin:0 0 12px;color:var(--gold)}
+.camara .camara-flow{list-style:none;display:grid;gap:6px;margin:0;padding:0}
+.camara .camara-flow li{display:grid;grid-template-columns:27px minmax(0,1fr);align-items:center;gap:9px;min-height:42px;border:1px solid var(--line);border-radius:9px;background:#0b2b38;padding:6px 10px;font-size:12px;line-height:1.35}
+.camara .camara-flow li:not(:last-child){position:relative}
+.camara .camara-step-count{display:grid;place-items:center;border-radius:50%;border:1px solid var(--gold);color:var(--gold);width:26px;height:26px;font-size:11px;font-weight:600}
+.camara .camara-figure-extra{margin:0}
+.camara .camara-figure-extra img{max-height:330px;padding:5px}
+@media(max-width:360px){.camara .camara-explainer p{font-size:14px}.camara .camara-flow li{padding:7px;font-size:12px}}
