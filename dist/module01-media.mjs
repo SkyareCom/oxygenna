@@ -1,10 +1,8 @@
 // OXYGENNA — Módulo 01: mídias nativas às páginas #topic/01/*, sem segundo aplicativo.
-// Imagens individuais 1448px em WebP. Sem atlas reduzido, sem CSS ampliando miniaturas.
-const photo=Object.freeze({
- timeline:'./assets/m01-timeline.webp', oxygen:'./assets/m01-oxygen.webp',
- chambers:'./assets/m01-chambers.webp', explore:'./assets/m01-explore.webp',
- journey:'./assets/m01-journey.webp'
-});
+// Imagens de contexto independentes; não utilizar atlas, ampliar ou galeria duplicada.
+const photo=Object.freeze({"experimentacao":"./assets/m01-experimentacao.webp","subaquatica":"./assets/m01-subaquatica.webp","camara-clinica":"./assets/m01-camara-clinica.webp","pratica-atual":"./assets/m01-pratica-atual.webp","oxigenio":"./assets/m01-oxigenio.webp","monoplace":"./assets/m01-monoplace.webp","multiplace":"./assets/m01-multiplace.webp","componentes":"./assets/m01-componentes.webp","preparacao":"./assets/m01-preparacao.webp","exposicao":"./assets/m01-exposicao.webp"});
+const placement=Object.freeze({0:{first:['experimentacao'],middle:['camara-clinica'],after:['pratica-atual']},1:{first:['subaquatica']},2:{first:['oxigenio']},3:{first:['monoplace'],middle:['multiplace'],after:['componentes']},4:{first:['preparacao'],middle:['exposicao']}});
+const altText=Object.freeze({"experimentacao":"Experimentos históricos com gases e pressão","subaquatica":"Fisiologia da imersão e medicina subaquática","camara-clinica":"Câmara clínica e assistência monitorizada","pratica-atual":"Prática hiperbárica baseada em evidências","oxigenio":"Paciente em câmara hiperbárica: ilustração da oferta de oxigênio","monoplace":"Câmara monoplace com leito individual","multiplace":"Câmara multiplace com vários assentos","componentes":"Janela, máscara, comunicação, painel e segurança de uma câmara","preparacao":"Preparo e compressão gradual","exposicao":"Exposição monitorizada e descompressão controlada"});
 const steps=[
  ['Preparação','Orientação, triagem e conferência do equipamento antes do início.'],
  ['Compressão','A pressão aumenta gradualmente; a equipe acompanha o conforto e a equalização.'],
@@ -32,9 +30,14 @@ const quiz=[
  {title:'Atuação da equipe',q:'Qual ação é mais adequada quando aparece dor progressiva durante compressão?',options:['Ignorar e manter a pressurização','Informar a equipe e avaliar a situação','Acelerar para terminar logo'],answer:1,detail:'Dor progressiva deve ser comunicada; a equipe avaliará a necessidade de modificar a operação.'},
  {title:'Termos técnicos',q:'O que expressa ATA?',options:['Atmosferas absolutas','A porcentagem de oxigênio','A pressão arterial parcial de oxigênio'],answer:0,detail:'ATA é a medida da pressão absoluta do ambiente.'}
 ];
-const copy={pt:{media:'ILUSTRAÇÕES E ATIVIDADES',caption:'Ilustração cinematográfica didática; não representa protocolo clínico nem dispositivo específico.',watch:'ANIMAÇÃO GUIADA',hotspot:'EXPLORAR COMPONENTES',timeline:'ETAPAS DA EVOLUÇÃO',pressure:'VARIAÇÃO DE PRESSÃO',quiz:'ATIVIDADE RÁPIDA',check:'CONFERIR',again:'TENTAR NOVAMENTE',next:'PRÓXIMA CENA',play:'REPRODUZIR',pause:'PAUSAR',feedbackGood:'Resposta correta.',feedbackBad:'Reveja a explicação.'},en:{media:'ILLUSTRATIONS AND ACTIVITIES',caption:'Illustrative cinematic teaching image; not a clinical protocol or specific device.',watch:'GUIDED ANIMATION',hotspot:'EXPLORE COMPONENTS',timeline:'HISTORICAL STAGES',pressure:'PRESSURE SIMULATOR',quiz:'QUICK ACTIVITY',check:'CHECK',again:'TRY AGAIN',next:'NEXT SCENE',play:'PLAY',pause:'PAUSE',feedbackGood:'Correct.',feedbackBad:'Review the explanation.'},es:{media:'ILUSTRACIONES Y ACTIVIDADES',caption:'Imagen cinematográfica educativa; no representa un protocolo clínico ni equipo específico.',watch:'ANIMACIÓN GUIADA',hotspot:'EXPLORAR COMPONENTES',timeline:'ETAPAS HISTÓRICAS',pressure:'SIMULADOR DE PRESIÓN',quiz:'ACTIVIDAD RÁPIDA',check:'COMPROBAR',again:'INTENTAR DE NUEVO',next:'SIGUIENTE ESCENA',play:'REPRODUCIR',pause:'PAUSAR',feedbackGood:'Correcto.',feedbackBad:'Revisa la explicación.'}};
+const copy={pt:{media:'ATIVIDADES INTERATIVAS',caption:'Ilustração cinematográfica didática; não representa protocolo clínico nem dispositivo específico.',watch:'ANIMAÇÃO GUIADA',hotspot:'EXPLORAR COMPONENTES',timeline:'ETAPAS DA EVOLUÇÃO',pressure:'VARIAÇÃO DE PRESSÃO',quiz:'ATIVIDADE RÁPIDA',check:'CONFERIR',again:'TENTAR NOVAMENTE',next:'PRÓXIMA CENA',play:'REPRODUZIR',pause:'PAUSAR',feedbackGood:'Resposta correta.',feedbackBad:'Reveja a explicação.'},en:{media:'INTERACTIVE ACTIVITIES',caption:'Illustrative cinematic teaching image; not a clinical protocol or specific device.',watch:'GUIDED ANIMATION',hotspot:'EXPLORE COMPONENTS',timeline:'HISTORICAL STAGES',pressure:'PRESSURE SIMULATOR',quiz:'QUICK ACTIVITY',check:'CHECK',again:'TRY AGAIN',next:'NEXT SCENE',play:'PLAY',pause:'PAUSE',feedbackGood:'Correct.',feedbackBad:'Review the explanation.'},es:{media:'ACTIVIDADES INTERACTIVAS',caption:'Imagen cinematográfica educativa; no representa un protocolo clínico ni equipo específico.',watch:'ANIMACIÓN GUIADA',hotspot:'EXPLORAR COMPONENTES',timeline:'ETAPAS HISTÓRICAS',pressure:'SIMULADOR DE PRESIÓN',quiz:'ACTIVIDAD RÁPIDA',check:'COMPROBAR',again:'INTENTAR DE NUEVO',next:'SIGUIENTE ESCENA',play:'REPRODUCIR',pause:'PAUSAR',feedbackGood:'Correcto.',feedbackBad:'Revisa la explicación.'}};
 const msg=lang=>copy[lang]??copy.pt;
-const figure=(src,alt,e,caption)=>'<figure class="m01-figure"><a class="m01-zoom" href="'+src+'" target="_blank" rel="noopener noreferrer" aria-label="Ampliar imagem: '+e(alt)+'"><img src="'+src+'" alt="'+e(alt)+'" loading="lazy" decoding="async" width="1448"></a>'+(caption?'<figcaption>'+e(caption)+'</figcaption>':'')+'</figure>';
+const figure=(key,e)=>'<figure class="m01-figure m01-context-figure" data-m01-picture="'+key+'"><img src="'+photo[key]+'" alt="'+e(altText[key])+'" width="'+(key==='oxigenio'?738:1448)+'" height="'+(key==='oxigenio'?455:1086)+'" loading="lazy" decoding="async"></figure>';
+/** Cada mídia ocupa apenas o ponto próprio da explicação, sem ampliar. */
+export function renderModule01Visual(moduleId,index,position,{e}={}){
+ if(moduleId!=='01'||!['first','middle','after'].includes(position))return '';
+ return (placement[Number(index)]?.[position]??[]).map(key=>figure(key,e??(s=>String(s)))).join('');
+}
 const mediaHeader=(label,desc,e)=>'<div class="m01-kicker">'+e(label)+'</div>';
 const quizHTML=(i,{lang,e})=>{
  const data=quiz[i],c=msg(lang);
@@ -49,23 +52,18 @@ export function renderModule01Media(moduleId,index,{lang='pt',e}={}){
  e=e??(s=>String(s));
  const c=msg(lang),section=[];
  if(i===0){
-  section.push(figure(photo.timeline,'Linha do tempo da medicina hiperbárica',e,c.caption));
   section.push('<section class="m01-panel m01-timeline" data-m01-stepper="timeline"><h2>'+e(c.timeline)+'</h2><div class="m01-stepper">'+processHTML(timeline)+'</div><p class="m01-step-output" aria-live="polite" lang="pt-BR">'+e(timeline[0][1])+'</p></section>');
  }
  if(i===1){
   section.push('<section class="m01-panel m01-pressure" data-m01-dive><h2>'+e(c.pressure)+'</h2><p class="m01-hint" lang="pt-BR">Exemplo idealizado de água do mar ao nível do mar: a pressão cresce cerca de 1 ATA a cada 10 metros. Não é uma tabela de planejamento de mergulho.</p><label for="m01-depth">Profundidade simulada <output id="m01-depth-out">10 m</output></label><input id="m01-depth" type="range" min="0" max="30" step="5" value="10" data-m01-depth><div class="m01-two-values"><div><strong data-m01-depth-ata>2,0 ATA</strong><span>Pressão absoluta aprox.</span></div><div><strong data-m01-depth-kpa>203 kPa</strong><span>Pressão absoluta aprox.</span></div></div></section>');
  }
  if(i===2){
-  section.push(figure(photo.oxygen,'Oxigênio normobárico e hiperbárico',e,'Imagem ilustrativa: o gráfico na fotografia usa a aproximação de gás seco. Use o simulador para a PIO₂ umidificada.'));
   section.push('<section class="m01-panel m01-oxygen" data-m01-oxygen><h2>Gráfico interativo • PIO₂ umidificada</h2><p class="m01-hint" lang="pt-BR">FiO₂ = 100%, pressão de vapor de água estimada em 47 mmHg. PIO₂ não equivale à PaO₂.</p><svg aria-label="Gráfico de PIO₂ em relação à pressão absoluta" role="img" viewBox="0 0 340 170" class="m01-plot"><path d="M35 12V140H330" fill="none" stroke="#9aabb1" stroke-width="1"/><path d="M35 102L330 18" fill="none" stroke="#d5b16c" stroke-width="3"/><path d="M35 139H330" fill="none" stroke="#526977" stroke-dasharray="3 6"/><circle data-m01-point cx="184" cy="60" r="6" stroke="#d5b16c" fill="#082b3b" stroke-width="3"/><text x="32" y="158" font-size="11" fill="#b5cbd0">1 ATA</text><text x="293" y="158" font-size="11" fill="#b5cbd0">3 ATA</text><text x="35" y="9" font-size="11" fill="#b5cbd0">PIO₂ (mmHg)</text></svg><label for="m01-ata">Pressão absoluta <output id="m01-ata-out">2,0 ATA</output></label><input id="m01-ata" data-m01-ata type="range" min="1" max="3" step="0.1" value="2.0"><div class="m01-number"><strong data-m01-pio2>1.473 mmHg</strong><span>Pressão parcial inspirada estimada</span></div></section>');
  }
  if(i===3){
-  section.push(figure(photo.chambers,'Comparação cinematográfica monoplace e multiplace',e,c.caption));
-  section.push(figure(photo.explore,'Câmara hiperbárica com indicação ilustrativa de componentes',e,'Representação didática ilustrada. Posições e acessórios variam entre equipamentos.'));
   section.push('<section class="m01-panel m01-hotspots" data-m01-hotspots><h2>'+e(c.hotspot)+'</h2><div class="m01-hotspot-list">'+components.map((item,j)=>'<button type="button" data-m01-component="'+j+'" aria-pressed="'+(j===0)+'">'+e(item[0])+'</button>').join('')+'</div><div class="m01-component-output" role="status" aria-live="polite" lang="pt-BR"><strong>'+e(components[0][0])+'</strong><p>'+e(components[0][1])+'</p></div></section>');
  }
  if(i===4){
-  section.push(figure(photo.journey,'Storyboard fotográfico das quatro fases de uma sessão',e,'Sequência ilustrativa, não um vídeo de procedimento real.'));
   section.push('<section class="m01-panel m01-journey" data-m01-stepper="journey"><h2>'+e(c.watch)+'</h2><div class="m01-progress"><i data-m01-progress style="width:25%"></i></div><div class="m01-scene" aria-live="polite"><strong data-m01-scene-title lang="pt-BR">'+e(steps[0][0])+'</strong><p data-m01-scene-body lang="pt-BR">'+e(steps[0][1])+'</p></div><div class="m01-controls"><button type="button" data-m01-next>'+e(c.next)+'</button><button type="button" data-m01-play>'+e(c.play)+'</button></div><p class="m01-hint">Animação educativa por etapas. Não é filmagem de um procedimento real.</p></section>');
  }
  if(i===5){
