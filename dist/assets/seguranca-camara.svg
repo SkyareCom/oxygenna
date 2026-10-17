@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" role="img" aria-labelledby="title desc">
+<title id="title">Barreiras de segurança em uma câmara hiperbárica</title><desc id="desc">Desenho técnico de câmara e cinco barreiras de segurança: avaliação, equipamento, materiais, monitorização e resposta.</desc>
+<rect width="720" height="500" fill="#071d29"/><rect x="15" y="15" width="690" height="470" rx="22" fill="#0a2b39" stroke="#b6a06f" stroke-width="2"/>
+<text x="42" y="59" fill="#e6ce9e" font-family="Saira Semi Condensed, sans-serif" font-size="25" font-weight="600">SEGURANÇA EM CAMADAS</text>
+<text x="42" y="84" fill="#bed2d8" font-family="Saira Semi Condensed, sans-serif" font-size="16">Uma barreira isolada não torna o procedimento seguro</text>
+<g transform="translate(70,124)">
+<rect x="0" y="36" width="290" height="168" rx="80" fill="#103c4d" stroke="#70c8c7" stroke-width="5"/>
+<rect x="28" y="64" width="235" height="110" rx="55" fill="#0b2232" stroke="#557784" stroke-width="2"/>
+<circle cx="207" cy="117" r="34" fill="#1f5264" stroke="#d6bd86" stroke-width="3"/><circle cx="207" cy="117" r="19" fill="#0a2d3d"/>
+<path d="M45 105H145M45 136H145M70 92V150" fill="none" stroke="#688b9b" stroke-width="4"/>
+<path d="M55 210V224M228 210V224" stroke="#d6bd86" stroke-width="9" stroke-linecap="round"/>
+<text x="145" y="260" fill="#dfeaed" font-family="Saira Semi Condensed, sans-serif" font-size="18" text-anchor="middle">CÂMARA E EQUIPE</text>
+</g>
+<g font-family="Saira Semi Condensed, sans-serif" font-size="19" font-weight="600">
+<rect x="406" y="124" width="273" height="52" rx="11" fill="#163845" stroke="#b6a06f"/><circle cx="429" cy="150" r="13" fill="#d3b875"/><text x="429" y="155" text-anchor="middle" fill="#061923" font-size="14">1</text><text x="451" y="156" fill="#f0f5f3">Avaliação clínica</text>
+<rect x="406" y="187" width="273" height="52" rx="11" fill="#163845" stroke="#b6a06f"/><circle cx="429" cy="213" r="13" fill="#d3b875"/><text x="429" y="218" text-anchor="middle" fill="#061923" font-size="14">2</text><text x="451" y="219" fill="#f0f5f3">Equipamento inspecionado</text>
+<rect x="406" y="250" width="273" height="52" rx="11" fill="#163845" stroke="#b6a06f"/><circle cx="429" cy="276" r="13" fill="#d3b875"/><text x="429" y="281" text-anchor="middle" fill="#061923" font-size="14">3</text><text x="451" y="282" fill="#f0f5f3">Materiais compatíveis</text>
+<rect x="406" y="313" width="273" height="52" rx="11" fill="#163845" stroke="#b6a06f"/><circle cx="429" cy="339" r="13" fill="#d3b875"/><text x="429" y="344" text-anchor="middle" fill="#061923" font-size="14">4</text><text x="451" y="345" fill="#f0f5f3">Monitorização contínua</text>
+<rect x="406" y="376" width="273" height="52" rx="11" fill="#163845" stroke="#b6a06f"/><circle cx="429" cy="402" r="13" fill="#d3b875"/><text x="429" y="407" text-anchor="middle" fill="#061923" font-size="14">5</text><text x="451" y="408" fill="#f0f5f3">Plano de intercorrências</text>
+</g>
+<text x="42" y="467" fill="#b8cbd2" font-family="Saira Semi Condensed, sans-serif" font-size="15">Ilustração educativa • normas aplicáveis e manual do fabricante prevalecem</text>
+</svg>
