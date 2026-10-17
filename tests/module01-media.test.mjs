@@ -50,5 +50,5 @@ test('fotografias independentes em alta definição substituem atlas pixelado',(
  assert.ok(html.includes('./app.mjs?rev=m01-hd-20261017'));
  assert.ok(app.includes('handleModule01Click(event.target)'));
  assert.ok(app.includes('handleModule01Input(event.target)'));
- assert.doesNotMatch(source,/https?:\\/\\//);
+ assert.ok(!source.includes('https://')&&!source.includes('http://'));
 });
