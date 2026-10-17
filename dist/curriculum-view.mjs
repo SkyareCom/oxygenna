@@ -1,6 +1,6 @@
 import {renderChapterClinical} from './clinical-view.mjs';
 import {renderCamaraTopicExtras} from './camara-view.mjs?rev=topic-cards-20261017';
-import {renderModule01Media} from './module01-media.mjs';
+import {renderModule01Media,renderModule01Visual} from './module01-media.mjs?rev=m01-context-20261017';
 import {camaraAtTopic,topicReading} from './topic-readings.mjs';
 import {phases,curriculumUI,getModule} from './curriculum.mjs';
 import {navigationUI,sectionModules,normalizeContext,getCurriculumItems,moduleHref,lessonHref,mapHref} from './navigation.mjs';
@@ -45,11 +45,18 @@ export function renderModuleTopic(moduleId,topicIndex,{lang,lessons,e,icon,back,
  const more={pt:'FONTES DE REFERÊNCIA',en:'REFERENCES',es:'FUENTES DE REFERENCIA'}[lang];
  const next=n+1<m[lang].topics.length?'<a class="secondary" href="'+moduleTopicHref(m.id,n+1,context)+'">'+e({pt:'PRÓXIMO TEMA',en:'NEXT TOPIC',es:'TEMA SIGUIENTE'}[lang])+icon('right')+'</a>':'';
  const previous=n>0?'<a class="secondary" href="'+moduleTopicHref(m.id,n-1,context)+'">'+icon('left')+e({pt:'TEMA ANTERIOR',en:'PREVIOUS TOPIC',es:'TEMA ANTERIOR'}[lang])+'</a>':'';
+ // Imagens distribuídas ENTRE os parágrafos, sem galerias e sem duplicar conteúdo.
+ const chapterReading=(m.id==='01'&&notes?.length
+   ? notes.map((p,i)=>'<article class="panel topic-reading" lang="pt-BR"><p>'+e(p)+'</p></article>'+
+      renderModule01Visual(m.id,n,i===0?'first':'middle',{lang,e})).join('')+
+      renderModule01Visual(m.id,n,'after',{lang,e})
+   : '<article class="panel topic-reading" lang="pt-BR">'+(notes?.length?notes.map(p=>'<p>'+e(p)+'</p>').join(''):'<p>'+e(m.pt.objective)+'</p>')+'</article>');
+
  return back(moduleHref(m.id,context))+
   '<p class="tag">'+heading+' '+number+' / 06 · '+m.id+'</p>'+
   '<h1 class="display page-title">'+e(topic)+'</h1>'+
   (lang==='pt'?'':'<p class="micro">'+e(note)+'</p>')+
-  '<article class="panel topic-reading" lang="pt-BR">'+(notes?.length?notes.map(p=>'<p>'+e(p)+'</p>').join(''):'<p>'+e(m.pt.objective)+'</p>')+'</article>'+
+  chapterReading+
   (m.id==='01'?renderModule01Media(m.id,n,{lang,e}):(camaraId?renderCamaraTopicExtras(camaraId,{lang,e,answers:camaraAnswers}):''))+
   '<details class="topic-references"><summary>'+e(more)+'</summary>'+sourceLinks(m.sources)+'</details>'+
   '<nav class="module-navigation topic-navigation" aria-label="'+e(heading)+'">'+previous+next+'</nav>';
