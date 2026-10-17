@@ -52,7 +52,7 @@ test('não há gerador de catálogo duplicado e módulos 07/08 ficam fora de CÂ
  assert.ok(!view.includes('camara-chapter-grid'),'nenhum card paralelo');
  assert.ok(!app.includes('renderCamaraCatalog'),'não inserir catálogo na aba');
  assert.ok(!css.includes('.camara-chapter-grid'),'CSS antigo eliminado');
- assert.ok(html.includes('app.mjs?rev=camara-6mod-20261017'),'novo JS deve carregar com versão');
+ assert.ok(html.includes('app.mjs?rev=topic-cards-20261017'),'novo JS deve carregar com versão');
  assert.equal(Object.values(CAMARA_MODULE_LESSONS).flat().length,8);
  assert.ok(!('07' in CAMARA_MODULE_LESSONS));
  assert.ok(!('08' in CAMARA_MODULE_LESSONS));
@@ -114,10 +114,16 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   const footer=()=>html.match(/<nav class="bottom-nav[\s\S]*?<\/nav>/)?.[0]??'';
   assert.equal((footer().match(/<a /g)||[]).length,5);
   go('#module/01/chamber');
-  assert.ok(main().includes('O que é uma câmara hiperbárica'));
-  assert.ok(main().includes('Tipos de câmara: monoplace e multiplace'));
-  assert.ok(main().includes('camara-inline-chapter'));
+  assert.ok(main().includes('TEMAS DO MÓDULO'));
+  assert.ok(main().includes('História e desenvolvimento'));
+  assert.ok(main().includes('Câmaras monoplace e multiplace'));
+  assert.ok(main().includes('href="#topic/01/1/chamber"'));
+  assert.ok(!main().includes('Objetivo de aprendizagem'));
+  assert.ok(!main().includes('camara-inline-chapter'));
   assert.ok(!main().includes('camara-chapter-grid'));
+  go('#topic/01/1/chamber');
+  assert.ok(main().includes('A medicina hiperbárica estuda aplicações clínicas'));
+  assert.ok(main().includes('camara-quiz'));
   assert.ok(footer().includes('href="#chamber" class="active"'));
   const target={dataset:{camaraAnswer:'1',camaraId:'camara-01'},hasAttribute:()=>false};
   for(const cb of answerEvents)cb({target:{closest:sel=>sel==='button'?target:null},preventDefault(){}});
@@ -127,7 +133,7 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   // Repetição não duplica conclusão.
   for(const cb of answerEvents)cb({target:{closest:sel=>sel==='button'?target:null},preventDefault(){}});
   assert.equal(JSON.parse(store.get('hyperbaric-campus-v1')).completed.filter(x=>x==='camara-01').length,1);
-  go('#module/02/chamber');
+  go('#topic/02/0/chamber');
   assert.ok(main().includes('id="camara-pressure"'));
   assert.ok(main().includes('id="camara-calc-answer"'));
   go('#home');
