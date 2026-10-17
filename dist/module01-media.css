@@ -2,9 +2,6 @@
 .topic .m01-media{display:grid;gap:13px;margin:14px 0 24px;font-family:var(--sans,'Saira Semi Condensed',sans-serif)}
 .topic .m01-media .m01-kicker{color:var(--gold,#F7C75B);font:600 12px/1.4 var(--sans);letter-spacing:1.4px}
 .topic .m01-media .m01-hint{color:var(--muted,#bbcdd1);font-size:12px;line-height:1.5;margin:2px 0 9px}
-.topic .m01-media .m01-figure{margin:0;border:1px solid var(--card-border-gold,#b59b6c);background:#071d29;border-radius:13px;overflow:hidden}
-.topic .m01-media .m01-figure img{width:100%;height:auto;display:block;max-width:100%;object-fit:contain;image-rendering:auto}
-.topic .m01-media .m01-figure figcaption{font:400 11px/1.4 var(--sans);color:var(--muted,#bbcdd1);padding:9px 11px}
 .topic .m01-media .m01-panel{border:1px solid var(--card-border-gold,#b59b6c);border-radius:13px;background:#0b2531;padding:14px;min-width:0}
 .topic .m01-media .m01-panel h2{font:600 16px/1.25 var(--sans);color:var(--gold,#F7C75B);margin:0 0 9px}
 .topic .m01-media .m01-panel p{font:400 12px/1.5 var(--sans)}
@@ -47,9 +44,11 @@
 @media(max-width:355px){.topic .m01-media .m01-stepper,.topic .m01-media .m01-hotspot-list{grid-template-columns:1fr}.topic .m01-media .m01-hotspot-list button:last-child{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){.topic .m01-media .m01-progress i{transition:none}}
 
-/* Imagens em alta definição, sem sprite e sem duplicação de texto. */
-.topic .m01-media .m01-zoom{display:block;position:relative;background:#071d29;overflow:hidden}
-.topic .m01-media .m01-zoom:focus-visible{outline:2px solid var(--gold,#F7C75B);outline-offset:-4px}
-.topic .m01-media .m01-zoom::after{content:'Ampliar ↗';position:absolute;right:9px;bottom:9px;border:1px solid #d8bf81aa;border-radius:9px;background:#061b28d9;color:#ffdfa4;font:600 11px/1.1 var(--sans);padding:7px 9px}
-.topic .m01-media .m01-figure figcaption{padding:8px 11px;color:var(--muted,#bbcdd1);font-size:11px;line-height:1.35}
-@media(prefers-reduced-motion:reduce){.topic .m01-media .m01-zoom::after{transition:none}}
+/* As imagens independentes são inseridas entre os parágrafos, não numa galeria. */
+
+.topic .m01-context-figure{display:block;margin:13px 0 20px;background:#061c29;border:1px solid var(--card-border-gold,#b59b6c);border-radius:14px;overflow:hidden;max-width:100%;box-sizing:border-box}
+.topic .m01-context-figure img{display:block;width:100%;height:auto;object-fit:contain;image-rendering:auto;max-width:100%;border:0}
+.topic .m01-context-figure[data-m01-picture="oxigenio"] img{aspect-ratio:738/455}
+.topic .topic-reading + .m01-context-figure{margin-top:10px}
+.topic .m01-context-figure + .topic-reading{margin-top:18px}
+.topic .m01-context-figure + .m01-context-figure{margin-top:15px}
