@@ -1,8 +1,8 @@
 // OXYGENNA — Módulo 01: mídias nativas às páginas #topic/01/*, sem segundo aplicativo.
-const base='./assets/m01-';
+// Atlas fotográfico de 6 imagens, incorporado à pasta pública do app.
 const photo=Object.freeze({
- timeline:base+'timeline.avif', oxygen:base+'oxigenio.avif',
- chambers:base+'camaras.avif',explore:base+'explore.avif',journey:base+'jornada.avif'
+ timeline:'timeline', oxygen:'oxygen', chambers:'chambers',
+ explore:'explore', journey:'journey'
 });
 const steps=[
  ['Preparação','Orientação, triagem e conferência do equipamento antes do início.'],
@@ -33,7 +33,7 @@ const quiz=[
 ];
 const copy={pt:{media:'EXPLORAÇÃO VISUAL',caption:'Ilustração cinematográfica didática; não representa protocolo clínico nem dispositivo específico.',watch:'ANIMAÇÃO GUIADA',hotspot:'EXPLORAR COMPONENTES',timeline:'ETAPAS DA EVOLUÇÃO',pressure:'VARIAÇÃO DE PRESSÃO',quiz:'ATIVIDADE RÁPIDA',check:'CONFERIR',again:'TENTAR NOVAMENTE',next:'PRÓXIMA CENA',play:'REPRODUZIR',pause:'PAUSAR',feedbackGood:'Resposta correta.',feedbackBad:'Reveja a explicação.'},en:{media:'VISUAL EXPLORATION',caption:'Illustrative cinematic teaching image; not a clinical protocol or specific device.',watch:'GUIDED ANIMATION',hotspot:'EXPLORE COMPONENTS',timeline:'HISTORICAL STAGES',pressure:'PRESSURE SIMULATOR',quiz:'QUICK ACTIVITY',check:'CHECK',again:'TRY AGAIN',next:'NEXT SCENE',play:'PLAY',pause:'PAUSE',feedbackGood:'Correct.',feedbackBad:'Review the explanation.'},es:{media:'EXPLORACIÓN VISUAL',caption:'Imagen cinematográfica educativa; no representa un protocolo clínico ni equipo específico.',watch:'ANIMACIÓN GUIADA',hotspot:'EXPLORAR COMPONENTES',timeline:'ETAPAS HISTÓRICAS',pressure:'SIMULADOR DE PRESIÓN',quiz:'ACTIVIDAD RÁPIDA',check:'COMPROBAR',again:'INTENTAR DE NUEVO',next:'SIGUIENTE ESCENA',play:'REPRODUCIR',pause:'PAUSAR',feedbackGood:'Correcto.',feedbackBad:'Revisa la explicación.'}};
 const msg=lang=>copy[lang]??copy.pt;
-const figure=(src,alt,e,caption)=>'<figure class="m01-figure"><img loading="lazy" decoding="async" src="'+src+'" alt="'+e(alt)+'"><figcaption>'+e(caption)+'</figcaption></figure>';
+const figure=(key,alt,e,caption)=>'<figure class="m01-figure"><div class="m01-sprite" role="img" aria-label="'+e(alt)+'" data-m01-photo="'+key+'"></div><figcaption>'+e(caption)+'</figcaption></figure>';
 const mediaHeader=(label,desc,e)=>'<div class="m01-kicker">'+e(label)+'</div>'+(desc?'<p class="m01-hint" lang="pt-BR">'+e(desc)+'</p>':'');
 const quizHTML=(i,{lang,e})=>{
  const data=quiz[i],c=msg(lang);
