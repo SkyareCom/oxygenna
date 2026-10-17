@@ -1,5 +1,6 @@
 import {renderChapterClinical} from './clinical-view.mjs';
 import {renderCamaraTopicExtras} from './camara-view.mjs?rev=topic-cards-20261017';
+import {renderModule01Media} from './module01-media.mjs';
 import {camaraAtTopic,topicReading} from './topic-readings.mjs';
 import {phases,curriculumUI,getModule} from './curriculum.mjs';
 import {navigationUI,sectionModules,normalizeContext,getCurriculumItems,moduleHref,lessonHref,mapHref} from './navigation.mjs';
@@ -49,7 +50,7 @@ export function renderModuleTopic(moduleId,topicIndex,{lang,lessons,e,icon,back,
   '<h1 class="display page-title">'+e(topic)+'</h1>'+
   (lang==='pt'?'':'<p class="micro">'+e(note)+'</p>')+
   '<article class="panel topic-reading" lang="pt-BR">'+(notes?.length?notes.map(p=>'<p>'+e(p)+'</p>').join(''):'<p>'+e(m.pt.objective)+'</p>')+'</article>'+
-  (camaraId?renderCamaraTopicExtras(camaraId,{lang,e,answers:camaraAnswers}):'')+
+  (m.id==='01'?renderModule01Media(m.id,n,{lang,e}):(camaraId?renderCamaraTopicExtras(camaraId,{lang,e,answers:camaraAnswers}):''))+
   '<details class="topic-references"><summary>'+e(more)+'</summary>'+sourceLinks(m.sources)+'</details>'+
   '<nav class="module-navigation topic-navigation" aria-label="'+e(heading)+'">'+previous+next+'</nav>';
 }
