@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" role="img" aria-labelledby="title desc">
+<title id="title">Como avaliar uma indicação de oxigenoterapia hiperbárica</title><desc id="desc">Fluxograma de decisão com diagnóstico, evidência, seleção, tratamento conjunto e reavaliação.</desc>
+<rect width="720" height="540" fill="#071d29"/><rect x="15" y="15" width="690" height="510" rx="22" fill="#0a2b39" stroke="#b6a06f" stroke-width="2"/>
+<g font-family="Saira Semi Condensed, sans-serif"><text x="40" y="56" fill="#e6ce9e" font-size="25" font-weight="600">DA EVIDÊNCIA À DECISÃO</text><text x="40" y="83" fill="#bed2d8" font-size="17">Uma indicação não é apenas o nome de uma doença</text></g>
+<g fill="#123c4c" stroke="#be9d62" stroke-width="2">
+<rect x="125" y="108" width="470" height="62" rx="13"/>
+<rect x="125" y="190" width="470" height="62" rx="13"/>
+<rect x="125" y="272" width="470" height="62" rx="13"/>
+<rect x="125" y="354" width="470" height="62" rx="13"/>
+</g>
+<g stroke="#72c8c2" stroke-width="3" fill="none" stroke-linecap="round"><path d="M360 170V188m-8-7 8 7 8-7M360 252V270m-8-7 8 7 8-7M360 334V352m-8-7 8 7 8-7"/></g>
+<g font-family="Saira Semi Condensed, sans-serif" text-anchor="middle" fill="#edf4f4">
+<text x="360" y="132" font-size="18" font-weight="600">1. Diagnóstico e objetivo clínico</text><text x="360" y="155" font-size="14" fill="#b4ced4">Qual problema se pretende tratar?</text>
+<text x="360" y="214" font-size="18" font-weight="600">2. Evidência e recomendação</text><text x="360" y="237" font-size="14" fill="#b4ced4">Há benefício demonstrado nesse contexto?</text>
+<text x="360" y="296" font-size="18" font-weight="600">3. Seleção, riscos e terapias de base</text><text x="360" y="319" font-size="14" fill="#b4ced4">A OHB acrescenta algo ao cuidado essencial?</text>
+<text x="360" y="378" font-size="18" font-weight="600">4. Acompanhamento e reavaliação</text><text x="360" y="401" font-size="14" fill="#b4ced4">Os resultados justificam continuar?</text>
+</g>
+<rect x="65" y="442" width="590" height="45" rx="12" fill="#193d43" stroke="#70c8c7"/>
+<text x="360" y="469" text-anchor="middle" fill="#f0d69a" font-family="Saira Semi Condensed, sans-serif" font-size="17">OHB é adjuvante em muitas indicações — não substitui o tratamento principal</text>
+<text x="40" y="512" fill="#b8cbd2" font-family="Saira Semi Condensed, sans-serif" font-size="14">Fluxograma didático, não protocolo de prescrição</text>
+</svg>
