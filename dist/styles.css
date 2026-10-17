@@ -89,3 +89,34 @@ main{padding-bottom:calc(132px + env(safe-area-inset-bottom))}.display{font-weig
 
 /* Clinical records are available inside their mapped chapters. */
 .chapter-clinical{margin:24px 0}.clinical-chapter-record{padding:0;margin:10px 0;border:1px solid var(--card-border-gold);border-radius:12px;background:#0a2431;overflow:hidden}.clinical-chapter-record>summary{display:flex;align-items:center;gap:12px;height:53px;min-height:53px;padding:6px 14px;cursor:pointer;list-style:none}.clinical-chapter-record>summary::-webkit-details-marker{display:none}.clinical-chapter-record>summary strong{flex:1;min-width:0;font-size:16px;font-weight:600;line-height:20px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.clinical-chapter-record>summary>.icon{flex:none;width:16px;height:16px}.clinical-chapter-record:has(>summary:is(:hover,:active,:focus-visible)){border-color:var(--gold);--card-arrow-gold:var(--gold)}.clinical-chapter-record>summary:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}.clinical-chapter-record[open]>summary{border-bottom:1px solid var(--card-border-gold)}.clinical-chapter-body{padding:16px}.clinical-chapter-body>p{font-size:16px;line-height:1.6}.clinical-chapter-body>.clinical-status{font-size:12px}.clinical-field-title{font-size:16px;font-weight:600;margin:16px 0 6px}.clinical-chapter-body>.clinical-pair{margin:16px 0}
+
+/* Temas do módulo — título livre e 6 cards de 55px; não alterar o shell original. */
+.module .module-topic-section{margin:15px 0 26px}
+.module .module-topic-title{font:600 16px/1.35 var(--sans);color:var(--gold);margin:0 0 13px;letter-spacing:1.3px;text-transform:uppercase}
+.module .module-topic-list{display:grid;gap:8px}
+.module .module-topic-card{height:55px;min-height:55px;max-height:55px;border:1px solid var(--card-border-gold);background:#0a2431;border-radius:12px;gap:11px}
+.module .module-topic-card .lesson-number{font:400 12px/1 var(--sans);color:var(--gold);min-width:21px}
+.module .module-topic-card strong{font:600 14px/1.25 var(--sans);color:var(--text);letter-spacing:0;max-height:2.5em;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.module .module-topic-card .icon{width:15px;height:15px;color:var(--gold)}
+.module :is(.module-related-lessons,.module-prerequisites,.module-sources){margin:17px 0}
+.topic .topic-reading{padding:16px 17px;border:1px solid var(--card-border-gold);border-radius:14px}
+.topic .topic-reading p{font:400 14px/1.65 var(--sans);color:var(--text);margin:0 0 13px}
+.topic .topic-reading p:last-child{margin-bottom:0}
+.topic .camara-topic-extras .panel{padding:16px;margin:14px 0;border:1px solid var(--card-border-gold);border-radius:12px}
+.topic .camara-topic-extras .panel h2{font:600 16px/1.3 var(--sans);color:var(--gold);margin:0 0 10px}
+.topic .camara-topic-extras .panel p{font:400 14px/1.6 var(--sans)}
+.topic .camara-topic-extras .camara-flow{list-style:none;display:grid;gap:6px;margin:0;padding:0}
+.topic .camara-topic-extras .camara-flow li{display:flex;align-items:center;gap:10px;padding:8px;border-radius:9px;border:1px solid var(--line);font-size:12px}
+.topic .camara-topic-extras .camara-step-count{display:grid;place-items:center;border:1px solid var(--gold);border-radius:50%;color:var(--gold);width:25px;height:25px;flex:none}
+.topic .camara-topic-extras .camara-figure{margin:14px 0;border-radius:13px;overflow:hidden;border:1px solid var(--card-border-gold);background:#092431}
+.topic .camara-topic-extras .camara-figure img{display:block;width:100%;max-height:320px;object-fit:contain;padding:10px}
+.topic .camara-topic-extras .camara-figure figcaption{font-size:12px;padding:9px 12px;color:var(--muted)}
+.topic .camara-topic-extras .camara-lab input[type=range]{width:100%;accent-color:var(--gold)}
+.topic .camara-topic-extras .camara-lab output{color:var(--gold)}
+.topic .camara-topic-extras .camara-checklist label{display:flex;align-items:center;gap:9px;font-size:14px;margin:9px 0}
+.topic .camara-topic-extras .camara-quiz .answer{border-color:var(--card-border-gold);font-size:14px}
+.topic .camara-topic-extras .camara-calc-row{display:flex;gap:8px;flex-wrap:wrap}
+.topic .camara-topic-extras .camara-calc-row input{flex:1;min-width:95px;background:#061923;border:1px solid var(--card-border-gold);color:var(--text);border-radius:9px;padding:10px}
+.topic .topic-navigation{margin:20px 0 10px}
+.topic .topic-references{margin:18px 0}
+@media(max-width:360px){.module .module-topic-card{padding:8px 10px;gap:8px}.module .module-topic-card strong{font-size:13px}}
