@@ -1,6 +1,6 @@
 import {camaraLessons,camaraLesson,camaraBoyle,camaraPIO2} from './camara-data.mjs';
 import {camaraDepth} from './camara-depth.mjs';
-import {camaraModuleForLesson,camaraLessonsForModule} from './camara-module-map.mjs';
+import {camaraModuleForLesson,camaraLessonsForModule} from './camara-module-map.mjs?rev=camara-6mod-20261017';
 
 /**
  * OXYGENNA — CÂMARA, dentro do frontend ORIGINAL.
