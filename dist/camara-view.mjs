@@ -73,6 +73,19 @@ function renderCamaraBody(lesson,{lang,e,answers}){
   '<section class="panel camara-summary"><h2>'+e(n.summary)+'</h2><p lang="pt-BR">'+e(lesson.audio.script)+'</p></section>'+
   renderActivity(lesson,{lang,e,answers});
 }
+/** Reaproveita uma única vez as mídias e a atividade da aula associada ao tema.
+ * Não repete os parágrafos introdutórios nem a seção OBJETIVO.
+ */
+export function renderCamaraTopicExtras(lessonId,{lang='pt',e,answers=new Map()}){
+ const lesson=camaraLesson(lessonId);if(!lesson)return '';
+ const n=ui(lang),data=camaraDepth[lessonId];
+ const img={'camara-07':'seguranca-camara.svg','camara-08':'evidencia-indicacoes.svg'}[lessonId];
+ return '<div class="camara-topic-extras">'+
+  (lesson.media||[]).filter(m=>m.type!=='animation-plan'&&m.type!=='evidence-map').map(m=>renderMedia(m,{lang,e})).join('')+
+  (img?'<figure class="camara-figure"><img src="./assets/'+img+'" alt="'+e(data?.visualTitle||lesson.title)+'" loading="lazy"><figcaption>'+e(data?.visualTitle||lesson.title)+'</figcaption></figure>':'')+
+  (data?'<section class="panel camara-visual-sequence"><h2>'+e(data.visualTitle)+'</h2><ol class="camara-flow">'+data.visualSteps.map((step,i)=>'<li><span class="camara-step-count">'+(i+1)+'</span><span lang="pt-BR">'+e(step)+'</span></li>').join('')+'</ol></section>':'')+
+  renderActivity(lesson,{lang,e,answers})+'</div>';
+}
 export function renderCamaraModuleContent(moduleId,{lang='pt',e,icon,answers=new Map(),completed=[]}){
  const ids=camaraLessonsForModule(moduleId);
  if(!ids.length)return '';

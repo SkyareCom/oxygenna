@@ -1,5 +1,5 @@
 import {curriculumUI,modules} from './curriculum.mjs';
-import {renderCurriculum,renderModule} from './curriculum-view.mjs?rev=camara-6mod-20261017';
+import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view.mjs?rev=topic-cards-20261017';
 import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,getNextLesson,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
 import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs';
 import {renderFocusCard,renderFocus} from './focus-view.mjs';
@@ -72,6 +72,7 @@ function render(){
  else if(sectionModules[section])page=renderCurriculum(section,{...curriculumOptions,catalog:['indications','protocols'].includes(section)?renderClinicalCatalog(section==='indications'?'indication':'protocol',curriculumOptions):'',illustration:section==='chamber'?art('chamber-art'):'',tools:section==='chamber'?`<a class="secondary" href="#lab">${icon('flask')}${n.tools}${icon('right')}</a>`:''});
  else if(section==='curriculum')page=renderCurriculum(id,curriculumOptions);
  else if(section==='module')page=renderModule(id,{...curriculumOptions,notFound,context,camaraAnswers:selectedCamaraAnswers,camaraCompleted:state.completed});
+ else if(section==='topic')page=renderModuleTopic(id,context,{...curriculumOptions,context:route.split('/')[3],notFound,camaraAnswers:selectedCamaraAnswers});
  else page=notFound();
  const unread=NOTICE_IDS.some(id=>!readNotices.includes(id));
  document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:activeSection(route),icon,e})}`;
