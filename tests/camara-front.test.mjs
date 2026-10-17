@@ -114,7 +114,7 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   const footer=()=>html.match(/<nav class="bottom-nav[\s\S]*?<\/nav>/)?.[0]??'';
   assert.equal((footer().match(/<a /g)||[]).length,5);
   go('#module/01/chamber');
-  assert.ok(main().includes('TEMAS DO MÓDULO'));
+  assert.ok(main().includes('Temas do módulo'));
   assert.ok(main().includes('História e desenvolvimento'));
   assert.ok(main().includes('Câmaras monoplace e multiplace'));
   assert.ok(main().includes('href="#topic/01/1/chamber"'));
