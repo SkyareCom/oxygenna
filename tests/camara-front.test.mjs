@@ -43,6 +43,20 @@ test('cada página mantém back contextual, conteúdo, atividade e a navegação
  assert.equal(renderCamaraDetail('unknown',ctx),'<p>404</p>');
  assert.equal(activeSection('camara/camara-01'),'chamber');
 });
+test('não há gerador de catálogo duplicado e módulos 07/08 ficam fora de CÂMARA',()=>{
+ const view=readFileSync(new URL('../dist/camara-view.mjs',import.meta.url),'utf8');
+ const app=readFileSync(new URL('../dist/app.mjs',import.meta.url),'utf8');
+ const css=readFileSync(new URL('../dist/camara.css',import.meta.url),'utf8');
+ const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
+ assert.ok(!view.includes('renderCamaraCatalog'),'grade antiga não deve mais existir');
+ assert.ok(!view.includes('camara-chapter-grid'),'nenhum card paralelo');
+ assert.ok(!app.includes('renderCamaraCatalog'),'não inserir catálogo na aba');
+ assert.ok(!css.includes('.camara-chapter-grid'),'CSS antigo eliminado');
+ assert.ok(html.includes('app.mjs?rev=camara-6mod-20261017'),'novo JS deve carregar com versão');
+ assert.equal(Object.values(CAMARA_MODULE_LESSONS).flat().length,8);
+ assert.ok(!('07' in CAMARA_MODULE_LESSONS));
+ assert.ok(!('08' in CAMARA_MODULE_LESSONS));
+});
 test('atividades científicas validam resultado, unidades e resposta',()=>{
  assert.equal(camaraBoyle(2.5),0.4);
  assert.equal(camaraPIO2(2.4,1),1777);
