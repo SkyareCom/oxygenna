@@ -1,5 +1,6 @@
 import {camaraLessons,camaraLesson,camaraData,camaraBoyle,camaraPIO2} from './camara-data.mjs';
 import {camaraDepth} from './camara-depth.mjs';
+import {camaraModuleForLesson,camaraLessonsForModule} from './camara-module-map.mjs';
 
 /**
  * OXYGENNA — CÂMARA, dentro do frontend ORIGINAL.
@@ -74,20 +75,46 @@ function renderActivity(lesson,{lang,e,answers}){
   '<button type="button" class="secondary" data-camara-calc="'+e(lesson.id)+'" '+(done?'disabled':'')+'>'+e(n.check)+'</button></div>'+feedback+'</section>';
  return '';
 }
-export function renderCamaraDetail(id,{lang='pt',e,icon,back,completed=[],answers=new Map(),notFound}){
- const lesson=camaraLesson(id);if(!lesson)return notFound();
- const n=ui(lang),index=camaraLessons.indexOf(lesson),before=camaraLessons[index-1],after=camaraLessons[index+1];
- const title='<p class="tag">'+e(n.step)+' '+String(index+1).padStart(2,'0')+' / 08</p><h1 class="display page-title" lang="pt-BR">'+e(lesson.title)+'</h1>';
- return back('#chamber')+title+(n.sourceContent?'<p class="micro" lang="pt-BR">'+e(n.sourceContent)+'</p>':'')+
-  '<section class="panel camara-objective"><h2>'+e(n.objective)+'</h2><p lang="pt-BR">'+e(lesson.objective)+'</p></section>'+
+function renderCamaraBody(lesson,{lang,e,answers}){
+ const n=ui(lang);
+ return (n.sourceContent?'<p class="micro" lang="pt-BR">'+e(n.sourceContent)+'</p>':'')+
+'<section class="panel camara-objective"><h2>'+e(n.objective)+'</h2><p lang="pt-BR">'+e(lesson.objective)+'</p></section>'+
   '<article class="panel camara-prose"><h2>'+e(n.essentials)+'</h2>'+lesson.paragraphs.map(p=>mediaText(p,e)).join('')+'</article>'+
   (lesson.media||[]).map(m=>renderMedia(m,{lang,e})).join('')+renderCamaraDepth(lesson,{e})+
   '<section class="panel camara-points"><h2>'+e(n.key)+'</h2><ul>'+lesson.keyPoints.map(p=>'<li lang="pt-BR">'+e(p)+'</li>').join('')+'</ul></section>'+
   '<section class="panel camara-nuance"><h2>'+e(n.nuance)+'</h2><p lang="pt-BR">'+e(lesson.clinicalNuance)+'</p></section>'+
   '<section class="panel camara-summary"><h2>'+e(n.summary)+'</h2><p lang="pt-BR">'+e(lesson.audio.script)+'</p></section>'+
-  renderActivity(lesson,{lang,e,answers})+
+  renderActivity(lesson,{lang,e,answers});
+}
+export function renderCamaraModuleContent(moduleId,{lang='pt',e,icon,answers=new Map(),completed=[]}){
+ const ids=camaraLessonsForModule(moduleId);
+ if(!ids.length)return '';
+ const n=ui(lang),done=new Set(completed);
+ const heading={pt:'CONTEÚDOS DO CAPÍTULO',en:'CHAPTER CONTENT',es:'CONTENIDOS DEL CAPÍTULO'}[lang]||'CONTEÚDOS DO CAPÍTULO';
+ const hint={pt:'Abra cada tema para estudar as explicações, ilustrações e atividades.',en:'Open each topic for explanations, illustrations and activities.',es:'Abre cada tema para ver explicaciones, ilustraciones y actividades.'}[lang];
+ return '<section class="camara-in-module" aria-label="'+e(heading)+'"><p class="tag">'+e(heading)+'</p>'+
+  '<p class="subtle camara-module-hint">'+e(hint)+'</p>'+
+  ids.map(id=>{
+   const lesson=camaraLesson(id);
+   if(!lesson)return '';
+   const complete=done.has(id);
+   return '<details class="camara-inline-chapter" data-camara-id="'+e(id)+'" id="conteudo-'+e(id)+'">'+
+    '<summary><span class="camara-inline-title" lang="pt-BR">'+e(lesson.title)+'</span>'+
+    (complete?'<span class="camara-inline-done">'+e(n.completed)+'</span>':'')+
+    icon('right')+'</summary>'+
+    '<div class="camara-inline-body">'+renderCamaraBody(lesson,{lang,e,answers})+'</div></details>';
+  }).join('')+'</section>';
+}
+/** Mantido para links antigos; o conteúdo principal agora vive dentro dos módulos. */
+export function renderCamaraDetail(id,{lang='pt',e,icon,back,completed=[],answers=new Map(),notFound}){
+ const lesson=camaraLesson(id);if(!lesson)return notFound();
+ const n=ui(lang),index=camaraLessons.indexOf(lesson),before=camaraLessons[index-1],after=camaraLessons[index+1];
+ const moduleId=camaraModuleForLesson(id);
+ const contextReturn=moduleId?'#module/'+moduleId+'/chamber':'#chamber';
+ const title='<p class="tag">'+e(n.step)+' '+String(index+1).padStart(2,'0')+' / 08</p><h1 class="display page-title" lang="pt-BR">'+e(lesson.title)+'</h1>';
+ return back(contextReturn)+title+renderCamaraBody(lesson,{lang,e,answers})+
   '<nav class="module-navigation camara-step-nav" aria-label="'+e(n.step)+'">'+
-  (before?'<a class="secondary" href="#camara/'+before.id+'">'+icon('left')+e(n.previous)+'</a>':'<a class="secondary" href="#chamber">'+icon('left')+e(n.end)+'</a>')+
-  (after?'<a class="secondary" href="#camara/'+after.id+'">'+e(n.next)+icon('right')+'</a>':'<a class="secondary" href="#chamber">'+e(n.end)+icon('right')+'</a>')+
+  (before?'<a class="secondary" href="#camara/'+before.id+'">'+icon('left')+e(n.previous)+'</a>':'<a class="secondary" href="'+contextReturn+'">'+icon('left')+e(n.end)+'</a>')+
+  (after?'<a class="secondary" href="#camara/'+after.id+'">'+e(n.next)+icon('right')+'</a>':'<a class="secondary" href="'+contextReturn+'">'+e(n.end)+icon('right')+'</a>')+
   '</nav>';
 }
