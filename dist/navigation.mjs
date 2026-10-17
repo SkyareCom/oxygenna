@@ -22,6 +22,8 @@ export function activeSection(route){
  if(sectionModules[page])return page;
  if(page==='lab')return 'chamber';
  if(page==='camara')return 'chamber';
+ if(page==='topic'&&sectionModules[normalizeContext(route.split('/')[3])])return route.split('/')[3];
+ if(page==='topic')return 'chapters';
  if(page==='indication')return 'indications';
  if(page==='protocol')return 'protocols';
  if(['module','lesson'].includes(page)&&sectionModules[normalizeContext(context)])return context;
