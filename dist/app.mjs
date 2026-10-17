@@ -1,5 +1,5 @@
 import {curriculumUI,modules} from './curriculum.mjs';
-import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view.mjs?rev=m01-context-20261017';
+import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view.mjs?rev=borda-unica-20261017';
 import {handleModule01Click,handleModule01Input} from './module01-media.mjs';
 import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,getNextLesson,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
 import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs';
