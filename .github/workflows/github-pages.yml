@@ -1,0 +1,68 @@
+name: OXYGENNA — Publicação GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "dist/**"
+      - "tests/**"
+      - "package.json"
+      - ".github/workflows/github-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  verificar:
+    name: Testar e empacotar aplicativo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código original
+        uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Testar todas as rotas e conteúdos
+        run: npm test
+      - name: Verificar arquivos fundamentais
+        shell: bash
+        run: |
+          test -f dist/index.html
+          test -f dist/app.mjs
+          test -f dist/camara-view.mjs
+          test -f dist/camara-depth.mjs
+          test -f dist/assets/seguranca-camara.svg
+          test -f dist/assets/evidencia-indicacoes.svg
+          ! grep -q 'chatgpt.site' dist/index.html
+      - name: Guardar versão estática completa
+        uses: actions/upload-artifact@v4
+        with:
+          name: oxygenna-site-static
+          path: dist/
+          retention-days: 30
+      - name: Preparar artifact GitHub Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/
+
+  publicar:
+    name: Publicar no GitHub Pages
+    needs: verificar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Publicar aplicativo
+        id: deployment
+        uses: actions/deploy-pages@v4
