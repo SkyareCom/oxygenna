@@ -22,7 +22,7 @@ export const topicReadings = {
       "Essas responsabilidades se articulam antes, durante e depois da sessão. Comunicação funcional, listas de verificação, manutenção do equipamento e treinamento para emergências integram o cuidado. Nenhuma função deve ser improvisada, e a organização exata depende da regulamentação e do modelo de câmara."
     ],
     [
-      "O vocabulário técnico distingue conceitos que parecem semelhantes. **ATA** expressa atmosferas absolutas; **FiO₂** é a fração inspirada de oxigênio; **PIO₂** é a pressão parcial inspirada de oxigênio; **PaO₂** descreve a pressão parcial arterial, medida no sangue. **OHB** significa oxigenoterapia hiperbárica; **barotrauma** designa lesão relacionada a diferenças de pressão.",
+      "O vocabulário técnico distingue conceitos que parecem semelhantes. ATA expressa atmosferas absolutas; FiO₂ é a fração inspirada de oxigênio; PIO₂ é a pressão parcial inspirada de oxigênio; PaO₂ descreve a pressão parcial arterial, medida no sangue. OHB significa oxigenoterapia hiperbárica; barotrauma designa lesão relacionada a diferenças de pressão.",
       "Correspondências úteis: *hyperbaric oxygen therapy* (inglês) e *oxigenoterapia hiperbárica* (espanhol); *monoplace chamber* e *cámara monoplaza*; *multiplace chamber* e *cámara multiplaza*; *equalization* e *compensación de presión*. Termos traduzidos preservam diferenças entre pressão absoluta, fração de gás e medidas de oxigenação."
     ]
   ],
@@ -142,7 +142,7 @@ export function topicReading(moduleId,topicIndex){return topicReadings[moduleId]
 export function camaraAtTopic(moduleId,topicIndex){return cameraLessonAtTopic[moduleId+':'+topicIndex]??null;}
 
 /** Notas introdutórias específicas para os demais 18 módulos; sem repetição de textos entre temas. */
-Object.assign(topicReadings, {
+const supplementalTopicReadings = {
   "10": [
     "No esmagamento, a lesão tecidual envolve trauma direto, redução de perfusão e resposta à reperfusão. A prioridade é reconhecer ameaças à vida e ao membro, com intervenção de urgência quando indicada.",
     "Na síndrome compartimental, a pressão no interior de um compartimento pode comprometer a perfusão. O reconhecimento e a avaliação cirúrgica urgentes são fundamentais; nenhuma terapia adjuvante deve retardar a conduta definitiva.",
@@ -287,4 +287,5 @@ Object.assign(topicReadings, {
     "A avaliação de OHB depende da gravidade, do contexto e das recomendações aplicáveis; critérios entre instituições podem divergir. O oxigênio e as medidas de suporte não devem ser atrasados enquanto se discute uma modalidade adjuvante.",
     "O seguimento deve considerar sintomas cognitivos e neurológicos posteriores, além de problemas associados ao evento inicial. Recuperação aparentemente rápida não exclui necessidade de orientação e avaliação clínica."
   ]
-});
+};
+for(const [id,paragraphs] of Object.entries(supplementalTopicReadings)) topicReadings[id]=paragraphs.map(p=>[p]);
