@@ -44,11 +44,10 @@
 @media(max-width:355px){.topic .m01-media .m01-stepper,.topic .m01-media .m01-hotspot-list{grid-template-columns:1fr}.topic .m01-media .m01-hotspot-list button:last-child{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){.topic .m01-media .m01-progress i{transition:none}}
 
-/* As imagens independentes são inseridas entre os parágrafos, não numa galeria. */
+/* Moldura única: só o contêiner tem borda, idêntica aos cards normais. */
 
 .topic .m01-context-figure{display:block;margin:13px 0 20px;background:#061c29;border:1px solid var(--card-border-gold,#b59b6c);border-radius:14px;overflow:hidden;max-width:100%;box-sizing:border-box}
-.topic .m01-context-figure img{display:block;width:100%;height:auto;object-fit:contain;image-rendering:auto;max-width:100%;border:0}
-.topic .m01-context-figure[data-m01-picture="oxigenio"] img{aspect-ratio:738/455}
+.topic .m01-context-figure img{display:block;width:100%;height:auto;object-fit:contain;image-rendering:auto;max-width:100%;border:0;outline:0;box-shadow:none;border-radius:0}
 .topic .topic-reading + .m01-context-figure{margin-top:10px}
 .topic .m01-context-figure + .topic-reading{margin-top:18px}
 .topic .m01-context-figure + .m01-context-figure{margin-top:15px}
