@@ -1,12 +1,12 @@
 import {curriculumUI,modules} from './curriculum.mjs';
-import {renderCurriculum,renderModule} from './curriculum-view.mjs';
-import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,getNextLesson,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs';
+import {renderCurriculum,renderModule} from './curriculum-view.mjs?rev=camara-6mod-20261017';
+import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,getNextLesson,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
 import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs';
 import {renderFocusCard,renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
 import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,thermalRatio,pressureUnits} from './core.mjs';
 import {tracks,lessons,sources} from './content.mjs';
-import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs';
+import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=camara-6mod-20261017';
 import {camaraAnswer} from './camara-data.mjs';
 
 const UI={
