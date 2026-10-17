@@ -27,20 +27,28 @@ test('módulos além do 01 preservam fluxo prévio e mídias originais',()=>{
  assert.equal(renderModule01Media('03',0,ctx),'');
  assert.ok(!renderModuleTopic('02',0,ctx).includes('data-m01-topic='));
 });
-test('fotografias estão no atlas estático do próprio app e nunca em URLs externas',()=>{
+test('fotografias independentes em alta definição substituem atlas pixelado',()=>{
  const css=readFileSync(new URL('../dist/module01-media.css',import.meta.url),'utf8');
  const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
  const app=readFileSync(new URL('../dist/app.mjs',import.meta.url),'utf8');
  const source=readFileSync(new URL('../dist/module01-media.mjs',import.meta.url),'utf8');
- assert.match(css,/m01-atlas.avif/);
- for(const photo of ['timeline','oxygen','chambers','explore','journey'])
-  assert.ok(css.includes('[data-m01-photo="'+photo+'"]'),photo);
- assert.ok(html.includes('./module01-media.css?rev=m01-media-20261017'));
- assert.ok(html.includes('./app.mjs?rev=m01-media-20261017'));
+ assert.doesNotMatch(css,/m01-atlas|m01-sprite/);
+ assert.doesNotMatch(source,/m01-atlas|m01-sprite/);
+ for(const photo of ['timeline','oxygen','chambers','explore','journey']){
+  const path='../dist/assets/m01-'+photo+'.webp';
+  const binary=readFileSync(new URL(path,import.meta.url));
+  assert.ok(binary.length>80000,photo+' não pode voltar a miniatura de baixa resolução');
+  assert.equal(binary.subarray(0,4).toString('ascii'),'RIFF',photo);
+  assert.equal(binary.subarray(8,12).toString('ascii'),'WEBP',photo);
+  assert.ok(source.includes('./assets/m01-'+photo+'.webp'),photo);
+ }
+ const topic=renderModuleTopic('01',2,ctx);
+ assert.ok(topic.includes('<img src="./assets/m01-oxygen.webp"'));
+ assert.ok(topic.includes('class="m01-zoom"'));
+ assert.ok(!topic.includes('m01-atlas.avif'));
+ assert.ok(html.includes('./module01-media.css?rev=m01-hd-20261017'));
+ assert.ok(html.includes('./app.mjs?rev=m01-hd-20261017'));
  assert.ok(app.includes('handleModule01Click(event.target)'));
  assert.ok(app.includes('handleModule01Input(event.target)'));
- const atlas=readFileSync(new URL('../dist/assets/m01-atlas.avif',import.meta.url));
- assert.equal(atlas.subarray(4,12).toString('ascii'),'ftypavif');
- assert.ok(atlas.length>1000);
- assert.doesNotMatch(source,/https?:\/\//);
+ assert.ok(!source.includes('https://')&&!source.includes('http://'));
 });
