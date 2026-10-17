@@ -4,11 +4,13 @@ on:
     paths:
       - "dist/**"
       - "tests/camara-front.test.mjs"
+      - "tests/camara-depth.test.mjs"
       - ".github/workflows/camara-front.yml"
   pull_request:
     paths:
       - "dist/**"
       - "tests/camara-front.test.mjs"
+      - "tests/camara-depth.test.mjs"
       - ".github/workflows/camara-front.yml"
 jobs:
   test:

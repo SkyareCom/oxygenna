@@ -1,4 +1,5 @@
 import {camaraLessons,camaraLesson,camaraData,camaraBoyle,camaraPIO2} from './camara-data.mjs';
+import {camaraDepth} from './camara-depth.mjs';
 
 /**
  * OXYGENNA — CÂMARA, dentro do frontend ORIGINAL.
@@ -14,6 +15,15 @@ const mediaSources={'assets/camara-tipos.svg':'camara-tipos.svg','assets/ouvido-
 const ui=lang=>UI[lang]||UI.pt;
 const lead=(tag,title)=>'<p class="tag">'+tag+'</p><h2 class="display camara-section-title">'+title+'</h2>';
 const mediaText=(p,e)=>'<p>'+e(p)+'</p>';
+function renderCamaraDepth(lesson,{e}){
+ const data=camaraDepth[lesson.id];if(!data)return '';
+ const img={ 'camara-07':'seguranca-camara.svg','camara-08':'evidencia-indicacoes.svg' }[lesson.id];
+ return '<div class="camara-extended-content" aria-label="Aprofundamento científico">'+
+   data.sections.map(item=>'<section class="panel camara-explainer"><h2>'+e(item.heading)+'</h2><p lang="pt-BR">'+e(item.body)+'</p></section>').join('')+
+   (img?'<figure class="camara-figure camara-figure-extra"><img src="./assets/'+img+'" alt="'+e(data.visualTitle)+'" loading="lazy"><figcaption>'+e(data.visualTitle)+'</figcaption></figure>':'')+
+   '<section class="panel camara-visual-sequence" aria-label="'+e(data.visualTitle)+'"><h2>'+e(data.visualTitle)+'</h2>'+
+   '<ol class="camara-flow">'+data.visualSteps.map((step,i)=>'<li><span class="camara-step-count">'+String(i+1).padStart(2,'0')+'</span><span lang="pt-BR">'+e(step)+'</span></li>').join('')+'</ol></section></div>';
+}
 export const camaraRoutes=Object.freeze(camaraLessons.map(x=>'#camara/'+x.id));
 export function camaraGraphText(engine,ata,lang='pt'){
  if(engine==='boyleNormalized')return 'V / V₀ = '+(100*camaraBoyle(ata)).toLocaleString(lang==='en'?'en-US':lang==='es'?'es-ES':'pt-BR',{maximumFractionDigits:1})+'%';
@@ -71,7 +81,7 @@ export function renderCamaraDetail(id,{lang='pt',e,icon,back,completed=[],answer
  return back('#chamber')+title+(n.sourceContent?'<p class="micro" lang="pt-BR">'+e(n.sourceContent)+'</p>':'')+
   '<section class="panel camara-objective"><h2>'+e(n.objective)+'</h2><p lang="pt-BR">'+e(lesson.objective)+'</p></section>'+
   '<article class="panel camara-prose"><h2>'+e(n.essentials)+'</h2>'+lesson.paragraphs.map(p=>mediaText(p,e)).join('')+'</article>'+
-  (lesson.media||[]).map(m=>renderMedia(m,{lang,e})).join('')+
+  (lesson.media||[]).map(m=>renderMedia(m,{lang,e})).join('')+renderCamaraDepth(lesson,{e})+
   '<section class="panel camara-points"><h2>'+e(n.key)+'</h2><ul>'+lesson.keyPoints.map(p=>'<li lang="pt-BR">'+e(p)+'</li>').join('')+'</ul></section>'+
   '<section class="panel camara-nuance"><h2>'+e(n.nuance)+'</h2><p lang="pt-BR">'+e(lesson.clinicalNuance)+'</p></section>'+
   '<section class="panel camara-summary"><h2>'+e(n.summary)+'</h2><p lang="pt-BR">'+e(lesson.audio.script)+'</p></section>'+
