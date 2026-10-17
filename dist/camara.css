@@ -16,30 +16,30 @@
 .chamber .camara-progress{font-size:12px;margin:12px 0}
 .chamber .camara-references{margin:20px 0 0}
 .chamber .camara-references .source{margin-top:6px}
-.camera .panel{border:1px solid var(--card-border-gold);border-radius:12px;background:#0a2431}
-.camera .panel h2{font-family:var(--sans);font-size:16px;font-weight:600;line-height:1.25;color:var(--gold)}
-.camera .camara-prose p,.camera .camara-objective p,.camera .camara-nuance p,
-.camera .camara-summary p{font-size:14px;line-height:1.65;margin:9px 0}
-.camera .camara-points ul{margin:9px 0;padding-left:18px}
-.camera .camara-points li{font-size:14px;line-height:1.5;padding:4px 0}
-.camera .camara-points li::marker{color:var(--gold)}
-.camera .camara-figure{margin:14px 0;border:1px solid var(--card-border-gold);border-radius:12px;overflow:hidden;background:#092431}
-.camera .camara-figure img{width:100%;height:auto;max-height:290px;display:block;object-fit:contain;padding:12px}
-.camera .camara-figure figcaption{padding:10px 12px;color:var(--muted);font-size:12px}
-.camera .camara-lab label{display:block;font-size:12px;font-weight:600}
-.camera .camara-lab input[type="range"]{width:100%;accent-color:var(--gold);padding:12px 0}
-.camera .camara-lab output{color:var(--gold)}
-.camera .camara-lab #camara-graph-result{font-size:14px;color:var(--text)}
-.camera .camara-quiz .answer{border-color:var(--card-border-gold);font-size:14px}
-.camera .camara-quiz .feedback{line-height:1.5}
-.camera .camara-calc-row{display:flex;gap:9px;flex-wrap:wrap;align-items:stretch}
-.camera .camara-calc-row input{min-width:85px;flex:1 1 90px;border:1px solid var(--card-border-gold);background:#061923;color:var(--text);border-radius:8px;padding:10px}
-.camera .camara-calc-row button{flex:0 1 auto;min-height:44px;font-size:12px}
-.camera .camara-checklist label{display:flex;align-items:center;gap:9px;margin:10px 0;font-size:14px}
-.camera .camara-checklist input{accent-color:var(--gold);width:17px;height:17px}
-.camera .camara-evidence-item{margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
-.camera .camara-step-nav{margin:18px 0 6px}
-.camera .camara-step-nav a{font-family:var(--sans);min-height:44px}
+.camara .panel{border:1px solid var(--card-border-gold);border-radius:12px;background:#0a2431}
+.camara .panel h2{font-family:var(--sans);font-size:16px;font-weight:600;line-height:1.25;color:var(--gold)}
+.camara .camara-prose p,.camara .camara-objective p,.camara .camara-nuance p,
+.camara .camara-summary p{font-size:14px;line-height:1.65;margin:9px 0}
+.camara .camara-points ul{margin:9px 0;padding-left:18px}
+.camara .camara-points li{font-size:14px;line-height:1.5;padding:4px 0}
+.camara .camara-points li::marker{color:var(--gold)}
+.camara .camara-figure{margin:14px 0;border:1px solid var(--card-border-gold);border-radius:12px;overflow:hidden;background:#092431}
+.camara .camara-figure img{width:100%;height:auto;max-height:290px;display:block;object-fit:contain;padding:12px}
+.camara .camara-figure figcaption{padding:10px 12px;color:var(--muted);font-size:12px}
+.camara .camara-lab label{display:block;font-size:12px;font-weight:600}
+.camara .camara-lab input[type="range"]{width:100%;accent-color:var(--gold);padding:12px 0}
+.camara .camara-lab output{color:var(--gold)}
+.camara .camara-lab #camara-graph-result{font-size:14px;color:var(--text)}
+.camara .camara-quiz .answer{border-color:var(--card-border-gold);font-size:14px}
+.camara .camara-quiz .feedback{line-height:1.5}
+.camara .camara-calc-row{display:flex;gap:9px;flex-wrap:wrap;align-items:stretch}
+.camara .camara-calc-row input{min-width:85px;flex:1 1 90px;border:1px solid var(--card-border-gold);background:#061923;color:var(--text);border-radius:8px;padding:10px}
+.camara .camara-calc-row button{flex:0 1 auto;min-height:44px;font-size:12px}
+.camara .camara-checklist label{display:flex;align-items:center;gap:9px;margin:10px 0;font-size:14px}
+.camara .camara-checklist input{accent-color:var(--gold);width:17px;height:17px}
+.camara .camara-evidence-item{margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.camara .camara-step-nav{margin:18px 0 6px}
+.camara .camara-step-nav a{font-family:var(--sans);min-height:44px}
 @media(min-width:440px){.chamber .camara-chapter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:340px){.chamber .camara-chapter-card{padding:9px 6px;gap:5px}.chamber .camara-chapter-card>strong{font-size:12px}.camera .camara-step-nav a{font-size:11px}}
+@media(max-width:340px){.chamber .camara-chapter-card{padding:9px 6px;gap:5px}.chamber .camara-chapter-card>strong{font-size:12px}.camara .camara-step-nav a{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.chamber .camara-chapter-card{transition:none}}
