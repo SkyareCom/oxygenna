@@ -1,6 +1,6 @@
 import {renderChapterClinical} from './clinical-view.mjs';
 import {renderCamaraTopicExtras} from './camara-view.mjs?rev=topic-cards-20261017';
-import {renderModule01Media,renderModule01Visual} from './module01-media.mjs?rev=m01-context-20261017';
+import {renderModule01Media,renderModule01Visual} from './module01-media.mjs?rev=borda-unica-20261017';
 import {camaraAtTopic,topicReading} from './topic-readings.mjs';
 import {phases,curriculumUI,getModule} from './curriculum.mjs';
 import {navigationUI,sectionModules,normalizeContext,getCurriculumItems,moduleHref,lessonHref,mapHref} from './navigation.mjs';

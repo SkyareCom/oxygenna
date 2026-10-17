@@ -61,8 +61,15 @@ test('as 10 mídias WebP existem com resolução preservada, sem atlas ou miniat
  }
  const old=['timeline','oxygen','chambers','explore','journey'];
  for(const n of old)assert.ok(!source.includes('./assets/m01-'+n+'.webp'),n);
- assert.ok(html.includes('module01-media.css?rev=m01-context-20261017'));
- assert.ok(html.includes('app.mjs?rev=m01-context-20261017'));
+ assert.ok(html.includes('module01-media.css?rev=borda-unica-20261017'));
+ assert.ok(html.includes('app.mjs?rev=borda-unica-20261017'));
+ assert.ok(css.includes('border:1px solid var(--card-border-gold'));
+ assert.ok(css.includes('border:0;outline:0;box-shadow:none;border-radius:0'));
+ assert.ok(!css.includes('aspect-ratio:738/455'));
+ const topicImage=renderModuleTopic('01',0,ctx);
+ assert.ok(topicImage.includes('src="./assets/m01-experimentacao.webp?rev=borda-unica-20261017"'));
+ assert.ok(topicImage.includes('width="1352" height="990"'));
+ assert.ok(!topicImage.includes('class="m01-zoom"'));
  assert.ok(app.includes('handleModule01Click(event.target)'));
  assert.ok(app.includes('handleModule01Input(event.target)'));
 });
