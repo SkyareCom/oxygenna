@@ -46,3 +46,11 @@
 .topic .m01-media .m01-feedback[data-correct="true"]{border-left:2px solid #76c7ac}
 @media(max-width:355px){.topic .m01-media .m01-stepper,.topic .m01-media .m01-hotspot-list{grid-template-columns:1fr}.topic .m01-media .m01-hotspot-list button:last-child{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){.topic .m01-media .m01-progress i{transition:none}}
+
+/* Atlas real: cada fotografia aparece somente no tema correspondente. */
+.topic .m01-media .m01-sprite{display:block;width:100%;aspect-ratio:4/3;background-image:url('./assets/m01-atlas.avif');background-repeat:no-repeat;background-size:200% 300%;background-color:#071d29}
+.topic .m01-media [data-m01-photo="timeline"]{background-position:0% 0%}
+.topic .m01-media [data-m01-photo="oxygen"]{background-position:100% 0%}
+.topic .m01-media [data-m01-photo="chambers"]{background-position:0% 50%}
+.topic .m01-media [data-m01-photo="explore"]{background-position:100% 50%}
+.topic .m01-media [data-m01-photo="journey"]{background-position:0% 100%}
