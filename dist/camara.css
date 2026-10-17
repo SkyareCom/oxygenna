@@ -24,9 +24,7 @@
 .camara .camara-evidence-item{margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
 .camara .camara-step-nav{margin:18px 0 6px}
 .camara .camara-step-nav a{font-family:var(--sans);min-height:44px}
-@media(min-width:440px){.chamber .camara-chapter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:340px){.chamber .camara-chapter-card{padding:9px 6px;gap:5px}.chamber .camara-chapter-card>strong{font-size:12px}.camara .camara-step-nav a{font-size:11px}}
-@media(prefers-reduced-motion:reduce){.chamber .camara-chapter-card{transition:none}}
+
 
 /* Aprofundamento didático — escopo estrito das páginas de conteúdo CÂMARA. */
 .camara .camara-extended-content{display:grid;gap:10px;margin:14px 0}
@@ -78,3 +76,5 @@
 .module .camara-inline-body .camara-checklist input{accent-color:var(--gold)}
 .module .camara-inline-body .camara-evidence-item{font-size:13px;border:1px solid var(--line);padding:10px;border-radius:8px;margin:6px 0}
 @media(prefers-reduced-motion:reduce){.module .camara-inline-chapter>summary .icon{transition:none}}
+
+@media(max-width:340px){.camara .camara-step-nav a{font-size:11px}}
