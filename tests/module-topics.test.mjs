@@ -49,9 +49,9 @@ test('oito materiais CÂMARA são mapeados uma única vez ao tema certo',()=>{
  assert.ok(m1.includes('Papel da equipe de saúde'));
  assert.ok(!m1.includes('CONTEÚDOS DO CAPÍTULO'));
  const pt=renderModuleTopic('01',3,ctx);
- assert.ok(pt.includes('camara-quiz'));
+ assert.ok(pt.includes('m01-quiz'));
  assert.ok(pt.includes('camara-tipos.svg'));
- assert.ok(!renderModuleTopic('01',4,ctx).includes('camara-quiz'),'não repetir questionário no outro tema');
+ assert.ok(!renderModuleTopic('01',4,ctx).includes('data-m01-quiz="3"'),'não repetir questionário de outros temas');
  assert.equal(activeSection('topic/01/3/chamber'),'chamber');
  assert.equal(activeSection('topic/13/0/all'),'chapters');
 });
@@ -61,5 +61,5 @@ test('rotas inválidas não abrem texto e o CSS da HOME permanece isolado',()=>{
  assert.ok(css.includes('.module .module-topic-title'));
  assert.ok(css.includes('.topic .topic-reading'));
  const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
- assert.ok(html.includes('app.mjs?rev=topic-cards-20261017'));
+ assert.ok(html.includes('app.mjs?rev=m01-media-20261017'));
 });
