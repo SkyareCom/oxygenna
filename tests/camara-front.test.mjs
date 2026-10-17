@@ -125,6 +125,7 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   assert.ok(main().includes('A medicina hiperbárica estuda aplicações clínicas'));
   assert.ok(main().includes('m01-quiz'));
   assert.ok(footer().includes('href="#chamber" class="active"'));
+  go('#camara/camara-01'); // Rota legada mantém seus exercícios e registro de progresso.
   const target={dataset:{camaraAnswer:'1',camaraId:'camara-01'},hasAttribute:()=>false};
   for(const cb of answerEvents)cb({target:{closest:sel=>sel==='button'?target:null},preventDefault(){}});
   const progress=JSON.parse(store.get('hyperbaric-campus-v1'));
