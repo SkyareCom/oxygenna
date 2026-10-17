@@ -6,7 +6,7 @@ import {renderFocusCard,renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
 import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,thermalRatio,pressureUnits} from './core.mjs';
 import {tracks,lessons,sources} from './content.mjs';
-import {renderCamaraCatalog,renderCamaraDetail,camaraGraphText} from './camara-view.mjs';
+import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs';
 import {camaraAnswer} from './camara-data.mjs';
 
 const UI={
@@ -63,9 +63,9 @@ function render(){
  else if(section==='indication'||section==='protocol')page=renderClinicalDetail(section,id,{...curriculumOptions,notFound});
  else if(section==='notifications')page=renderNotices({lang:state.lang,readNotices,e,back,noticePersisted});
  else if(section==='chapters')page=renderCurriculum(id,{...curriculumOptions,title:n.chapters,intro:n.chaptersIntro});
- else if(sectionModules[section])page=renderCurriculum(section,{...curriculumOptions,catalog:section==='chamber'?renderCamaraCatalog({lang:state.lang,e,icon,completed:state.completed}):['indications','protocols'].includes(section)?renderClinicalCatalog(section==='indications'?'indication':'protocol',curriculumOptions):'',illustration:section==='chamber'?art('chamber-art'):'',tools:section==='chamber'?`<a class="secondary" href="#lab">${icon('flask')}${n.tools}${icon('right')}</a>`:''});
+ else if(sectionModules[section])page=renderCurriculum(section,{...curriculumOptions,catalog:['indications','protocols'].includes(section)?renderClinicalCatalog(section==='indications'?'indication':'protocol',curriculumOptions):'',illustration:section==='chamber'?art('chamber-art'):'',tools:section==='chamber'?`<a class="secondary" href="#lab">${icon('flask')}${n.tools}${icon('right')}</a>`:''});
  else if(section==='curriculum')page=renderCurriculum(id,curriculumOptions);
- else if(section==='module')page=renderModule(id,{...curriculumOptions,notFound,context});
+ else if(section==='module')page=renderModule(id,{...curriculumOptions,notFound,context,camaraAnswers:selectedCamaraAnswers,camaraCompleted:state.completed});
  else page=notFound();
  const unread=NOTICE_IDS.some(id=>!readNotices.includes(id));
  document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:activeSection(route),icon,e})}`;
