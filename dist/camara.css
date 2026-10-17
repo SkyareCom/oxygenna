@@ -1,21 +1,5 @@
-/* Apenas os componentes novos da seção CÂMARA.
-   Preserva a folha principal, Saira Semi Condensed e toda a navegação original. */
-.chamber .camara-library{margin:22px 0 28px}
-.chamber .camara-library .tag{font-size:12px;color:var(--gold)}
-.chamber .camara-intro{margin:6px 0 13px;font-size:12px}
-.chamber .camara-chapter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.chamber .camara-chapter-card{
- min-height:55px;height:auto;display:flex;align-items:center;gap:8px;
- padding:10px 8px;background:#0a2431;border:1px solid var(--card-border-gold);
- border-radius:12px;text-decoration:none;
-}
-.chamber .camara-chapter-card>.lesson-number{font-size:12px;min-width:20px;color:var(--gold)}
-.chamber .camara-chapter-card>strong{flex:1;min-width:0;font-size:14px;line-height:1.2;font-weight:600;overflow-wrap:anywhere}
-.chamber .camara-chapter-card .icon{width:13px;height:13px;flex-shrink:0;color:var(--gold)}
-.chamber .camara-chapter-card:is(:hover,:focus-visible){border-color:var(--gold)}
-.chamber .camara-progress{font-size:12px;margin:12px 0}
-.chamber .camara-references{margin:20px 0 0}
-.chamber .camara-references .source{margin-top:6px}
+/* OXYGENNA — CÂMARA: apenas conteúdo incorporado nos módulos originais e rotas legadas.
+   Nenhuma grade adicional de capítulos é criada por este arquivo. */
 .camara .panel{border:1px solid var(--card-border-gold);border-radius:12px;background:#0a2431}
 .camara .panel h2{font-family:var(--sans);font-size:16px;font-weight:600;line-height:1.25;color:var(--gold)}
 .camara .camara-prose p,.camara .camara-objective p,.camara .camara-nuance p,
