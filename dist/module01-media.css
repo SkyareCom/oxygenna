@@ -3,7 +3,7 @@
 .topic .m01-media .m01-kicker{color:var(--gold,#F7C75B);font:600 12px/1.4 var(--sans);letter-spacing:1.4px}
 .topic .m01-media .m01-hint{color:var(--muted,#bbcdd1);font-size:12px;line-height:1.5;margin:2px 0 9px}
 .topic .m01-media .m01-figure{margin:0;border:1px solid var(--card-border-gold,#b59b6c);background:#071d29;border-radius:13px;overflow:hidden}
-.topic .m01-media .m01-figure img{width:100%;height:auto;display:block;object-fit:contain;aspect-ratio:4/3}
+.topic .m01-media .m01-figure img{width:100%;height:auto;display:block;max-width:100%;object-fit:contain;image-rendering:auto}
 .topic .m01-media .m01-figure figcaption{font:400 11px/1.4 var(--sans);color:var(--muted,#bbcdd1);padding:9px 11px}
 .topic .m01-media .m01-panel{border:1px solid var(--card-border-gold,#b59b6c);border-radius:13px;background:#0b2531;padding:14px;min-width:0}
 .topic .m01-media .m01-panel h2{font:600 16px/1.25 var(--sans);color:var(--gold,#F7C75B);margin:0 0 9px}
@@ -47,10 +47,9 @@
 @media(max-width:355px){.topic .m01-media .m01-stepper,.topic .m01-media .m01-hotspot-list{grid-template-columns:1fr}.topic .m01-media .m01-hotspot-list button:last-child{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){.topic .m01-media .m01-progress i{transition:none}}
 
-/* Atlas real: cada fotografia aparece somente no tema correspondente. */
-.topic .m01-media .m01-sprite{display:block;width:100%;aspect-ratio:4/3;background-image:url('./assets/m01-atlas.avif');background-repeat:no-repeat;background-size:200% 300%;background-color:#071d29}
-.topic .m01-media [data-m01-photo="timeline"]{background-position:0% 0%}
-.topic .m01-media [data-m01-photo="oxygen"]{background-position:100% 0%}
-.topic .m01-media [data-m01-photo="chambers"]{background-position:0% 50%}
-.topic .m01-media [data-m01-photo="explore"]{background-position:100% 50%}
-.topic .m01-media [data-m01-photo="journey"]{background-position:0% 100%}
+/* Imagens em alta definição, sem sprite e sem duplicação de texto. */
+.topic .m01-media .m01-zoom{display:block;position:relative;background:#071d29;overflow:hidden}
+.topic .m01-media .m01-zoom:focus-visible{outline:2px solid var(--gold,#F7C75B);outline-offset:-4px}
+.topic .m01-media .m01-zoom::after{content:'Ampliar ↗';position:absolute;right:9px;bottom:9px;border:1px solid #d8bf81aa;border-radius:9px;background:#061b28d9;color:#ffdfa4;font:600 11px/1.1 var(--sans);padding:7px 9px}
+.topic .m01-media .m01-figure figcaption{padding:8px 11px;color:var(--muted,#bbcdd1);font-size:11px;line-height:1.35}
+@media(prefers-reduced-motion:reduce){.topic .m01-media .m01-zoom::after{transition:none}}
