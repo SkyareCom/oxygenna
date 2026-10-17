@@ -15,6 +15,22 @@ Esta importação conserva o código da versão publicada do OXYGENNA, incluindo
 
 O programa de 144 temas não significa que 144 aulas completas já estejam publicadas. Os roteiros clínicos são educacionais e ainda não receberam validação clínica independente. Não substituem avaliação individual ou protocolos institucionais.
 
+## Hospedagem e aplicativo com conteúdo integrado
+
+A pasta **`dist/` contém o OXYGENNA completo**, com a HOME original, rodapé, estilos Saira Semi Condensed, e conteúdo aprofundado dos oito capítulos de **CÂMARA**, diagramas e exercícios.
+
+O projeto agora prepara **GitHub Pages** por meio do workflow `.github/workflows/github-pages.yml`. O workflow testa tudo, exporta um pacote estático e tenta publicar o site. O GitHub Pages exige habilitação em **Settings → Pages → Source: GitHub Actions** e, em repositório privado, um plano compatível com Pages privado. A URL pública só deve ser divulgada quando o workflow indicar deploy bem-sucedido.
+
+A versão estática pode ser executada sem ChatGPT Sites:
+
+```sh
+python3 -m http.server 8080 --directory dist
+```
+
+Abra `http://localhost:8080/#chamber` para visualizar os oito capítulos no aplicativo completo, ou `http://localhost:8080/#camara/camara-01` para o primeiro.
+
+**Não confundir**: a inclusão do código no Git não exclui a antiga hospedagem, não muda a visibilidade do repositório e não garante publicação automática sem configurar GitHub Pages.
+
 ## Executar localmente
 
 O app é estático e não depende de instalação de pacotes:
@@ -40,9 +56,9 @@ A pasta `tests/` verifica conteúdo, idiomas, vínculos, modelos físicos, naveg
 - `dist/`: aplicativo executável, conteúdo e recursos visuais.
 - `tests/`: verificações automatizadas.
 - `docs/`: decisões e histórico de alterações.
-- `.openai/hosting.json`: identidade do projeto Sites original; não contém credenciais.
+- `.github/workflows/github-pages.yml`: testes e publicação de `dist/` no GitHub Pages, com artefato estático para download.
 
-A importação para o GitHub não altera a audiência ou a hospedagem do aplicativo publicado. Nenhum token, senha ou credencial é necessário para executar esta versão.
+A hospedagem ChatGPT Sites é legada e não é mais o destino de publicação desta base. A publicação deve ser feita pelo GitHub Pages a partir da pasta `dist/`. O arquivo de configuração `.openai/hosting.json` foi removido do repositório. Remover esse vínculo do Git não exclui automaticamente um site antigo do ChatGPT Sites.
 
 ## Referências e recursos
 
