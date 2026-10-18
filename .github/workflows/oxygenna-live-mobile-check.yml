@@ -1,0 +1,65 @@
+name: OXYGENNA — conferir link público e Android
+
+on:
+  push:
+    branches:
+      - fix/oxygenna-verificar-acesso-mobile
+    paths:
+      - .github/workflows/oxygenna-live-mobile-check.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirmar acesso HTTP público
+        run: |
+          node --input-type=module <<'JS'
+          const base='https://skyarecom.github.io/oxygenna/';
+          for(const path of ['', 'index.html', 'app.mjs?rev=knowledge-final-20261018', 'curriculum-view.mjs?rev=knowledge-final-20261018', 'chamber-learning.mjs?rev=knowledge-final-20261018', 'knowledge-check.mjs?rev=knowledge-final-20261018','assets/m01-foto-experimentacao.webp']){
+            const res=await fetch(base+path,{redirect:'follow',signal:AbortSignal.timeout(20000)});
+            console.log('URL',base+path,'STATUS',res.status,'TYPE',res.headers.get('content-type'),'LEN',res.headers.get('content-length'));
+            if(!res.ok)process.exitCode=1;
+            if(path===''){const t=await res.text();if(!t.includes('app.mjs'))throw Error('Site sem app.mjs');}
+          }
+          JS
+      - name: Instalar navegador para teste mobile
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install chromium
+      - name: Abrir aplicativo como Android 390 px
+        run: |
+          node --input-type=module <<'JS'
+          import { chromium } from 'playwright';
+          const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+          const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
+          const failures=[];
+          page.on('pageerror',err=>failures.push(err.message));
+          page.on('console', msg=>{if(msg.type()==='error')console.log('BROWSER_CONSOLE_ERROR',msg.text());});
+          const root='https://skyarecom.github.io/oxygenna/';
+          const response=await page.goto(root,{waitUntil:'domcontentloaded',timeout:30000});
+          console.log('HOME HTTP',response?.status());
+          await page.locator('#app .app-header').waitFor({timeout:20000});
+          console.log('HOME LOADED',await page.locator('nav.bottom-nav a').count());
+          await page.goto(root+'#chamber',{waitUntil:'domcontentloaded'});
+          await page.locator('a[href="#module/01/chamber"]').first().waitFor({timeout:15000});
+          console.log('CÂMARA LOADED',await page.locator('a[href^="#module/"]').count());
+          await page.goto(root+'#module/01/chamber',{waitUntil:'domcontentloaded'});
+          await page.locator('.chamber-lesson').waitFor({timeout:15000});
+          console.log('CAPÍTULO LOADED','topics',await page.locator('.chamber-topic').count(),'tables',await page.locator('.oxygen-table-block').count(),'knowledge',await page.locator('.knowledge-check').count());
+          const images=await page.locator('.m01-context-figure img').evaluateAll(nodes=>nodes.map(n=>({src:n.currentSrc||n.src,loaded:n.complete&&n.naturalWidth>0})));
+          console.log('IMAGES',JSON.stringify(images));
+          console.log('RUNTIME ERRORS',JSON.stringify(failures));
+          if(failures.length)throw Error('Erros JS: '+failures.join('; '));
+          if(images.some(x=>!x.loaded))throw Error('Imagens não abriram');
+          if(await page.locator('.oxygen-table-block').count()!==2)throw Error('Tabelas ausentes');
+          if(await page.locator('.knowledge-check').count()!==1)throw Error('Teste final ausente');
+          await browser.close();
+          JS
