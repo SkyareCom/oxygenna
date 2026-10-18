@@ -1,5 +1,6 @@
 /* OXYGENNA: somente conteúdo e dados. Componentes/classes e CSS são do front original. */
 import {consultaData} from './data.mjs';
+import {modules} from '../curriculum.mjs';
 export const consultaCapitulos=consultaData.capitulos;
 export const consultaById=new Map(consultaCapitulos.map(c=>[c.id,c]));
 export const consultaFilters=['home','fisiologia','clinica','camara','operacao'];
@@ -23,25 +24,49 @@ const href=id=>consultaHref('capitulo/'+id);
 const textCard=c=>'<a class="lesson-link" data-consulta-link href="'+href(c.id)+'"><span class="lesson-number">'+esc(c.fase)+'</span><strong>'+esc(c.titulo_curto)+'</strong><span aria-hidden="true">›</span></a>';
 const topicLinks=items=>'<div class="lesson-list">'+items.map(textCard).join('')+'</div>';
 const pageTitle=(label,n)=>'<p class="tag">'+esc(n)+'</p><h1 class="display page-title">'+esc(label)+'</h1>';
+const normalizeSearch=text=>String(text??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').replace(/\s+/g,' ').trim();
+const matchesQuery=(haystack,terms)=>terms.every(term=>normalizeSearch(haystack).includes(term));
 export function searchConsulta(query){
- const q=String(query??'').trim().toLocaleLowerCase('pt-BR');
+ const q=normalizeSearch(query);
  if(!q)return [];
- return consultaCapitulos.filter(c=>[c.titulo_curto,c.resposta_curta,...c.tags_busca].join(' ').toLocaleLowerCase('pt-BR').includes(q));
+ const terms=q.split(' ');
+ return consultaCapitulos.filter(c=>matchesQuery([c.titulo_curto,c.resposta_curta,...c.tags_busca].join(' '),terms));
+}
+export function searchOxygennaGlobal(query){
+ const q=normalizeSearch(query);
+ if(!q)return [];
+ const terms=q.split(' ');
+ const decisions=searchConsulta(query).map(c=>({kind:'decisao',title:c.titulo_curto,subtitle:c.fase,href:href(c.id),consulta:true}));
+ const foundModules=modules.filter(m=>matchesQuery([m.pt.title,m.pt.objective].join(' '),terms))
+  .map(m=>({kind:'modulo',title:m.pt.title,subtitle:'MÓDULO '+m.id,href:'#module/'+m.id,consulta:false}));
+ const foundTopics=modules.flatMap(m=>m.pt.topics.map((title,index)=>({m,title,index}))
+  .filter(({title})=>matchesQuery(title+' '+m.pt.title,terms))
+  .map(({title,index})=>({kind:'tema',title,subtitle:'TEMA · MÓDULO '+m.id,href:'#topic/'+m.id+'/'+index,consulta:false})));
+ return [...decisions,...foundModules,...foundTopics];
 }
 export function renderConsultaSearch(query){
  const q=String(query??'').trim();
  if(!q)return '';
- const found=searchConsulta(q);
- return '<p class="tag">RESULTADOS · '+found.length+'</p>'+(found.length?topicLinks(found):'<p class="subtle">Nenhum tema encontrado.</p>');
+ const found=searchOxygennaGlobal(q),visible=found.slice(0,50);
+ return '<p class="tag">RESULTADOS · '+found.length+'</p>'+
+ (visible.length?'<div class="lesson-list">'+visible.map(item=>
+  '<a class="lesson-link" '+(item.consulta?'data-consulta-link ':'')+'href="'+esc(item.href)+'"><span class="lesson-number">'+
+  esc(item.kind==='decisao'?'DECISÃO':item.kind==='modulo'?'MÓDULO':'TEMA')+'</span><strong>'+
+  esc(item.title)+'</strong><span aria-hidden="true">›</span></a>').join('')+'</div>'+
+ (found.length>visible.length?'<p class="subtle">Mostrando 50 resultados. Refine a busca para localizar os demais.</p>':'')
+ :'<p class="subtle">Nenhum tema encontrado.</p>');
 }
 export function renderConsultaHome({query='',lastId='',illustration='',icon=()=>''}={}){
  const links=[['É INDICAÇÃO?','clinica','indications'],['PODE ENTRAR?','capitulo/contraindicacoes','chamber'],['QUAL PROTOCOLO?','camara','protocols']];
  const quick=links.map(([label,route,symbol])=>'<a class="home-card" data-consulta-link href="'+consultaHref(route)+'">'+icon(symbol)+'<span class="copy"><strong>'+label+'</strong></span></a>').join('');
  const last=consultaById.get(lastId);
- return '<p class="eyebrow">OXYGENNA · MEDICINA HIPERBÁRICA</p><h1 class="display home-title">CONSULTA TÉCNICA</h1>'+
- (illustration?'<div class="home-hero">'+illustration+'</div>':'')+
- '<section class="panel"><label class="lab-label" for="busca-oxygenna">BUSCA GLOBAL</label><input type="search" id="busca-oxygenna" data-consulta-busca placeholder="Pesquise tema, condição ou protocolo" autocomplete="off" value="'+esc(query)+'"></section>'+
+ return '<section class="consulta-global-search" role="search" aria-label="Busca global">'+
+ '<label class="sr-only" for="busca-oxygenna">BUSCA GLOBAL NO OXYGENNA</label>'+
+ '<div class="consulta-search-line"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>'+
+ '<input type="search" id="busca-oxygenna" data-consulta-busca placeholder="PESQUISAR NO OXYGENNA" autocomplete="off" value="'+esc(query)+'"></div></section>'+
+ '<h1 class="consulta-home-statement"><span>SEU APP DE DECISÕES CLÍNICAS</span><span>EM MEDICINA HIPERBÁRICA</span></h1>'+
  '<div id="resultado-oxygenna" aria-live="polite">'+renderConsultaSearch(query)+'</div>'+
+ (illustration?'<div class="home-hero">'+illustration+'</div>':'')+
  '<section><p class="tag">ACESSO RÁPIDO</p><div class="home-links">'+quick+'</div></section>'+
  '<section class="study-resume"><p class="tag">CONTINUAR ESTUDANDO</p>'+
  (last?'<h2>'+esc(last.titulo_curto)+'</h2><a class="secondary" data-consulta-link href="'+href(last.id)+'">ABRIR CAPÍTULO</a>':'<p class="subtle">Abra um tema para começar seu histórico.</p>')+'</section>'+

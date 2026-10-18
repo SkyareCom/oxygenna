@@ -1,5 +1,5 @@
 import {consultaData} from './consulta/data.mjs';
-import {consultaById,consultaRoute,isConsultaRoute,consultaHref,renderConsultaPage,renderConsultaSearch} from './consulta/consulta-view.mjs';
+import {consultaById,consultaRoute,isConsultaRoute,consultaHref,renderConsultaPage,renderConsultaSearch} from './consulta/consulta-view.mjs?rev=busca-global-20261018';
 import {curriculumUI,modules} from './curriculum.mjs';
 import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view.mjs?rev=knowledge-final-20261018';
 import {handleModule01Click,handleModule01Input} from './module01-media.mjs?rev=knowledge-final-20261018';
