@@ -120,3 +120,30 @@ main{padding-bottom:calc(132px + env(safe-area-inset-bottom))}.display{font-weig
 .topic .topic-navigation{margin:20px 0 10px}
 .topic .topic-references{margin:18px 0}
 @media(max-width:360px){.module .module-topic-card{padding:8px 10px;gap:8px}.module .module-topic-card strong{font-size:13px}}
+
+/* A aula CÂMARA é uma leitura contínua: nenhum índice aninhado. */
+.module .chamber-lesson{display:block;min-width:0;padding-bottom:10px}
+.module .chamber-lesson>.page-title{margin-bottom:20px}
+.module .chamber-topic{padding:22px 0 9px;border-top:1px solid rgba(212,207,189,.19)}
+.module .chamber-topic:first-of-type{border-top:0;padding-top:0}
+.module .chamber-topic-title{font:600 18px/1.35 var(--sans);margin:0 0 13px;color:var(--text)}
+.module .chamber-lesson .topic-reading{background:transparent;border:0;box-shadow:none;padding:0;margin:0 0 15px;border-radius:0}
+.module .chamber-lesson .topic-reading p{font:400 14px/1.65 var(--sans);color:var(--text);margin:0}
+.module .chamber-lesson .m01-context-figure{border:1px solid var(--card-border-gold);border-radius:14px;box-shadow:none;margin:14px 0 19px;overflow:hidden}
+.module .chamber-lesson .m01-context-figure img{display:block;width:100%;height:auto;border:0;box-shadow:none;border-radius:0}
+.module .chamber-lesson .m01-media{display:grid;gap:12px;margin:13px 0 8px}
+.module .chamber-lesson .m01-kicker{display:none}
+.module .chamber-lesson .m01-panel{border:1px solid var(--card-border-gold);box-shadow:none}
+.module .chamber-lesson .camara-topic-extras{display:grid;gap:12px;margin:15px 0}
+.module .chamber-lesson .camara-topic-extras .panel{border:1px solid var(--card-border-gold);box-shadow:none;margin:0;background:#0b2531}
+.module .chamber-lesson .camara-topic-extras .camara-figure{margin:0;border:1px solid var(--card-border-gold);border-radius:13px;overflow:hidden;background:#071d29}
+.module .chamber-lesson .camara-topic-extras .camara-figure img{width:100%;height:auto;max-height:290px;object-fit:contain;padding:0;border:0}
+.module .chamber-lesson .camara-topic-extras .camara-figure figcaption{padding:9px 12px;font-size:11px;line-height:1.4;color:var(--muted)}
+.module .chamber-lesson .camara-topic-extras .camara-flow{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px}
+.module .chamber-lesson .camara-topic-extras .camara-flow li{display:flex;gap:10px;padding:8px 0;border:0;font-size:12px}
+.module .chamber-lesson .camara-topic-extras .camara-step-count{width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--card-border-gold);border-radius:50%;flex:none;color:var(--gold)}
+.module .chamber-lesson .camara-topic-extras .camara-lab input[type=range]{width:100%;accent-color:var(--gold)}
+.module .chamber-lesson .camara-topic-extras .camara-calc-row{display:flex;gap:9px}
+.module .chamber-lesson .camara-topic-extras .camara-calc-row input{width:55%;min-width:0;background:#071d29;color:var(--text);border:1px solid var(--card-border-gold);border-radius:9px;padding:8px}
+.module .chamber-lesson .chamber-references{margin:24px 0 18px}
+.module .chamber-lesson .chamber-chapter-navigation{margin-bottom:20px}
