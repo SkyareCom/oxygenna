@@ -1,0 +1,61 @@
+/* OXYGENNA — contorno externo de cards. Fonte única de verdade.
+   Carregado APÓS styles.css, camara.css e module01-media.css.
+   Não adiciona bordas a imagens internas, busca global ou separadores. */
+
+:root {
+  --oxygenna-card-border: #857557;
+  --card-border-gold: #857557;
+}
+
+/* Um único contorno sólido de 1px nos cards e controles que já
+   possuem borda no front aprovado. Inclui hover, foco e seleção:
+   a cor externa deve permanecer exatamente #857557. */
+:is(
+  .home-card,
+  .study-resume,
+  .study-stage,
+  .focus-card,
+  .focus-topic,
+  .focus-banner,
+  .track,
+  .panel,
+  .lesson-link,
+  .module-topic-card,
+  .clinical-safety,
+  .clinical-chapter-record,
+  .module .camara-inline-chapter,
+  .camara .panel,
+  .camara .camara-figure,
+  .camara .camara-evidence-item,
+  .camara .camara-flow li,
+  .module .camara-inline-body .panel,
+  .module .camara-inline-body .camara-figure,
+  .module .camara-inline-body .camara-evidence-item,
+  .module .camara-inline-body .camara-flow li,
+  .topic .topic-reading,
+  .topic .camara-topic-extras .panel,
+  .topic .camara-topic-extras .camara-figure,
+  .topic .camara-topic-extras .camara-flow li,
+  .module .chamber-lesson .m01-context-figure,
+  .module .chamber-lesson .m01-panel,
+  .module .knowledge-check,
+  .module .knowledge-question button,
+  .module .oxygen-table-scroll,
+  .topic .oxygen-table-scroll,
+  .m01-media .m01-panel,
+  .m01-context-figure,
+  .m01-media button,
+  .answer,
+  .primary,
+  .secondary,
+  .back,
+  .icon-button,
+  .bottom-nav,
+  .lab-tabs button,
+  .languages button
+) {
+  border-color: #857557 !important;
+}
+
+/* Preserve a leitura clínica: focos, acertos e erros continuam sinalizados
+   por texto, fundo e ícones, sem alterar o contorno dourado. */
