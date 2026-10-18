@@ -112,9 +112,47 @@ function render(){
  const unread=NOTICE_IDS.some(id=>!readNotices.includes(id));
  document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:activeSection(route),icon,e})}`;
 }
-document.addEventListener('click',event=>{if(handleKnowledgeClick(event.target))return;if(handleModule01Click(event.target))return;if(event.target.closest('.skip')){event.preventDefault();document.querySelector('#main')?.focus({preventScroll:true});return;}const target=event.target.closest('button');if(!target)return;if(target.dataset.lang){state={...state,lang:target.dataset.lang};persist();render();return;}if(target.hasAttribute('data-read-notices')){noticePersisted=markNoticesRead(storage);readNotices=[...NOTICE_IDS];render();return;}if(target.hasAttribute('data-explore')){location.hash='#curriculum';return;}if(target.dataset.lab){labMode=target.dataset.lab;history.replaceState(null,'','#lab/'+labMode);render();document.querySelector('[data-lab="'+labMode+'"]')?.focus({preventScroll:true});return;}if(target.dataset.camaraAnswer!==undefined){const id=target.dataset.camaraId,index=Number(target.dataset.camaraAnswer);const result=camaraAnswer(id,index);if(!selectedCamaraAnswers.get(id)?.correct){selectedCamaraAnswers.set(id,{value:index,...result});if(result.correct){state=completeLesson(state,id);persist();}}const scrollY=window.scrollY;renderCamaraPreservingExpansion();window.scrollTo(0,scrollY);return;}
+document.addEventListener('click',event=>{
+ if(showConsulta()){
+  const el=event.target;
+  const routeLink=el.closest('[data-consulta-link]');
+  if(routeLink){
+   event.preventDefault();
+   const url=new URL(routeLink.href,location.href);
+   if(url.origin!==location.origin)return;
+   const next=url.pathname.replace(/^\\/oxygenna\\//,'/').replace(/^\\/oxygenna$/,'/home');
+   if(!next.startsWith('/capitulo/'))consultaOrigem=next;
+   irConsulta(next);
+   return;
+  }
+  const favorite=el.closest('[data-consulta-favorite]');
+  if(favorite){
+   event.preventDefault();
+   const id=consultaRoute().split('/')[2];
+   if(consultaFavoritos.has(id))consultaFavoritos.delete(id);else consultaFavoritos.add(id);
+   saveConsulta();
+   const y=window.scrollY;render();window.scrollTo(0,y);return;
+  }
+  const answer=el.closest('[data-consulta-answer]');
+  if(answer){
+   const id=consultaRoute().split('/')[2],index=Number(answer.dataset.consultaQuestion);
+   const map=consultaRespostas.get(id)||{};
+   consultaRespostas.set(id,{...map,[index]:Number(answer.dataset.consultaAnswer)});
+   const y=window.scrollY;render();window.scrollTo(0,y);
+   return;
+  }
+ }
+ if(handleKnowledgeClick(event.target))return;if(handleModule01Click(event.target))return;if(event.target.closest('.skip')){event.preventDefault();document.querySelector('#main')?.focus({preventScroll:true});return;}const target=event.target.closest('button');if(!target)return;if(target.dataset.lang){state={...state,lang:target.dataset.lang};persist();render();return;}if(target.hasAttribute('data-read-notices')){noticePersisted=markNoticesRead(storage);readNotices=[...NOTICE_IDS];render();return;}if(target.hasAttribute('data-explore')){location.hash='#curriculum';return;}if(target.dataset.lab){labMode=target.dataset.lab;history.replaceState(null,'','#lab/'+labMode);render();document.querySelector('[data-lab="'+labMode+'"]')?.focus({preventScroll:true});return;}if(target.dataset.camaraAnswer!==undefined){const id=target.dataset.camaraId,index=Number(target.dataset.camaraAnswer);const result=camaraAnswer(id,index);if(!selectedCamaraAnswers.get(id)?.correct){selectedCamaraAnswers.set(id,{value:index,...result});if(result.correct){state=completeLesson(state,id);persist();}}const scrollY=window.scrollY;renderCamaraPreservingExpansion();window.scrollTo(0,scrollY);return;}
  if(target.dataset.camaraCalc!==undefined){const id=target.dataset.camaraCalc;const raw=document.querySelector('#camara-calc-answer')?.value?.trim()??'';const v=/^\d+(?:[,.]\d+)?$/.test(raw)?Number(raw.replace(',','.')):NaN;if(!Number.isFinite(v)){const box=document.querySelector('.camara-quiz .feedback');if(box)box.textContent={pt:'Digite um número válido.',en:'Enter a valid number.',es:'Introduce un número válido.'}[state.lang];return;}const result=camaraAnswer(id,v);if(!selectedCamaraAnswers.get(id)?.correct){selectedCamaraAnswers.set(id,{value:v,...result});if(result.correct){state=completeLesson(state,id);persist();}}const scrollY=window.scrollY;renderCamaraPreservingExpansion();window.scrollTo(0,scrollY);return;}
  if(target.dataset.answer!==undefined){const lesson=lessons.find(a=>a.id===target.dataset.lesson);if(!lesson)return;const answer=Number(target.dataset.answer),already=state.completed.includes(lesson.id);selectedAnswers.set(lesson.id,answer);if(answer===lesson.correct){state=completeLesson(state,lesson.id);persist();}const scrollY=window.scrollY;render();if(answer===lesson.correct&&already){const feedback=document.querySelector('.feedback');if(feedback)feedback.textContent=t().repeat;}window.scrollTo(0,scrollY);document.querySelector(`[data-answer="${answer}"]`)?.focus({preventScroll:true});}});
-document.addEventListener('input',event=>{if(handleModule01Input(event.target))return;if(event.target.id==='camara-pressure'){const ata=Number(event.target.value);if(!Number.isFinite(ata)||ata<=0)return;const p=document.querySelector('#camara-pressure-output'),r=document.querySelector('#camara-graph-result');if(p)p.textContent=fmt(ata,1)+' ATA';if(r)r.textContent=camaraGraphText(event.target.dataset.camaraEngine,ata,state.lang);return;}if(!['lab-p','lab-f'].includes(event.target.id))return;const value=Number(event.target.value);if(!Number.isFinite(value))return;if(event.target.id==='lab-f')labF=value;else if(['charles','gay'].includes(labMode))labT=value;else labP=value;document.querySelector('#pressure-output').textContent=['charles','gay'].includes(labMode)?fmt(labT,2)+' K':fmt(labP,3)+' kPa';const f=document.querySelector('#fraction-output');if(f)f.textContent=fmt(labF)+' %';document.querySelector('#lab-result').innerHTML=labOutput();});
+document.addEventListener('input',event=>{
+ if(showConsulta()&&event.target.matches('[data-consulta-busca]')){
+  consultaBusca=event.target.value;
+  const target=document.querySelector('#resultado-oxygenna');
+  if(target)target.innerHTML=renderConsultaSearch(consultaBusca);
+  return;
+ }
+ if(handleModule01Input(event.target))return;if(event.target.id==='camara-pressure'){const ata=Number(event.target.value);if(!Number.isFinite(ata)||ata<=0)return;const p=document.querySelector('#camara-pressure-output'),r=document.querySelector('#camara-graph-result');if(p)p.textContent=fmt(ata,1)+' ATA';if(r)r.textContent=camaraGraphText(event.target.dataset.camaraEngine,ata,state.lang);return;}if(!['lab-p','lab-f'].includes(event.target.id))return;const value=Number(event.target.value);if(!Number.isFinite(value))return;if(event.target.id==='lab-f')labF=value;else if(['charles','gay'].includes(labMode))labT=value;else labP=value;document.querySelector('#pressure-output').textContent=['charles','gay'].includes(labMode)?fmt(labT,2)+' K':fmt(labP,3)+' kPa';const f=document.querySelector('#fraction-output');if(f)f.textContent=fmt(labF)+' %';document.querySelector('#lab-result').innerHTML=labOutput();});
+window.addEventListener('popstate',()=>{render();window.scrollTo?.(0,0);});
 window.addEventListener('hashchange',()=>{if(currentRoute()==='main'){document.querySelector('#main')?.focus();return;}render();window.scrollTo(0,0);document.querySelector('#main')?.focus({preventScroll:true});});
 render();
