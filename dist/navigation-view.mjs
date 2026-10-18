@@ -11,6 +11,10 @@ const FOOTER_ITEMS=[
  ['CÂMARA','camara','indications'],
  ['OPERAÇÃO','operacao','protocols']
 ];
+const HOME_ADDITIONAL_CARDS=[
+ ['INDICAÇÕES E PROTOCOLOS','#indications','protocols'],
+ ['EM FOCO','#focus','activity']
+];
 export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,favorite=false,backRoute='/home',nextRoute='/home'}){
  const n=navigationUI[lang];
  const base=typeof location==='undefined'||!String(location.pathname??'').startsWith('/oxygenna')?'/':'/oxygenna/';
@@ -38,7 +42,7 @@ export function renderStudyMap({lang,e,icon}){
   es:'Elige un área para explorar los contenidos.'
  }[lang]||'Escolha uma área para explorar os conteúdos.';
  const base=typeof location==='undefined'||!String(location.pathname??'').startsWith('/oxygenna')?'/':'/oxygenna/';
- return `<section class="study-map" aria-labelledby="study-map-title"><p class="tag">${n.browse}</p><h2 id="study-map-title" class="display">${n.map}</h2><p class="subtle">${intro}</p><ol class="study-stages">${FOOTER_ITEMS.filter(([,route])=>route!=='home').map(([title,route,symbol])=>`<li><a class="study-stage" data-consulta-link href="${base+route}" aria-label="${e(title)}"><span class="stage-marker" aria-hidden="true">${icon(symbol)}</span><span class="stage-copy"><strong>${e(title)}</strong></span>${icon('right')}</a></li>`).join('')}</ol><a class="primary chapter-cta" href="#chapters">${n.viewAll}${icon('right')}</a></section>`;
+ return `<section class="study-map" aria-labelledby="study-map-title"><p class="tag">${n.browse}</p><h2 id="study-map-title" class="display">${n.map}</h2><p class="subtle">${intro}</p><ol class="study-stages">${[...FOOTER_ITEMS.filter(([,route])=>route!=='home').map(([title,route,symbol])=>[title,base+route,symbol,true]),...HOME_ADDITIONAL_CARDS.map(([title,route,symbol])=>[title,route,symbol,false])].map(([title,url,symbol,consulta])=>`<li><a class="study-stage" ${consulta?'data-consulta-link ':''}href="${url}" aria-label="${e(title)}"><span class="stage-marker" aria-hidden="true">${icon(symbol)}</span><span class="stage-copy"><strong>${e(title)}</strong></span>${icon('right')}</a></li>`).join('')}</ol><a class="primary chapter-cta" href="#chapters">${n.viewAll}${icon('right')}</a></section>`;
 }
 export function renderNotices({lang,readNotices,e,back,noticePersisted}){
  const n=navigationUI[lang],allRead=NOTICE_IDS.every(id=>readNotices.includes(id));
