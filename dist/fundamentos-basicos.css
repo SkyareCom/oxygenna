@@ -108,7 +108,7 @@
   display:grid; gap:9px; font-size:12px; margin:14px 0;
 }
 .fundamentos-basicos :is(.fb-activity-slider input,.fb-depth-activity [data-depth-range],.fb-oxygen-activity input) {
-  width:100%; min-height:35px; padding:0; accent-color:#d5b77b;
+  width:100%; min-height:35px; padding:0; height:35px; border:0; border-radius:0; background:transparent; box-shadow:none; accent-color:#d5b77b;
 }
 .fundamentos-basicos .fb-live-metrics {
   display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:12px 0;
