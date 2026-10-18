@@ -33,3 +33,12 @@ test('OXYGENNA: última folha de estilo sobrepõe hover e seleção sem criar co
   assert.ok(!css.includes('.m01-context-figure img'));
   assert.doesNotMatch(css, /box-shadow:\s*inset\s+0\s+0\s+0\s+1px\s+#/);
 });
+
+test('Rodapé destaca texto e ícone só em dourado, sem fundo ou contorno duplo', () => {
+  assert.match(css, /\.bottom-nav a \\{[\\s\\S]*?background:\\s*transparent\\s*!important/);
+  assert.match(css, /\.bottom-nav a \.icon \\{[\\s\\S]*?color:\\s*inherit\\s*!important/);
+  assert.match(css, /\.bottom-nav a:is\\(\.active,\\[aria-current="page"\\],:hover,:active,:focus-visible\\) \\{[\\s\\S]*?color:\\s*#857557\\s*!important/);
+  assert.match(css, /\.bottom-nav a:focus-visible\\s*\\{/);
+  assert.match(css, /main\.home > \.oxygenna-section-base\\s*\\{/);
+  assert.match(css, /\.oxygenna-section-base-logo\\s*\\{/);
+});
