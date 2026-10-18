@@ -66,7 +66,7 @@ test('OX tasks are integrated in Home and every internal route has a contextual 
   language('en');assert.ok(main().includes('PLASTIC SURGERY'));
   language('es');assert.ok(main().includes('CIRUGÍA PLÁSTICA'));
   go('#focus/unknown');assert.ok(main().includes('Página no encontrada')&&main().includes('class="back"'));
-  go('#home');assert.ok(main().includes('Em Foco')&&!main().includes('id="oxygenna-em-foco-card"'));
+  go('#home');assert.ok(main().includes('href="#focus"')&&!main().includes('id="oxygenna-em-foco-card"'));// Título traduzido para o idioma selecionado.
   assert.deepEqual(JSON.parse(store.get('hyperbaric-campus-v1')).completed,['units'],'browsing focus and clinical records never increments or clears lesson progress');
  }finally{for(const [k,v] of Object.entries(saved)){if(v===undefined)delete globalThis[k];else globalThis[k]=v;}}
 });
