@@ -117,3 +117,7 @@
  #app.consulta-shell .consulta-table-wrap table{min-width:320px}
  #app.consulta-shell .app-header{padding-left:16px;padding-right:16px}
 }
+
+#app.consulta-shell .consulta-footer button.consulta-fav-footer{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#bdced2;font-size:10px!important;line-height:1.2;min-height:53px;padding:7px 1px;border:0;border-radius:12px;background:transparent;box-shadow:none}
+#app.consulta-shell .consulta-footer button.consulta-fav-footer[aria-pressed=true]{color:var(--gold);background:#173c42}
+#app.consulta-shell .consulta-footer button.consulta-fav-footer .icon{width:23px;height:23px}
