@@ -73,11 +73,13 @@ try{
   return {position:getComputedStyle(base).position,afterCards:base.getBoundingClientRect().top>button.getBoundingClientRect().bottom};
  });
  if(homeBaseLayout.position!=='relative'||!homeBaseLayout.afterCards)throw Error('Faixa da Home fora da base: '+JSON.stringify(homeBaseLayout));
- const homeActive=await page.locator('.bottom-nav a.active').evaluate(el=>{
+ // Aguarda a conclusão da renderização após retornar da página de fundamentos.
+ await page.waitForFunction(()=>{
+  const el=document.querySelector('.bottom-nav a.active');
+  if(!el?.isConnected||!el.querySelector('svg'))return false;
   const c=getComputedStyle(el),svg=getComputedStyle(el.querySelector('svg'));
-  return {color:c.color,icon:svg.color,bg:c.backgroundColor,shadow:c.boxShadow};
- });
- if(homeActive.color!=='rgb(133, 117, 87)'||homeActive.icon!=='rgb(133, 117, 87)'||homeActive.bg!=='rgba(0, 0, 0, 0)'||homeActive.shadow!=='none')throw Error('Home: clique do rodapé incorreto: '+JSON.stringify(homeActive));
+  return c.color==='rgb(133, 117, 87)'&&svg.color==='rgb(133, 117, 87)'&&c.backgroundColor==='rgba(0, 0, 0, 0)'&&c.boxShadow==='none';
+ },{timeout:10000});
  if(await page.locator('.brand-logo').count()!==1)throw Error('Logotipo não preservado');
  const styles=await page.evaluate(()=>({header:getComputedStyle(document.querySelector('.app-header')).position,footer:getComputedStyle(document.querySelector('.bottom-nav')).position,font:getComputedStyle(document.body).fontFamily}));
  if(styles.header!=='fixed'||styles.footer!=='fixed')throw Error('Header/footer originais deixaram de ser fixos: '+JSON.stringify(styles));
