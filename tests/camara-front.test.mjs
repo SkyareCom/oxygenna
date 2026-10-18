@@ -117,13 +117,13 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   assert.ok(!main().includes('Temas do módulo'));
   assert.ok(main().includes('História e desenvolvimento'));
   assert.ok(main().includes('Câmaras monoplace e multiplace'));
-  assert.ok(main().includes('href="#topic/01/1/chamber"'));
+  assert.ok(!main().includes('href="#topic/01/1/chamber"'));
   assert.ok(!main().includes('Objetivo de aprendizagem'));
   assert.ok(!main().includes('camara-inline-chapter'));
   assert.ok(!main().includes('camara-chapter-grid'));
   go('#topic/01/1/chamber');
-  assert.ok(main().includes('A medicina hiperbárica estuda aplicações clínicas'));
-  assert.ok(main().includes('m01-quiz'));
+  assert.ok(main().includes('A medicina subaquática estuda o organismo'));
+  assert.ok(main().includes('data-m01-picture="subaquatica"'));
   assert.ok(footer().includes('href="#chamber" class="active"'));
   go('#camara/camara-01'); // Rota legada mantém seus exercícios e registro de progresso.
   const target={dataset:{camaraAnswer:'1',camaraId:'camara-01'},hasAttribute:()=>false};
