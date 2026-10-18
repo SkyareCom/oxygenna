@@ -21,7 +21,7 @@
 .camara .camara-calc-row button{flex:0 1 auto;min-height:44px;font-size:12px}
 .camara .camara-checklist label{display:flex;align-items:center;gap:9px;margin:10px 0;font-size:14px}
 .camara .camara-checklist input{accent-color:var(--gold);width:17px;height:17px}
-.camara .camara-evidence-item{margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.camara .camara-evidence-item{margin:8px 0;padding:10px;border:1px solid var(--card-border-gold);border-radius:8px;font-size:14px}
 .camara .camara-step-nav{margin:18px 0 6px}
 .camara .camara-step-nav a{font-family:var(--sans);min-height:44px}
 
@@ -34,9 +34,9 @@
 .camara .camara-visual-sequence{margin:0}
 .camara .camara-visual-sequence h2{font-size:16px;font-weight:600;margin:0 0 12px;color:var(--gold)}
 .camara .camara-flow{list-style:none;display:grid;gap:6px;margin:0;padding:0}
-.camara .camara-flow li{display:grid;grid-template-columns:27px minmax(0,1fr);align-items:center;gap:9px;min-height:42px;border:1px solid var(--line);border-radius:9px;background:#0b2b38;padding:6px 10px;font-size:12px;line-height:1.35}
+.camara .camara-flow li{display:grid;grid-template-columns:27px minmax(0,1fr);align-items:center;gap:9px;min-height:42px;border:1px solid var(--card-border-gold);border-radius:9px;background:#0b2b38;padding:6px 10px;font-size:12px;line-height:1.35}
 .camara .camara-flow li:not(:last-child){position:relative}
-.camara .camara-step-count{display:grid;place-items:center;border-radius:50%;border:1px solid var(--gold);color:var(--gold);width:26px;height:26px;font-size:11px;font-weight:600}
+.camara .camara-step-count{display:grid;place-items:center;border-radius:50%;border:1px solid var(--card-border-gold);color:var(--gold);width:26px;height:26px;font-size:11px;font-weight:600}
 .camara .camara-figure-extra{margin:0}
 .camara .camara-figure-extra img{max-height:330px;padding:5px}
 @media(max-width:360px){.camara .camara-explainer p{font-size:14px}.camara .camara-flow li{padding:7px;font-size:12px}}
@@ -65,8 +65,8 @@
 .module .camara-inline-body .camara-figure figcaption{padding:7px 10px;font-size:12px;color:var(--muted)}
 .module .camara-inline-body .camara-extended-content{display:grid;gap:9px}
 .module .camara-inline-body .camara-flow{list-style:none;display:grid;gap:6px;padding:0;margin:10px 0 0}
-.module .camara-inline-body .camara-flow li{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:9px;font-size:12px;line-height:1.4}
-.module .camara-inline-body .camara-step-count{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;border:1px solid var(--gold);color:var(--gold);font-size:11px}
+.module .camara-inline-body .camara-flow li{display:flex;align-items:center;gap:10px;border:1px solid var(--card-border-gold);border-radius:10px;padding:9px;font-size:12px;line-height:1.4}
+.module .camara-inline-body .camara-step-count{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;border:1px solid var(--card-border-gold);color:var(--gold);font-size:11px}
 .module .camara-inline-body .camara-quiz .answer{font-size:14px;border-color:var(--card-border-gold)}
 .module .camara-inline-body .camara-calc-row{display:flex;gap:9px;flex-wrap:wrap}
 .module .camara-inline-body .camara-calc-row input{min-width:80px;flex:1;border:1px solid var(--card-border-gold);background:var(--panel);color:var(--text);border-radius:8px;padding:10px}
@@ -74,7 +74,7 @@
 .module .camara-inline-body .camara-lab input[type=range]{width:100%;accent-color:var(--gold)}
 .module .camara-inline-body .camara-checklist label{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:14px}
 .module .camara-inline-body .camara-checklist input{accent-color:var(--gold)}
-.module .camara-inline-body .camara-evidence-item{font-size:13px;border:1px solid var(--line);padding:10px;border-radius:8px;margin:6px 0}
+.module .camara-inline-body .camara-evidence-item{font-size:13px;border:1px solid var(--card-border-gold);padding:10px;border-radius:8px;margin:6px 0}
 @media(prefers-reduced-motion:reduce){.module .camara-inline-chapter>summary .icon{transition:none}}
 
 @media(max-width:340px){.camara .camara-step-nav a{font-size:11px}}

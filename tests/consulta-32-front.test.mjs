@@ -25,7 +25,7 @@ test('HOME reutiliza exatamente três home-card e permite busca por id/título/t
  assert.equal((home.match(/class="home-card"/g)||[]).length,3);
  assert.ok(home.includes('ORIGINAL'));
  assert.ok(home.includes('BUSCA GLOBAL'));
- assert.ok(home.includes('CONTINUAR ESTUDANDO'));
+ assert.ok(!home.includes('CONTINUAR ESTUDANDO'));
  assert.ok(home.includes('/capitulo/contraindicacoes'));
  assert.ok(searchConsulta('dcs').some(c=>c.id==='dcs-tipo2'));
  assert.ok(searchConsulta('TOXICIDADE').some(c=>c.id==='toxicidade-oxigenio'));
