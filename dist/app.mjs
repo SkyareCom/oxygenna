@@ -30,7 +30,9 @@ try{consultaUltimo=storage?.getItem('oxygenna-consulta-ultimo')||'';const raw=JS
 function saveConsulta(){try{storage?.setItem('oxygenna-consulta-ultimo',consultaUltimo);storage?.setItem('oxygenna-consulta-favoritos',JSON.stringify([...consultaFavoritos]));}catch{}}
 function showConsulta(){
  if(typeof location==='undefined'||typeof location.pathname!=='string'||Boolean(location.hash))return false;
- return isConsultaRoute(consultaRoute());
+ // A Home original é a única tela recuperada; demais rotas clínicas seguem intactas.
+ const route=consultaRoute();
+ return route!=='/home' && isConsultaRoute(route);
 }
 function irConsulta(id){
  history.pushState(null,'',consultaHref(id));
