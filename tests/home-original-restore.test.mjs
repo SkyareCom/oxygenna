@@ -31,7 +31,7 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       assert.match(markup,/#chapters\/common/);
       assert.match(markup,/#chapters\/diving/);
       const footer=markup.match(/<nav class="bottom-nav[\s\S]*?<\/nav>/)?.[0]??'';
-      for(const name of ['HOME','CÂMARA','CAPÍTULOS','INDICAÇÕES','PROTOCOLOS'])assert.ok(footer.includes(name),name);
+      for(const name of ['HOME','FISIOLOGIA','CLÍNICA','CÂMARA','OPERAÇÃO'])assert.ok(footer.includes(name),name);
       assert.doesNotMatch(markup,/SEU APP DE DECISÕES CLÍNICAS/);
     };
     oldHome();
