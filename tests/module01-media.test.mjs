@@ -23,9 +23,7 @@ test('sete imagens científicas selecionadas e intercaladas nos seis temas',()=>
  assert.ok(renderModuleTopic('01',2,ctx).includes('data-m01-oxygen'),'gráfico médico preservado');
  assert.ok(renderModuleTopic('01',4,ctx).includes('data-m01-stepper="journey"'),'animação preservada');
  assert.ok(renderModuleTopic('01',5,ctx).includes('m01-glossary'),'glossário preservado');
- assert.ok(renderModuleTopic('01',0,ctx).includes('data-m01-quiz="0"'));
- assert.ok(renderModuleTopic('01',2,ctx).includes('data-m01-quiz="2"'));
- assert.ok(renderModuleTopic('01',5,ctx).includes('data-m01-quiz="5"'));
+ for(let i=0;i<6;i++)assert.ok(!renderModuleTopic('01',i,ctx).includes('data-m01-quiz='),'quiz não deve interromper os temas');
 });
 test('fotos individuais e um único contorno continuam íntegras',()=>{
  const css=readFileSync(new URL('../dist/module01-media.css',import.meta.url),'utf8');
@@ -34,12 +32,12 @@ test('fotos individuais e um único contorno continuam íntegras',()=>{
  assert.ok(css.includes('border:1px solid var(--card-border-gold'));
  assert.ok(css.includes('border:0;outline:0;box-shadow:none;border-radius:0'));
  for(const n of expected.flat()){
-  const file=readFileSync(new URL('../dist/assets/m01-'+n+'.webp',import.meta.url));
+  const file=readFileSync(new URL('../dist/assets/m01-foto-'+n+'.webp',import.meta.url));
   assert.ok(file.length>30000,n);
   assert.equal(file.subarray(0,4).toString(),'RIFF');
   assert.equal(file.subarray(8,12).toString(),'WEBP');
  }
- assert.ok(html.includes('app.mjs?rev=camera-direta-20261018'));
+ assert.ok(html.includes('app.mjs?rev=knowledge-final-20261018'));
  assert.ok(app.includes('handleModule01Click(event.target)'));
  assert.ok(app.includes('handleModule01Input(event.target)'));
 });
