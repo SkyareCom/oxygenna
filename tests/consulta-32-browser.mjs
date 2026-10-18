@@ -48,26 +48,35 @@ try{
  if(await page.locator('.brand-logo').count()!==1)throw Error('Logotipo não preservado');
  const styles=await page.evaluate(()=>({header:getComputedStyle(document.querySelector('.app-header')).position,footer:getComputedStyle(document.querySelector('.bottom-nav')).position,font:getComputedStyle(document.body).fontFamily}));
  if(styles.header!=='fixed'||styles.footer!=='fixed')throw Error('Header/footer originais deixaram de ser fixos: '+JSON.stringify(styles));
- await page.locator('.bottom-nav a[href$="/fisiologia"]').click();
- if(!page.url().endsWith('/fisiologia'))throw Error('FISIOLOGIA não navega corretamente');
- if(JSON.stringify(await getFooter())!==JSON.stringify(expectedFooter))throw Error('Ordem do rodapé FISIOLOGIA incorreta');
- await page.locator('main .lesson-link').first().waitFor();
- if(await page.locator('main .lesson-link').count()!==8)throw Error('Fisiologia não possui 8');
- await page.locator('[data-consulta-link][href$="/clinica"]').first().click();
- if(await page.locator('main .lesson-link').count()!==12)throw Error('Clínica não possui 12');
- if(JSON.stringify(await getFooter())!==JSON.stringify(expectedFooter))throw Error('Ordem do rodapé CLÍNICA incorreta');
- await page.locator('[data-consulta-link][href$="/camara"]').first().click();
- if(await page.locator('main .lesson-link').count()!==8)throw Error('Câmara não possui 8');
- await page.locator('[data-consulta-link][href$="/operacao"]').first().click();
- if(await page.locator('main .lesson-link').count()!==4)throw Error('Operação não possui 4');
- await page.locator('[data-consulta-link][href$="/home"]').first().click();
+ for (const route of ['fisiologia','clinica','camara','operacao']) {
+  await page.locator('.bottom-nav a[href$="/'+route+'"]').click();
+  await page.locator('main.oxygenna-blank-page .oxygenna-section-base').waitFor();
+  if(!page.url().endsWith('/'+route))throw Error('Rota '+route+' não abriu');
+  if(JSON.stringify(await getFooter())!==JSON.stringify(expectedFooter))throw Error('Rodapé alterado em '+route);
+  if(await page.locator('main.oxygenna-blank-page > *').count()!==1)throw Error('Conteúdo indevido em '+route);
+  if(await page.locator('main.oxygenna-blank-page h1,main.oxygenna-blank-page h2,main.oxygenna-blank-page .lesson-link,main.oxygenna-blank-page .panel,main.oxygenna-blank-page .home-card').count())throw Error('Página '+route+' não está em branco');
+  const signature=page.locator('.oxygenna-section-base');
+  if((await signature.locator('.oxygenna-section-base-left').innerText()).trim()!=='PAPOS DE ALTITUDE')throw Error('Coluna esquerda incorreta');
+  if((await signature.locator('.oxygenna-section-base-right').innerText()).trim()!=='PH4 DEV & HEALTH')throw Error('Coluna direita incorreta');
+  if(await signature.locator('img.oxygenna-section-base-logo[alt="OXYGENNA"]').count()!==1)throw Error('Logotipo central ausente');
+  const metrics=await page.evaluate(()=>{
+   const strip=document.querySelector('.oxygenna-section-base').getBoundingClientRect();
+   const foot=document.querySelector('.bottom-nav').getBoundingClientRect();
+   const children=[...document.querySelector('.oxygenna-section-base').children].map(el=>el.getBoundingClientRect());
+   return {stripBottom:strip.bottom,footerTop:foot.top,centers:children.map(r=>r.left+r.width/2),header:getComputedStyle(document.querySelector('.app-header')).position};
+  });
+  if(metrics.stripBottom>=metrics.footerTop-5)throw Error('Créditos encobertos pelo rodapé: '+JSON.stringify(metrics));
+  if(!(metrics.centers[0]<metrics.centers[1]&&metrics.centers[1]<metrics.centers[2]))throw Error('Colunas fora de ordem');
+  if(metrics.header!=='fixed')throw Error('Cabeçalho perdeu posição fixa');
+ }
+ await page.locator('.bottom-nav a[href$="/home"]').click();
  await page.locator('.study-map').waitFor();
- if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('Link HOME não restaura tela original');
+ if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('HOME original não foi preservada');
+ // As rotas internas continuam tecnicamente disponíveis, embora não listadas nas quatro telas vazias.
  await page.evaluate(()=>{
-  history.pushState(null,'','/oxygenna/clinica');
+  history.pushState(null,'','/oxygenna/capitulo/dcs-tipo2');
   window.dispatchEvent(new PopStateEvent('popstate'));
  });
- await page.locator('main a[href$="/capitulo/dcs-tipo2"]').first().click();
  if(!page.url().endsWith('/capitulo/dcs-tipo2'))throw Error('URL capítulo incorreta: '+page.url());
  if(await page.locator('main section.panel').count()!==7)throw Error('DCS2 sem sete painéis');
  if(await page.locator('.bottom-nav a').count()!==3)throw Error('Rodapé do capítulo não tem três ações');
@@ -76,7 +85,7 @@ try{
  if(await page.locator('.feedback').count()<1)throw Error('Sem feedback da questão');
  await page.locator('[data-consulta-favorite]').click();
  if(!await page.locator('.bottom-nav').innerText().then(t=>t.includes('FAVORITADO')))throw Error('Favorito não funciona');
- const result={url:page.url(),styles,filters:[8,12,8,4],chapters:32,blocks:7,questions:3,errors};
+ const result={url:page.url(),styles,blankPages:['fisiologia','clinica','camara','operacao'],chapters:32,blocks:7,questions:3,errors};
  console.log('BROWSER_MOBILE_OK',JSON.stringify(result));
  if(errors.length)throw Error('Erros de execução: '+errors.join('; '));
 }finally{await browser.close();await new Promise(done=>app.close(done));}

@@ -64,3 +64,29 @@
 .bottom-nav a.active { box-shadow: none; }
 
 /* Cards da Home: proporções e conectores restaurados do template original. */
+
+/* Quatro telas vazias: somente créditos em três colunas acima do rodapé fixo.
+   Preserva os tamanhos e a navegação definidos no front original. */
+.oxygenna-blank-page .oxygenna-section-base {
+  position: fixed;
+  z-index: 5;
+  left: 50%;
+  bottom: calc(120px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(calc(100% - 40px), 440px);
+  min-height: 44px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  column-gap: 6px;
+  padding: 0 2px;
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: .05em;
+  line-height: 1.25;
+  pointer-events: none;
+}
+.oxygenna-section-base-left { text-align: left; }
+.oxygenna-section-base-logo { width: 38px; height: 38px; object-fit: contain; justify-self: center; }
+.oxygenna-section-base-right { text-align: right; }
