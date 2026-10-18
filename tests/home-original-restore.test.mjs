@@ -50,7 +50,8 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
     location.pathname='/oxygenna/';
     location.hash='#chapters';
     listeners.hashchange();
-    assert.match(markup,/class="curriculum/);
+    assert.match(markup,/class="chapters"/);
+    assert.match(markup,/Capítulos de aprendizagem/);
     assert.doesNotMatch(markup,/Seu mapa de estudos/);
   } finally {
     for(const [key,value] of Object.entries(saved)){
