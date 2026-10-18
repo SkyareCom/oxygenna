@@ -5,8 +5,8 @@ import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view
 import {handleModule01Click,handleModule01Input} from './module01-media.mjs?rev=knowledge-final-20261018';
 import {handleKnowledgeClick} from './knowledge-check.mjs?rev=knowledge-final-20261018';
 import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,getNextLesson,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
-import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs';
-import {renderFocusCard,renderFocus} from './focus-view.mjs';
+import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs?rev=home-cards-footer-20261018';
+import {renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
 import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,thermalRatio,pressureUnits} from './core.mjs';
 import {tracks,lessons,sources} from './content.mjs';
@@ -51,7 +51,7 @@ function sourceLinks(ids){return ids.map(id=>{const s=sources[id];return `<a cla
 function renderHome(){
  const n=navigationUI[state.lang],next=getNextLesson(state.completed),parent=next?modules.find(m=>m.lessons.includes(next.id)):null;
  const label=next?(state.completed.length?n.resume:n.start):n.review;
- return `<p class="eyebrow">${t().campus}</p><h1 class="display home-title">${t().hero}</h1><div class="home-hero">${art('home-art')}</div><section class="study-resume">${next?`<p class="tag">${n.next}</p><h2>${e(next[state.lang].title)}</h2>`:''}${primary(label,next?lessonHref(next.id,parent?.phase):'#chapters')}</section>${renderStudyMap({lang:state.lang,completed:state.completed,e,icon})}${renderFocusCard({lang:state.lang,e})}`;
+ return `<p class="eyebrow">${t().campus}</p><h1 class="display home-title">${t().hero}</h1><div class="home-hero">${art('home-art')}</div><section class="study-resume">${next?`<p class="tag">${n.next}</p><h2>${e(next[state.lang].title)}</h2>`:''}${primary(label,next?lessonHref(next.id,parent?.phase):'#chapters')}</section>${renderStudyMap({lang:state.lang,completed:state.completed,e,icon})}`;
 }
 function renderLearn(){return `${back('#home')}<h1 class="display learn-heading">${t().motto}</h1>${art('chamber-art')}<div class="tracks" id="tracks">${tracks.map(track=>`<a class="track" href="#track/${track.id}">${art('crop-'+track.crop)}<div class="copy"><strong>${e(track[state.lang][0])}</strong><small>${e(track[state.lang][1])}</small></div>${icon('right')}</a>`).join('')}</div><button class="primary explore" type="button" data-explore>${t().explore}${icon('right')}</button>`;}
 function renderTrack(id){const track=tracks.find(a=>a.id===id);if(!track)return notFound();const items=lessons.filter(a=>a.track===id);return `${back()}<p class="tag">${t().trails}</p><h1 class="display page-title">${e(track[state.lang][0])}</h1><p class="subtle">${e(track[state.lang][1])} · ${items.length} ${t().lessons}</p><a class="secondary" href="#curriculum/${track.id}">${curriculumUI[state.lang].map}${icon('right')}</a><div class="lesson-list">${items.map((lesson,i)=>`<a class="lesson-link" href="#lesson/${lesson.id}"><span class="lesson-number">${String(i+1).padStart(2,'0')}</span><strong>${e(lesson[state.lang].title)}</strong>${icon(state.completed.includes(lesson.id)?'check':'right')}</a>`).join('')}</div><p class="micro">${t().summary}</p>`;}

@@ -62,3 +62,8 @@
 
 /* Remove a segunda linha azul do item ativo do rodapé. */
 .bottom-nav a.active { box-shadow: none; }
+
+/* Home: cards de navegação substituem etapas numeradas; sem conectores sequenciais. */
+.study-map .study-stage { align-items:center; min-height:78px; }
+.study-map .study-stages li:not(:last-child)::after { content:none; }
+.study-map .stage-marker>.icon { width:19px; height:19px; color:#d9c595; stroke-width:1.6; }

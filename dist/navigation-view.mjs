@@ -1,4 +1,4 @@
-import {navigationUI,getStudySteps,NOTICE_IDS} from './navigation.mjs';
+import {navigationUI,NOTICE_IDS} from './navigation.mjs';
 
 export function renderHeader({lang,icon,e,unread}){
  const n=navigationUI[lang];
@@ -10,6 +10,10 @@ const FOOTER_ITEMS=[
  ['CLÍNICA','clinica','book'],
  ['CÂMARA','camara','indications'],
  ['OPERAÇÃO','operacao','protocols']
+];
+const HOME_ADDITIONAL_CARDS=[
+ ['INDICAÇÕES E PROTOCOLOS','#indications','protocols'],
+ ['EM FOCO','#focus','activity']
 ];
 export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,favorite=false,backRoute='/home',nextRoute='/home'}){
  const n=navigationUI[lang];
@@ -30,9 +34,15 @@ export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,fav
  const activePage=({chamber:'camara',indications:'clinica',protocols:'operacao'})[active]||active;
  return `<nav class="bottom-nav footer-card" aria-label="${e(n.navigation)}">${FOOTER_ITEMS.map(([title,route,symbol])=>`<a data-consulta-link href="${to(route)}" class="${activePage===route?'active':''}" ${activePage===route?'aria-current="page"':''}>${icon(symbol)}<span>${e(title)}</span></a>`).join('')}</nav>`;
 }
-export function renderStudyMap({lang,completed,e,icon}){
- const n=navigationUI[lang],steps=getStudySteps(lang,completed);
- return `<section class="study-map" aria-labelledby="study-map-title"><p class="tag">${n.browse}</p><h2 id="study-map-title" class="display">${n.map}</h2><p class="subtle">${n.mapIntro}</p><ol class="study-stages">${steps.map((step,i)=>`<li><a class="study-stage" href="${step.href}"><span class="stage-marker" aria-hidden="true">${i+1}</span><span class="stage-copy"><span class="tag">${n.step} ${String(i+1).padStart(2,'0')}</span><strong>${e(step.title)}</strong><span class="stage-description">${e(step.description)}</span><span class="stage-meta">${step.modules} ${n.modules} · ${step.topics} ${n.topics}</span><span class="stage-status">${step.completed} / ${step.available} ${n.available} ${n.completed}</span></span>${icon('right')}</a></li>`).join('')}</ol><a class="primary chapter-cta" href="#chapters">${n.viewAll}${icon('right')}</a></section>`;
+export function renderStudyMap({lang,e,icon}){
+ const n=navigationUI[lang];
+ const intro={
+  pt:'Escolha uma área para explorar os conteúdos.',
+  en:'Choose an area to explore the content.',
+  es:'Elige un área para explorar los contenidos.'
+ }[lang]||'Escolha uma área para explorar os conteúdos.';
+ const base=typeof location==='undefined'||!String(location.pathname??'').startsWith('/oxygenna')?'/':'/oxygenna/';
+ return `<section class="study-map" aria-labelledby="study-map-title"><p class="tag">${n.browse}</p><h2 id="study-map-title" class="display">${n.map}</h2><p class="subtle">${intro}</p><ol class="study-stages">${[...FOOTER_ITEMS.filter(([,route])=>route!=='home').map(([title,route,symbol])=>[title,base+route,symbol,true]),...HOME_ADDITIONAL_CARDS.map(([title,route,symbol])=>[title,route,symbol,false])].map(([title,url,symbol,consulta])=>`<li><a class="study-stage" ${consulta?'data-consulta-link ':''}href="${url}" aria-label="${e(title)}"><span class="stage-marker" aria-hidden="true">${icon(symbol)}</span><span class="stage-copy"><strong>${e(title)}</strong></span>${icon('right')}</a></li>`).join('')}</ol><a class="primary chapter-cta" href="#chapters">${n.viewAll}${icon('right')}</a></section>`;
 }
 export function renderNotices({lang,readNotices,e,back,noticePersisted}){
  const n=navigationUI[lang],allRead=NOTICE_IDS.every(id=>readNotices.includes(id));
