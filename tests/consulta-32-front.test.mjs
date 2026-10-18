@@ -48,6 +48,8 @@ test('footer mantém CSS e ícones originais, troca somente destinos e textos',(
  assert.ok(foot.startsWith('<nav class="bottom-nav footer-card"'));
  for(const path of ['home','fisiologia','clinica','camara','operacao'])assert.ok(foot.includes('/'+path+'"'),path);
  assert.equal((foot.match(/data-consulta-link/g)||[]).length,5);
+ const footerRoutes=[...foot.matchAll(/href="[^"]*\/(home|clinica|fisiologia|camara|operacao)"/g)].map(m=>m[1]);
+ assert.deepEqual(footerRoutes,['home','clinica','fisiologia','camara','operacao']);
  const chapter=renderFooter({lang:'pt',active:'clinica',icon,e,consulta:true,chapter:'dcs-tipo2',favorite:true,backRoute:'/clinica',nextRoute:'/capitulo/embolia-gasosa'});
  assert.equal((chapter.match(/<a /g)||[]).length,3);
  assert.ok(chapter.includes('VOLTAR'));
