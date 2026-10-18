@@ -147,3 +147,52 @@ main{padding-bottom:calc(132px + env(safe-area-inset-bottom))}.display{font-weig
 .module .chamber-lesson .camara-topic-extras .camara-calc-row input{width:55%;min-width:0;background:#071d29;color:var(--text);border:1px solid var(--card-border-gold);border-radius:9px;padding:8px}
 .module .chamber-lesson .chamber-references{margin:24px 0 18px}
 .module .chamber-lesson .chamber-chapter-navigation{margin-bottom:20px}
+
+
+/* Tabelas normobárico x hiperbárico — legíveis em telas estreitas. */
+.module .oxygen-comparison,.topic .oxygen-comparison{margin:8px 0 22px}
+.module .oxygen-table-block,.topic .oxygen-table-block{margin:14px 0 17px}
+.module .oxygen-table-block h3,.topic .oxygen-table-block h3{font:600 14px/1.3 var(--sans);letter-spacing:.9px;color:var(--gold);margin:0 0 10px}
+.module .oxygen-table-scroll,.topic .oxygen-table-scroll{border:1px solid var(--card-border-gold);border-radius:13px;overflow:hidden;background:#0b2531}
+.module .oxygen-table-block table,.topic .oxygen-table-block table{border-collapse:collapse;width:100%;font:400 12px/1.5 var(--sans)}
+.module .oxygen-table-block th,.module .oxygen-table-block td,.topic .oxygen-table-block th,.topic .oxygen-table-block td{padding:11px 12px;border-bottom:1px solid rgba(212,207,189,.18);text-align:left;vertical-align:top}
+.module .oxygen-table-block tbody tr:last-child th,.module .oxygen-table-block tbody tr:last-child td,.topic .oxygen-table-block tbody tr:last-child th,.topic .oxygen-table-block tbody tr:last-child td{border-bottom:0}
+.module .oxygen-table-block thead,.topic .oxygen-table-block thead{background:#173949;color:#efce8f}
+.module .oxygen-table-block thead th,.topic .oxygen-table-block thead th{font-weight:600}
+.module .oxygen-table-block tbody th,.topic .oxygen-table-block tbody th{font-weight:600;color:#f3f7f8;width:25%}
+.module .oxygen-table-block tbody td,.topic .oxygen-table-block tbody td{color:#d2e2e7;width:37.5%}
+.module .oxygen-note,.topic .oxygen-note{font:400 11px/1.5 var(--sans);color:var(--muted);margin:5px 0 0}
+@media(max-width:640px){
+ .module .oxygen-table-block thead,.topic .oxygen-table-block thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .module .oxygen-table-block tbody tr,.topic .oxygen-table-block tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:0}
+ .module .oxygen-table-block tbody th,.topic .oxygen-table-block tbody th{grid-column:1/-1;width:auto;border-bottom:0;padding:11px 12px 4px}
+ .module .oxygen-table-block tbody td,.topic .oxygen-table-block tbody td{width:auto;border-bottom:1px solid rgba(212,207,189,.18);padding:5px 12px 12px}
+ .module .oxygen-table-block tbody td:nth-child(2),.topic .oxygen-table-block tbody td:nth-child(2){border-right:1px solid rgba(212,207,189,.12)}
+ .module .oxygen-table-block tbody td:nth-child(2)::before,.topic .oxygen-table-block tbody td:nth-child(2)::before{content:'NORMOBÁRICO'}
+ .module .oxygen-table-block tbody td:nth-child(3)::before,.topic .oxygen-table-block tbody td:nth-child(3)::before{content:'HIPERBÁRICO'}
+ .module .oxygen-table-block tbody td::before,.topic .oxygen-table-block tbody td::before{display:block;margin-bottom:4px;font-size:10px;font-weight:600;color:var(--gold)}
+}
+/* Uma avaliação ao fim de cada capítulo: só uma borda no card principal. */
+.module .knowledge-check{margin:26px 0 24px;background:#0b2531;border:1px solid var(--card-border-gold);border-radius:14px;overflow:hidden}
+.module .knowledge-check>summary{cursor:pointer;list-style:none;min-height:68px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.module .knowledge-check>summary::-webkit-details-marker{display:none}
+.module .knowledge-check-head{display:grid;gap:3px}
+.module .knowledge-check-head strong{font:600 16px/1.3 var(--sans);color:var(--gold);letter-spacing:.65px}
+.module .knowledge-check-head small{font:400 12px/1.4 var(--sans);color:var(--muted)}
+.module .knowledge-arrow{font:400 25px/1 var(--sans);color:var(--gold);transition:transform .2s}
+.module .knowledge-check[open] .knowledge-arrow{transform:rotate(90deg)}
+.module .knowledge-check[open]>summary{border-bottom:1px solid rgba(212,207,189,.2)}
+.module .knowledge-check-body{padding:14px 16px 20px}
+.module .knowledge-score{font:600 12px/1.3 var(--sans);color:var(--gold);margin:0 0 9px}
+.module .knowledge-question{border:0;border-bottom:1px solid rgba(212,207,189,.2);margin:0;padding:15px 0 18px;display:grid;gap:8px}
+.module .knowledge-question:last-child{border-bottom:0}
+.module .knowledge-question legend{font:600 14px/1.45 var(--sans);color:var(--text);padding:0 0 8px}
+.module .knowledge-question-number{color:var(--gold);margin-right:7px}
+.module .knowledge-question button{display:flex;gap:10px;align-items:start;text-align:left;border:1px solid rgba(212,207,189,.3);border-radius:9px;background:#12313e;color:#f0f6f7;padding:10px 12px;font:400 12px/1.5 var(--sans);min-height:42px;cursor:pointer}
+.module .knowledge-question button b{font-weight:600;color:var(--gold)}
+.module .knowledge-question button[aria-pressed="true"]{border-color:var(--gold);background:#23404c}
+.module .knowledge-feedback{font:400 12px/1.5 var(--sans);margin:3px 0 0;color:#d7e6e9}
+.module .knowledge-feedback:empty{display:none}
+.module .knowledge-feedback[data-correct="true"]{color:#96e2c6}
+.module .chamber-lesson .m01-context-figure{border:1px solid var(--card-border-gold);border-radius:14px;box-shadow:none;overflow:hidden}
+.module .chamber-lesson .m01-context-figure img{display:block;width:100%;height:auto;border:0;outline:0;box-shadow:none;object-fit:cover}
