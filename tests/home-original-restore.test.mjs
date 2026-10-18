@@ -28,6 +28,8 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       assert.match(markup,/CONTEÚDO EXTRA DISPONÍVEL/);
       assert.match(markup,/FUNDAMENTOS BÁSICOS/);
       assert.match(markup,/COMEÇAR ESTUDOS/);
+      assert.match(markup,/href="#fundamentos-basicos"/);
+      assert.doesNotMatch(markup,/class="study-resume"[\s\S]*?href="#lesson\//);
       assert.doesNotMatch(markup,/Próxima aula disponível|Uma pressão, várias unidades|Continuar estudos/);
       assert.match(markup,/class="study-map"/);
       assert.match(markup,/Seu mapa de estudos/);
