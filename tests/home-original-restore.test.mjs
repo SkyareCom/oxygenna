@@ -49,12 +49,22 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
     };
     oldHome();
 
-    location.pathname='/oxygenna/clinica';
+    for (const section of ['fisiologia','clinica','camara','operacao']) {
+      location.pathname='/oxygenna/'+section;
+      listeners.popstate();
+      assert.match(markup,/class="module oxygenna-blank-page"/);
+      const mainHtml=markup.match(/<main[^>]*>([\\s\\S]*?)<\\/main>/)?.[1]??'';
+      assert.match(mainHtml,/class="oxygenna-section-base"/);
+      assert.match(mainHtml,/PAPOS DE ALTITUDE/);
+      assert.match(mainHtml,/oxygenna-logo\\.png/);
+      assert.match(mainHtml,/PH4 DEV &amp; HEALTH/);
+      assert.doesNotMatch(mainHtml,/<h[1-6]|class="panel"|class="lesson-link"|data-consulta-busca/);
+      assert.equal((markup.match(/<nav class="bottom-nav[^>]*>/g)||[]).length,1);
+      assert.match(markup,/data-consulta-link/);
+    }
+    location.pathname='/oxygenna/capitulo/dcs-tipo2';
     listeners.popstate();
-    assert.match(markup,/Filtros de consulta/);
-    assert.match(markup,/>CLÍNICA</);
-    assert.match(markup,/data-consulta-link/);
-    assert.doesNotMatch(markup,/Seu mapa de estudos/);
+    assert.match(markup,/TESTE O CONHECIMENTO/,'Rotas internas continuam armazenadas e acessíveis');
 
     location.pathname='/oxygenna/home';
     listeners.popstate();
