@@ -4,7 +4,7 @@ import {curriculumUI,modules} from './curriculum.mjs';
 import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view.mjs?rev=knowledge-final-20261018';
 import {handleModule01Click,handleModule01Input} from './module01-media.mjs?rev=knowledge-final-20261018';
 import {handleKnowledgeClick} from './knowledge-check.mjs?rev=knowledge-final-20261018';
-import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,getNextLesson,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
+import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
 import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs?rev=home-original-large-cards-20261018';
 import {renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
@@ -12,6 +12,7 @@ import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,t
 import {tracks,lessons,sources} from './content.mjs';
 import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=knowledge-final-20261018';
 import {camaraAnswer} from './camara-data.mjs';
+import {renderFundamentosBasicos,handleFundamentosConversion} from './fundamentos-basicos.mjs?rev=fundamentos-fisica-v1-20261018';
 
 const UI={
  pt:{brand:'OXYGENNA',campus:'Seu campus de aprendizagem',hero:'Ciência sob pressão.',start:'Iniciar jornada',trails:'Trilhas de conhecimento',trailsSub:'Dos fundamentos à prática',lab:'Laboratório interativo',labSub:'Explore pressão, gases e tecidos',motto:'Entender. Visualizar. Aplicar.',explore:'Explorar trilhas',nav:['Início','Aprender','Laboratório','Perfil'],back:'Voltar',lesson:'Aula',sources:'Referências consultadas',library:'Biblioteca científica',editorial:'Síntese educacional • Revisão editorial',clinical:'Revisão clínica independente ainda não realizada.',check:'Consolidar o conhecimento',correct:'Correto. Aula registrada no seu progresso.',repeat:'Correto. Esta aula já estava registrada; o progresso não será duplicado.',wrong:'Releia a explicação e tente novamente.',next:'Próxima aula',trackEnd:'Voltar à trilha',experiment:'Experimentar no laboratório',profile:'Seu percurso',mastered:'aulas consolidadas',progress:'Conhecimento em construção',language:'Idioma',local:'Seu progresso fica salvo neste navegador. Sem ranking entre pessoas.',storageFail:'O navegador não permitiu salvar os dados. O progresso permanece nesta sessão.',read:'Leitura crítica e fontes',catalogNote:'Conteúdo inicial em expansão. As fontes têm escopo e datas próprios; citações não representam credenciamento ou certificação do campus.',access:{full:'Texto público consultado',indexed:'Resumo ou trecho indexado consultado',notice:'Comunicado consultado',scope:'Escopo público; norma integral não consultada',catalog:'Catálogo; vigência por verificar'},consulted:'Consultado em',update:'O relatório completo do consenso ECHM de 2026 ainda aguardava publicação na consulta. O consenso de 2017 permanece identificado por seu ano.',norms:'Normas e unidades',normNote:'A aplicação de normas depende de seu escopo, edição e jurisdição. O catálogo ABNT integra a pesquisa; não há declaração de conformidade ABNT/ISO nesta versão.',lessons:'aulas',absolute:'Pressão absoluta',partial:'Pressão parcial do gás',fraction:'Fração de oxigênio',temperature:'Temperatura final',volume:'Volume final',pressure:'Pressão final',index:'Concentração relativa',base:'Condição inicial',model:'Modelo didático ideal. Não determina doses, tratamento ou perfis de descompressão.',hypotheses:{units:'Conversões da mesma pressão absoluta. A pressão atmosférica local pode diferir de uma atmosfera padrão.',boyle:'Quantidade de gás e temperatura constantes. P₁ = 101,325 kPa; V₁ = 1 000 mL. Pressões absolutas.',dalton:'Mistura gasosa seca ideal: pO₂ = F O₂ × P absoluta. O resultado não é a pressão alveolar ou arterial.',henry:'Equilíbrio; mesmo gás, solvente e temperatura. C/C₀ = p/p₀, com p₀ = 101,325 kPa. Índice relativo, sem coeficiente de solubilidade sanguínea.',charles:'Pressão e quantidade de gás constantes. T₁ = 300 K; V₁ = 1 000 mL. Use temperaturas absolutas.',gay:'Volume e quantidade de gás constantes. T₁ = 300 K; P₁ = 101,325 kPa. Use temperaturas absolutas.'},unavailable:'Página não encontrada',return:'Voltar ao início',summary:'As aulas iniciais são sínteses curtas. Abra as fontes para aprofundar a leitura.',chartX:'Pressão absoluta (kPa)',chartY:'Volume (mL)',skip:'Ir ao conteúdo'},
@@ -54,9 +55,8 @@ const homeExtraCopy={
  es:{subtitle:'CONTENIDO EXTRA DISPONIBLE',title:'FUNDAMENTOS BÁSICOS',action:'COMENZAR ESTUDIOS'}
 };
 function renderHome(){
- const next=getNextLesson(state.completed),parent=next?modules.find(m=>m.lessons.includes(next.id)):null;
  const copy=homeExtraCopy[state.lang]||homeExtraCopy.pt;
- return `<p class="eyebrow">${t().campus}</p><h1 class="display home-title">${t().hero}</h1><div class="home-hero">${art('home-art')}</div><section class="study-resume"><p class="tag">${e(copy.subtitle)}</p><h2>${e(copy.title)}</h2>${primary(e(copy.action),next?lessonHref(next.id,parent?.phase):'#chapters')}</section>${renderStudyMap({lang:state.lang,completed:state.completed,e,icon})}`;
+ return `<p class="eyebrow">${t().campus}</p><h1 class="display home-title">${t().hero}</h1><div class="home-hero">${art('home-art')}</div><section class="study-resume"><p class="tag">${e(copy.subtitle)}</p><h2>${e(copy.title)}</h2>${primary(e(copy.action),'#fundamentos-basicos')}</section>${renderStudyMap({lang:state.lang,completed:state.completed,e,icon})}`;
 }
 function renderLearn(){return `${back('#home')}<h1 class="display learn-heading">${t().motto}</h1>${art('chamber-art')}<div class="tracks" id="tracks">${tracks.map(track=>`<a class="track" href="#track/${track.id}">${art('crop-'+track.crop)}<div class="copy"><strong>${e(track[state.lang][0])}</strong><small>${e(track[state.lang][1])}</small></div>${icon('right')}</a>`).join('')}</div><button class="primary explore" type="button" data-explore>${t().explore}${icon('right')}</button>`;}
 function renderTrack(id){const track=tracks.find(a=>a.id===id);if(!track)return notFound();const items=lessons.filter(a=>a.track===id);return `${back()}<p class="tag">${t().trails}</p><h1 class="display page-title">${e(track[state.lang][0])}</h1><p class="subtle">${e(track[state.lang][1])} · ${items.length} ${t().lessons}</p><a class="secondary" href="#curriculum/${track.id}">${curriculumUI[state.lang].map}${icon('right')}</a><div class="lesson-list">${items.map((lesson,i)=>`<a class="lesson-link" href="#lesson/${lesson.id}"><span class="lesson-number">${String(i+1).padStart(2,'0')}</span><strong>${e(lesson[state.lang].title)}</strong>${icon(state.completed.includes(lesson.id)?'check':'right')}</a>`).join('')}</div><p class="micro">${t().summary}</p>`;}
@@ -115,6 +115,7 @@ function render(){
  const curriculumOptions={lang:state.lang,lessons,e,icon,back,sourceLinks};
  let page;
  if(section==='home')page=renderHome()+renderEmptySectionBase();
+ else if(section==='fundamentos-basicos')page=renderFundamentosBasicos(state.lang,icon,back,e);
  else if(section==='learn')page=renderLearn();
  else if(section==='track')page=renderTrack(id);
  else if(section==='lesson')page=renderLesson(id,context);
@@ -132,7 +133,7 @@ function render(){
  else if(section==='topic')page=renderModuleTopic(id,context,{...curriculumOptions,context:route.split('/')[3],notFound,camaraAnswers:selectedCamaraAnswers});
  else page=notFound();
  const unread=NOTICE_IDS.some(id=>!readNotices.includes(id));
- document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:activeSection(route),icon,e})}`;
+ document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:section==='fundamentos-basicos'?'home':activeSection(route),icon,e})}`;
 }
 document.addEventListener('click',event=>{
  const el=event.target;
@@ -176,7 +177,9 @@ document.addEventListener('input',event=>{
   if(target)target.innerHTML=renderConsultaSearch(consultaBusca);
   return;
  }
- if(handleModule01Input(event.target))return;if(event.target.id==='camara-pressure'){const ata=Number(event.target.value);if(!Number.isFinite(ata)||ata<=0)return;const p=document.querySelector('#camara-pressure-output'),r=document.querySelector('#camara-graph-result');if(p)p.textContent=fmt(ata,1)+' ATA';if(r)r.textContent=camaraGraphText(event.target.dataset.camaraEngine,ata,state.lang);return;}if(!['lab-p','lab-f'].includes(event.target.id))return;const value=Number(event.target.value);if(!Number.isFinite(value))return;if(event.target.id==='lab-f')labF=value;else if(['charles','gay'].includes(labMode))labT=value;else labP=value;document.querySelector('#pressure-output').textContent=['charles','gay'].includes(labMode)?fmt(labT,2)+' K':fmt(labP,3)+' kPa';const f=document.querySelector('#fraction-output');if(f)f.textContent=fmt(labF)+' %';document.querySelector('#lab-result').innerHTML=labOutput();});
+ if(handleFundamentosConversion(event.target,state.lang))return;
+  if(handleModule01Input(event.target))return;if(event.target.id==='camara-pressure'){const ata=Number(event.target.value);if(!Number.isFinite(ata)||ata<=0)return;const p=document.querySelector('#camara-pressure-output'),r=document.querySelector('#camara-graph-result');if(p)p.textContent=fmt(ata,1)+' ATA';if(r)r.textContent=camaraGraphText(event.target.dataset.camaraEngine,ata,state.lang);return;}if(!['lab-p','lab-f'].includes(event.target.id))return;const value=Number(event.target.value);if(!Number.isFinite(value))return;if(event.target.id==='lab-f')labF=value;else if(['charles','gay'].includes(labMode))labT=value;else labP=value;document.querySelector('#pressure-output').textContent=['charles','gay'].includes(labMode)?fmt(labT,2)+' K':fmt(labP,3)+' kPa';const f=document.querySelector('#fraction-output');if(f)f.textContent=fmt(labF)+' %';document.querySelector('#lab-result').innerHTML=labOutput();});
+document.addEventListener('change',event=>{handleFundamentosConversion(event.target,state.lang);});
 window.addEventListener('popstate',()=>{render();window.scrollTo?.(0,0);});
 window.addEventListener('hashchange',()=>{if(currentRoute()==='main'){document.querySelector('#main')?.focus();return;}render();window.scrollTo(0,0);document.querySelector('#main')?.focus({preventScroll:true});});
 render();
