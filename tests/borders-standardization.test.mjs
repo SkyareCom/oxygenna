@@ -59,3 +59,24 @@ test('Busca sem borda, imagens sem contorno duplo e cores de estado preservadas'
     assert.ok(index.includes(file + '.css?rev=gold-borders-20261018'));
   }
 });
+
+test('Folha final fixa #857557 em todos os cards, inclusive estados de interação', () => {
+  const uniform = load('card-borders.css');
+  const cardSelectors = [
+    '.home-card', '.panel', '.study-stage', '.focus-card',
+    '.track', '.lesson-link', '.module-topic-card',
+    '.clinical-chapter-record', '.camara .panel',
+    '.module .camara-inline-chapter', '.topic .topic-reading',
+    '.module .knowledge-check', '.m01-media .m01-panel',
+    '.answer', '.bottom-nav'
+  ];
+  for (const selector of cardSelectors) {
+    assert.ok(uniform.includes(selector), 'Card sem regra uniforme: ' + selector);
+  }
+  assert.match(uniform, /border-color:\s*#857557\s*!important/);
+  assert.ok(!uniform.includes('.consulta-global-search'));
+  assert.ok(!uniform.includes('.m01-context-figure img'));
+  const stylesheetPosition = index.indexOf('card-borders.css?rev=uniform-857557-20261018');
+  const modulesPosition = index.indexOf('module01-media.css?rev=gold-borders-20261018');
+  assert.ok(stylesheetPosition > modulesPosition, 'Folha uniforme deve ser a última CSS');
+});
