@@ -12,7 +12,8 @@ import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,t
 import {tracks,lessons,sources} from './content.mjs';
 import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=knowledge-final-20261018';
 import {camaraAnswer} from './camara-data.mjs';
-import {renderFundamentosBasicos,handleFundamentosConversion} from './fundamentos-basicos.mjs?rev=fundamentos-fisica-v1-20261018';
+import {renderFundamentosBasicos,handleFundamentosConversion} from './fundamentos-basicos.mjs?rev=fundamentos-visuais-v2-20261018';
+import {updatePhysicsActivity,setDiverDepthFromPointer} from './fundamentos-interativos.mjs?rev=visual-experiments-20261018';
 
 const UI={
  pt:{brand:'OXYGENNA',campus:'Seu campus de aprendizagem',hero:'Ciência sob pressão.',start:'Iniciar jornada',trails:'Trilhas de conhecimento',trailsSub:'Dos fundamentos à prática',lab:'Laboratório interativo',labSub:'Explore pressão, gases e tecidos',motto:'Entender. Visualizar. Aplicar.',explore:'Explorar trilhas',nav:['Início','Aprender','Laboratório','Perfil'],back:'Voltar',lesson:'Aula',sources:'Referências consultadas',library:'Biblioteca científica',editorial:'Síntese educacional • Revisão editorial',clinical:'Revisão clínica independente ainda não realizada.',check:'Consolidar o conhecimento',correct:'Correto. Aula registrada no seu progresso.',repeat:'Correto. Esta aula já estava registrada; o progresso não será duplicado.',wrong:'Releia a explicação e tente novamente.',next:'Próxima aula',trackEnd:'Voltar à trilha',experiment:'Experimentar no laboratório',profile:'Seu percurso',mastered:'aulas consolidadas',progress:'Conhecimento em construção',language:'Idioma',local:'Seu progresso fica salvo neste navegador. Sem ranking entre pessoas.',storageFail:'O navegador não permitiu salvar os dados. O progresso permanece nesta sessão.',read:'Leitura crítica e fontes',catalogNote:'Conteúdo inicial em expansão. As fontes têm escopo e datas próprios; citações não representam credenciamento ou certificação do campus.',access:{full:'Texto público consultado',indexed:'Resumo ou trecho indexado consultado',notice:'Comunicado consultado',scope:'Escopo público; norma integral não consultada',catalog:'Catálogo; vigência por verificar'},consulted:'Consultado em',update:'O relatório completo do consenso ECHM de 2026 ainda aguardava publicação na consulta. O consenso de 2017 permanece identificado por seu ano.',norms:'Normas e unidades',normNote:'A aplicação de normas depende de seu escopo, edição e jurisdição. O catálogo ABNT integra a pesquisa; não há declaração de conformidade ABNT/ISO nesta versão.',lessons:'aulas',absolute:'Pressão absoluta',partial:'Pressão parcial do gás',fraction:'Fração de oxigênio',temperature:'Temperatura final',volume:'Volume final',pressure:'Pressão final',index:'Concentração relativa',base:'Condição inicial',model:'Modelo didático ideal. Não determina doses, tratamento ou perfis de descompressão.',hypotheses:{units:'Conversões da mesma pressão absoluta. A pressão atmosférica local pode diferir de uma atmosfera padrão.',boyle:'Quantidade de gás e temperatura constantes. P₁ = 101,325 kPa; V₁ = 1 000 mL. Pressões absolutas.',dalton:'Mistura gasosa seca ideal: pO₂ = F O₂ × P absoluta. O resultado não é a pressão alveolar ou arterial.',henry:'Equilíbrio; mesmo gás, solvente e temperatura. C/C₀ = p/p₀, com p₀ = 101,325 kPa. Índice relativo, sem coeficiente de solubilidade sanguínea.',charles:'Pressão e quantidade de gás constantes. T₁ = 300 K; V₁ = 1 000 mL. Use temperaturas absolutas.',gay:'Volume e quantidade de gás constantes. T₁ = 300 K; P₁ = 101,325 kPa. Use temperaturas absolutas.'},unavailable:'Página não encontrada',return:'Voltar ao início',summary:'As aulas iniciais são sínteses curtas. Abra as fontes para aprofundar a leitura.',chartX:'Pressão absoluta (kPa)',chartY:'Volume (mL)',skip:'Ir ao conteúdo'},
@@ -177,9 +178,46 @@ document.addEventListener('input',event=>{
   if(target)target.innerHTML=renderConsultaSearch(consultaBusca);
   return;
  }
+ if(updatePhysicsActivity(event.target,state.lang))return;
  if(handleFundamentosConversion(event.target,state.lang))return;
   if(handleModule01Input(event.target))return;if(event.target.id==='camara-pressure'){const ata=Number(event.target.value);if(!Number.isFinite(ata)||ata<=0)return;const p=document.querySelector('#camara-pressure-output'),r=document.querySelector('#camara-graph-result');if(p)p.textContent=fmt(ata,1)+' ATA';if(r)r.textContent=camaraGraphText(event.target.dataset.camaraEngine,ata,state.lang);return;}if(!['lab-p','lab-f'].includes(event.target.id))return;const value=Number(event.target.value);if(!Number.isFinite(value))return;if(event.target.id==='lab-f')labF=value;else if(['charles','gay'].includes(labMode))labT=value;else labP=value;document.querySelector('#pressure-output').textContent=['charles','gay'].includes(labMode)?fmt(labT,2)+' K':fmt(labP,3)+' kPa';const f=document.querySelector('#fraction-output');if(f)f.textContent=fmt(labF)+' %';document.querySelector('#lab-result').innerHTML=labOutput();});
-document.addEventListener('change',event=>{handleFundamentosConversion(event.target,state.lang);});
+document.addEventListener('change',event=>{if(updatePhysicsActivity(event.target,state.lang))return;handleFundamentosConversion(event.target,state.lang);});
+
+// Eventos delegados: continuam válidos após mudanças de rota e idioma.
+let activeDiverPointer=null;
+document.addEventListener('pointerdown',event=>{
+ const handle=event.target.closest?.('[data-depth-diver],[data-depth-stage]');
+ if(!handle)return;
+ const stage=handle.closest('[data-depth-stage]');if(!stage)return;
+ if(event.pointerType==='mouse'&&event.button!==0)return;
+ event.preventDefault();
+ activeDiverPointer={id:event.pointerId,stage};
+ if(handle.matches('[data-depth-diver]'))handle.focus?.({preventScroll:true});
+ stage.setPointerCapture?.(event.pointerId);
+ setDiverDepthFromPointer(stage,event.clientY,state.lang);
+});
+document.addEventListener('pointermove',event=>{
+ if(!activeDiverPointer||activeDiverPointer.id!==event.pointerId)return;
+ setDiverDepthFromPointer(activeDiverPointer.stage,event.clientY,state.lang);
+});
+function endDiverDrag(event){
+ if(activeDiverPointer?.id!==event.pointerId)return;
+ const stage=activeDiverPointer.stage;activeDiverPointer=null;
+ try{if(stage.hasPointerCapture?.(event.pointerId))stage.releasePointerCapture(event.pointerId);}catch{}
+}
+document.addEventListener('pointerup',endDiverDrag);
+document.addEventListener('pointercancel',endDiverDrag);
+document.addEventListener('keydown',event=>{
+ const handle=event.target.closest?.('[data-depth-diver]');
+ if(!handle)return;
+ const step=({'ArrowDown':1,'ArrowUp':-1,'PageDown':10,'PageUp':-10,'Home':-60,'End':60})[event.key];
+ if(step===undefined)return;
+ event.preventDefault();
+ const range=handle.closest('.fb-depth-activity')?.querySelector('[data-depth-range]');
+ if(!range)return;
+ range.value=String(Math.max(0,Math.min(60,Number(range.value)+step)));
+ updatePhysicsActivity(range,state.lang);
+});
 window.addEventListener('popstate',()=>{render();window.scrollTo?.(0,0);});
 window.addEventListener('hashchange',()=>{if(currentRoute()==='main'){document.querySelector('#main')?.focus();return;}render();window.scrollTo(0,0);document.querySelector('#main')?.focus({preventScroll:true});});
 render();
