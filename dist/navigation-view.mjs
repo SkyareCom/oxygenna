@@ -28,7 +28,7 @@ export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,fav
  }
 
  const activePage=({chamber:'camara',indications:'clinica',protocols:'operacao'})[active]||active;
- return `<nav class="bottom-nav footer-card" aria-label="${e(n.navigation)}">${FOOTER_ITEMS.map(([title,route,symbol])=>`<a data-consulta-link href="${to(route)}" class="${activePage===route?'active':''}" ${activePage===route?'aria-current="page"':''}>${icon(symbol)}<span>${e(title)}</span></a>`).join('')}</nav>`;
+ return `<nav class="bottom-nav footer-card" aria-label="${e(n.navigation)}">${FOOTER_ITEMS.filter(([,route])=>route!=='home').map(([title,route,symbol])=>`<a data-consulta-link href="${to(route)}" class="${activePage===route?'active':''}" ${activePage===route?'aria-current="page"':''}>${icon(symbol)}<span>${e(title)}</span></a>`).join('')}</nav>`;
 }
 export function renderStudyMap({lang,e,icon}){
  const n=navigationUI[lang];
