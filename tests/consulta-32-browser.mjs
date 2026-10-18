@@ -23,11 +23,17 @@ try{
  await page.goto('http://127.0.0.1:4173/oxygenna/',{waitUntil:'domcontentloaded',timeout:30000});
  await page.locator('.bottom-nav a').first().waitFor({timeout:15000});
  if(await page.locator('.bottom-nav a').count()!==5)throw Error('Rodapé não contém cinco filtros');
- if(await page.locator('.home-card').count()!==3)throw Error('Home não contém três cards');
+ if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('Home antiga: título não restaurado');
+ if(await page.locator('.home-hero img').count()!==1)throw Error('Home antiga: imagem ausente');
+ if(await page.locator('.study-resume').count()!==1)throw Error('Home antiga: card da próxima aula ausente');
+ if(await page.locator('.study-stage').count()!==4)throw Error('Home antiga: mapa de estudos incompleto');
  if(await page.locator('.brand-logo').count()!==1)throw Error('Logotipo não preservado');
  const styles=await page.evaluate(()=>({header:getComputedStyle(document.querySelector('.app-header')).position,footer:getComputedStyle(document.querySelector('.bottom-nav')).position,font:getComputedStyle(document.body).fontFamily}));
  if(styles.header!=='fixed'||styles.footer!=='fixed')throw Error('Header/footer originais deixaram de ser fixos: '+JSON.stringify(styles));
- await page.locator('[data-consulta-link][href$="/fisiologia"]').first().click();
+ await page.evaluate(()=>{
+  history.pushState(null,'','/oxygenna/fisiologia');
+  window.dispatchEvent(new PopStateEvent('popstate'));
+ });
  await page.locator('main .lesson-link').first().waitFor();
  if(await page.locator('main .lesson-link').count()!==8)throw Error('Fisiologia não possui 8');
  await page.locator('[data-consulta-link][href$="/clinica"]').first().click();
@@ -37,9 +43,12 @@ try{
  await page.locator('[data-consulta-link][href$="/operacao"]').first().click();
  if(await page.locator('main .lesson-link').count()!==4)throw Error('Operação não possui 4');
  await page.locator('[data-consulta-link][href$="/home"]').first().click();
- await page.locator('#busca-oxygenna').fill('DCS');
- if(await page.locator('#resultado-oxygenna .lesson-link').count()!==2)throw Error('Busca DCS não encontrou temas esperados');
- await page.locator('[data-consulta-link][href$="/clinica"]').first().click();
+ await page.locator('.study-map').waitFor();
+ if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('Link HOME não restaura tela original');
+ await page.evaluate(()=>{
+  history.pushState(null,'','/oxygenna/clinica');
+  window.dispatchEvent(new PopStateEvent('popstate'));
+ });
  await page.locator('main a[href$="/capitulo/dcs-tipo2"]').first().click();
  if(!page.url().endsWith('/capitulo/dcs-tipo2'))throw Error('URL capítulo incorreta: '+page.url());
  if(await page.locator('main section.panel').count()!==7)throw Error('DCS2 sem sete painéis');
