@@ -81,9 +81,9 @@ export function renderCamaraTopicExtras(lessonId,{lang='pt',e,answers=new Map()}
  const n=ui(lang),data=camaraDepth[lessonId];
  const img={'camara-07':'seguranca-camara.svg','camara-08':'evidencia-indicacoes.svg'}[lessonId];
  return '<div class="camara-topic-extras">'+
-  (lesson.media||[]).filter(m=>m.type!=='animation-plan'&&m.type!=='evidence-map').map(m=>renderMedia(m,{lang,e})).join('')+
+  (lesson.media||[]).filter(m=>lessonId==='camara-02'?m.type==='interactive-graph':lessonId==='camara-03'?m.type==='diagram':lessonId==='camara-07'?m.type==='checklist':m.type==='diagram').map(m=>renderMedia(m,{lang,e})).join('')+
   (img?'<figure class="camara-figure"><img src="./assets/'+img+'" alt="'+e(data?.visualTitle||lesson.title)+'" loading="lazy"><figcaption>'+e(data?.visualTitle||lesson.title)+'</figcaption></figure>':'')+
-  (data?'<section class="panel camara-visual-sequence"><h2>'+e(data.visualTitle)+'</h2><ol class="camara-flow">'+data.visualSteps.map((step,i)=>'<li><span class="camara-step-count">'+(i+1)+'</span><span lang="pt-BR">'+e(step)+'</span></li>').join('')+'</ol></section>':'')+
+  (data&&!['camara-02','camara-03','camara-05','camara-07'].includes(lessonId)?'<section class="panel camara-visual-sequence"><h2>'+e(data.visualTitle)+'</h2><ol class="camara-flow">'+data.visualSteps.map((step,i)=>'<li><span class="camara-step-count">'+(i+1)+'</span><span lang="pt-BR">'+e(step)+'</span></li>').join('')+'</ol></section>':'')+
   renderActivity(lesson,{lang,e,answers})+'</div>';
 }
 export function renderCamaraModuleContent(moduleId,{lang='pt',e,icon,answers=new Map(),completed=[]}){
