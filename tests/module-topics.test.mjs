@@ -54,7 +54,7 @@ test('oito materiais CÂMARA são mapeados uma única vez ao tema certo',()=>{
  assert.ok(!m1.includes('href="#topic/01/0/chamber"'));
  const pt=renderModuleTopic('01',3,ctx);
  assert.ok(pt.includes('m01-hotspots'));
- assert.ok(pt.includes('src="./assets/m01-monoplace.webp?rev=camera-direta-20261018"'));
+ assert.ok(pt.includes('src="./assets/m01-monoplace.webp?rev=borda-unica-20261017"'));
  assert.ok(!renderModuleTopic('01',4,ctx).includes('data-m01-quiz="3"'),'não repetir questionário de outros temas');
  assert.equal(activeSection('topic/01/3/chamber'),'chamber');
  assert.equal(activeSection('topic/13/0/all'),'chapters');
