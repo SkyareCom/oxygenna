@@ -1,3 +1,5 @@
+import {consultaData} from './consulta/data.mjs';
+import {consultaById,consultaRoute,isConsultaRoute,consultaHref,renderConsultaPage,renderConsultaSearch} from './consulta/consulta-view.mjs';
 import {curriculumUI,modules} from './curriculum.mjs';
 import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view.mjs?rev=knowledge-final-20261018';
 import {handleModule01Click,handleModule01Input} from './module01-media.mjs?rev=knowledge-final-20261018';
@@ -20,7 +22,22 @@ for(const lang of ['pt','en','es'])UI[lang].access.book=curriculumUI[lang].book;
 let storage;try{storage=window.localStorage;}catch{storage=null;}
 let readNotices=loadReadNotices(storage);let noticePersisted=true;
 let state=loadState(storage);let persisted=true;let labMode='boyle';let labP=202.65;let labF=21;let labT=330;
-const selectedAnswers=new Map();const selectedCamaraAnswers=new Map();const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const selectedAnswers=new Map();const selectedCamaraAnswers=new Map();
+let consultaBusca='';
+let consultaUltimo='';let consultaOrigem='/home';
+const consultaFavoritos=new Set();const consultaRespostas=new Map();
+try{consultaUltimo=storage?.getItem('oxygenna-consulta-ultimo')||'';const raw=JSON.parse(storage?.getItem('oxygenna-consulta-favoritos')||'[]');for(const x of raw)consultaFavoritos.add(x);}catch{}
+function saveConsulta(){try{storage?.setItem('oxygenna-consulta-ultimo',consultaUltimo);storage?.setItem('oxygenna-consulta-favoritos',JSON.stringify([...consultaFavoritos]));}catch{}}
+function showConsulta(){
+ if(typeof location==='undefined'||typeof location.pathname!=='string'||Boolean(location.hash))return false;
+ return isConsultaRoute(consultaRoute());
+}
+function irConsulta(id){
+ history.pushState(null,'',consultaHref(id));
+ render();
+ document.querySelector('#main')?.scrollTo?.(0,0);
+}
+const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const t=()=>UI[state.lang];const fmt=(n,d=2)=>new Intl.NumberFormat(state.lang,{maximumFractionDigits:d}).format(n);
 const paths={activity:'<path d="M2 12h5l3-8 4 16 3-8h5"/>',repair:'<path d="m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6zM19 2v4m-2-2h4"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',chamber:'<rect x="2" y="6" width="20" height="12" rx="6"/><circle cx="16" cy="12" r="3"/><path d="M7 6v12M6 20h2m8 0h2"/>',indications:'<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',protocols:'<rect x="4" y="4" width="16" height="18" rx="2"/><path d="M9 2h6v4H9zM8 12l2 2 5-5M8 18h8"/>',home:'<path d="m3 10 9-7 9 7v11h-6v-7H9v7H3z"/>',book:'<path d="M12 5c-3-3-7-3-10-1v16c3-2 7-2 10 1m0-16c3-3 7-3 10-1v16c-3-2-7-2-10 1V5Z"/>',flask:'<path d="M8 2h8m-6 0v7L3 20q-1 2 2 2h14q3 0 2-2L14 9V2M7 15h10"/>',user:'<circle cx="12" cy="7" r="4"/><path d="M4 22v-2a8 8 0 0 1 16 0v2"/>',right:'<path d="m9 4 7 8-7 8"/>',left:'<path d="m15 4-7 8 7 8"/>',check:'<path d="m4 12 5 5L20 6"/>',external:'<path d="M14 3h7v7M21 3 10 14M10 3H3v18h18v-7"/>'};
 const icon=(name)=>`<svg class="icon" data-icon="${name}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]||paths.book}</svg>`;
@@ -53,6 +70,22 @@ function renderCamaraPreservingExpansion(){
  if(typeof document.querySelectorAll==='function')for(const item of document.querySelectorAll('details.camara-inline-chapter'))if(open.includes(item.dataset.camaraId))item.open=true;
 }
 function render(){
+ if(showConsulta()){
+  const route=consultaRoute(),chapter=route.startsWith('/capitulo/')?route.split('/')[2]:null;
+  const item=chapter?consultaById.get(chapter):null;
+  if(item){consultaUltimo=chapter;saveConsulta();}
+  const filter=item?.filtro||route.slice(1);
+  const main=renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}});
+  document.documentElement.lang='pt-BR';
+  document.title='OXYGENNA — Medicina Hiperbárica';
+  document.querySelector('.skip').textContent='Ir ao conteúdo';
+  document.querySelector('#app').innerHTML=renderHeader({lang:'pt',icon,e,unread:false})+
+   '<main id="main" tabindex="-1" class="module">'+main+'</main>'+
+   renderFooter({lang:'pt',active:filter,icon,e,consulta:true,chapter,favorite:consultaFavoritos.has(chapter),backRoute:consultaOrigem,nextRoute:item?.proximo_logico_id?'/capitulo/'+item.proximo_logico_id:'/home'});
+  const brand=document.querySelector('.brand');
+  if(brand){brand.href=consultaHref('home');brand.setAttribute('data-consulta-link','');}
+  return;
+ }
  const route=currentRoute();let [section,id,context]=route.split('/');
  if(section==='lab'&&labNames[id])labMode=id;
  const u=t(),n=navigationUI[state.lang];
