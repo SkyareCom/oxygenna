@@ -10,11 +10,18 @@ const index = load('index.html');
 const mutedBorder = 'border:1px solid var(--card-border-gold)';
 
 function rule(css, selector) {
-  const start = css.indexOf(selector + '{');
-  assert.ok(start >= 0, 'Seletor ausente: ' + selector);
-  const end = css.indexOf('}', start);
-  assert.ok(end > start, 'Regra incompleta: ' + selector);
-  return css.slice(start, end + 1);
+  const parts = [];
+  let offset = 0;
+  while (true) {
+    const start = css.indexOf(selector + '{', offset);
+    if (start < 0) break;
+    const end = css.indexOf('}', start);
+    assert.ok(end > start, 'Regra incompleta: ' + selector);
+    parts.push(css.slice(start, end + 1));
+    offset = end + 1;
+  }
+  assert.ok(parts.length > 0, 'Seletor ausente: ' + selector);
+  return parts.join('\n');
 }
 
 test('Home, menus, cards, botoes e rodape compartilham contorno dourado de 1px', () => {
