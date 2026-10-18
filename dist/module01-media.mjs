@@ -9,26 +9,12 @@ const steps=[
  ['Exposição','Oxigênio prescrito, comunicação e monitorização conforme a situação clínica.'],
  ['Descompressão','A pressão retorna gradualmente ao ambiente e ocorre reavaliação.']
 ];
-const timeline=[
- ['Experimentação','Investigação inicial das propriedades de gases e ambientes pressurizados.'],
- ['Medicina subaquática','Estudos sobre a fisiologia da imersão e acidentes de mergulho.'],
- ['Câmaras clínicas','Desenvolvimento de equipamentos e procedimentos assistenciais.'],
- ['Prática atual','Indicações selecionadas, segurança e avaliação científica.']
-];
 const components=[
  ['Janela','Favorece a observação; sua função e configuração variam com o equipamento.'],
  ['Painel','Apresenta pressão e comandos operacionais, acionados apenas pela equipe habilitada.'],
  ['Máscara de O₂','Pode administrar oxigênio por circuito individual em câmaras apropriadas.'],
  ['Comunicação','Mantém o contato entre paciente e profissionais, inclusive em intercorrências.'],
  ['Segurança','Inclui dispositivos, manutenção e procedimentos específicos do fabricante.']
-];
-const quiz=[
- {title:'História e evidência',q:'O que distingue a prática clínica moderna dos experimentos iniciais?',options:['A existência de câmaras antigas','Indicações avaliadas, treinamento e segurança','A utilização de qualquer gás pressurizado'],answer:1,detail:'Evidência clínica e controle de risco são essenciais; antiguidade não demonstra eficácia.'},
- {title:'Clínica e mergulho',q:'A exposição a 2 ATA no mergulho equivale automaticamente a uma sessão de OHB?',options:['Sim, a pressão é o único fator','Não: mistura respirada, tempo e contexto diferem','Sim, desde que o mergulhador não apresente sintomas'],answer:1,detail:'Pressão igual não implica gás respirado nem objetivo terapêutico equivalentes.'},
- {title:'Pressão inspirada',q:'PIO₂ calculada é igual à PaO₂ medida no sangue?',options:['Sim, sempre','Não, existem diferenças alveolares e fisiológicas','Sim, quando FiO₂ é 100%'],answer:1,detail:'A PIO₂ é inspirada; PaO₂ depende da troca gasosa e de condições clínicas.'},
- {title:'Tipos de câmara',q:'Qual descrição corresponde, em geral, à câmara multiplace?',options:['Compartimento para diversos ocupantes','Sempre pressurizada com oxigênio puro','Impossibilidade de equipe acompanhar o paciente'],answer:0,detail:'A multiplace pode acomodar vários ocupantes e frequentemente é pressurizada com ar.'},
- {title:'Atuação da equipe',q:'Qual ação é mais adequada quando aparece dor progressiva durante compressão?',options:['Ignorar e manter a pressurização','Informar a equipe e avaliar a situação','Acelerar para terminar logo'],answer:1,detail:'Dor progressiva deve ser comunicada; a equipe avaliará a necessidade de modificar a operação.'},
- {title:'Termos técnicos',q:'O que expressa ATA?',options:['Atmosferas absolutas','A porcentagem de oxigênio','A pressão arterial parcial de oxigênio'],answer:0,detail:'ATA é a medida da pressão absoluta do ambiente.'}
 ];
 const copy={pt:{media:'ATIVIDADES INTERATIVAS',caption:'Ilustração cinematográfica didática; não representa protocolo clínico nem dispositivo específico.',watch:'ANIMAÇÃO GUIADA',hotspot:'EXPLORAR COMPONENTES',timeline:'ETAPAS DA EVOLUÇÃO',pressure:'VARIAÇÃO DE PRESSÃO',quiz:'ATIVIDADE RÁPIDA',check:'CONFERIR',again:'TENTAR NOVAMENTE',next:'PRÓXIMA CENA',play:'REPRODUZIR',pause:'PAUSAR',feedbackGood:'Resposta correta.',feedbackBad:'Reveja a explicação.'},en:{media:'INTERACTIVE ACTIVITIES',caption:'Illustrative cinematic teaching image; not a clinical protocol or specific device.',watch:'GUIDED ANIMATION',hotspot:'EXPLORE COMPONENTS',timeline:'HISTORICAL STAGES',pressure:'PRESSURE SIMULATOR',quiz:'QUICK ACTIVITY',check:'CHECK',again:'TRY AGAIN',next:'NEXT SCENE',play:'PLAY',pause:'PAUSE',feedbackGood:'Correct.',feedbackBad:'Review the explanation.'},es:{media:'ACTIVIDADES INTERACTIVAS',caption:'Imagen cinematográfica educativa; no representa un protocolo clínico ni equipo específico.',watch:'ANIMACIÓN GUIADA',hotspot:'EXPLORAR COMPONENTES',timeline:'ETAPAS HISTÓRICAS',pressure:'SIMULADOR DE PRESIÓN',quiz:'ACTIVIDAD RÁPIDA',check:'COMPROBAR',again:'INTENTAR DE NUEVO',next:'SIGUIENTE ESCENA',play:'REPRODUCIR',pause:'PAUSAR',feedbackGood:'Correcto.',feedbackBad:'Revisa la explicación.'}};
 const msg=lang=>copy[lang]??copy.pt;
@@ -38,17 +24,10 @@ export function renderModule01Visual(moduleId,index,position,{e}={}){
  if(moduleId!=='01'||!['first','middle','after'].includes(position))return '';
  return (placement[Number(index)]?.[position]??[]).map(key=>figure(key,e??(s=>String(s)))).join('');
 }
-const mediaHeader=(label,desc,e)=>'<div class="m01-kicker">'+e(label)+'</div>';
-const quizHTML=(i,{lang,e})=>{
- const data=quiz[i],c=msg(lang);
- return '<section class="m01-panel m01-quiz" data-m01-quiz="'+i+'"><h2>'+e(c.quiz)+'</h2><p lang="pt-BR">'+e(data.q)+'</p><fieldset><legend>'+e(data.title)+'</legend>'+data.options.map((a,j)=>'<button type="button" data-m01-choice="'+j+'" aria-pressed="false" lang="pt-BR"><b>'+String.fromCharCode(65+j)+'</b><span>'+e(a)+'</span></button>').join('')+'</fieldset><div class="m01-feedback" role="status" aria-live="polite"></div></section>';
-};
-function processHTML(array,prefix){
- return array.map((x,i)=>'<button type="button" data-m01-index="'+i+'" aria-pressed="'+(i===0)+'"><b>'+String(i+1).padStart(2,'0')+'</b><span>'+x[0]+'</span></button>').join('');
-}
 export function renderModule01Media(moduleId,index,{lang='pt',e}={}){
  if(moduleId!=='01')return '';
  const i=Number(index);if(!Number.isInteger(i)||i<0||i>5)return '';
+ if(i<2)return '';
  e=e??(s=>String(s));
  const c=msg(lang),section=[];
 
@@ -65,7 +44,7 @@ export function renderModule01Media(moduleId,index,{lang='pt',e}={}){
   const terms=[['ATA','Atmosferas absolutas'],['FiO₂','Fração inspirada de oxigênio'],['PIO₂','Pressão parcial inspirada de oxigênio'],['PaO₂','Pressão parcial arterial de oxigênio'],['OHB','Oxigenoterapia hiperbárica']];
   section.push('<section class="m01-panel m01-glossary"><h2>VOCABULÁRIO INTERATIVO</h2><p class="m01-hint">Toque em cada termo para revelar sua definição.</p>'+terms.map(([term,def])=>'<details><summary>'+e(term)+'</summary><p lang="pt-BR">'+e(def)+'</p></details>').join('')+'</section>');
  }
- return '<section class="m01-media" data-m01-topic="'+i+'" aria-label="'+e(c.media)+'">'+(section.length?mediaHeader(c.media,'',e):'')+section.join('')+'</section>';
+ return '<section class="m01-media" data-m01-topic="'+i+'" aria-label="'+e(c.media)+'">'+section.join('')+'</section>';
 }
 function fmtNumber(n,dec=0){return n.toLocaleString('pt-BR',{maximumFractionDigits:dec,minimumFractionDigits:dec});}
 function findRoot(t){return t?.closest?.('.m01-media')??null;}
@@ -73,13 +52,6 @@ const state=new WeakMap();
 export function handleModule01Click(t){
  if(!t?.closest)return false;
  const root=findRoot(t),button=t.closest('button');if(!root||!button)return false;
- if(button.dataset.m01Index!==undefined){
-  const panel=button.closest('[data-m01-stepper]');if(!panel)return false;
-  const n=Number(button.dataset.m01Index);const arr=panel.dataset.m01Stepper==='timeline'?timeline:steps;
-  const s=state.get(panel)??{index:0};s.index=n;state.set(panel,s);
-  panel.querySelectorAll('[data-m01-index]').forEach((node,i)=>node.setAttribute('aria-pressed',String(i===n)));
-  const out=panel.querySelector('.m01-step-output');if(out)out.textContent=arr[n][1];return true;
- }
  if(button.dataset.m01Component!==undefined){
   const n=Number(button.dataset.m01Component),panel=button.closest('[data-m01-hotspots]');
   panel.querySelectorAll('[data-m01-component]').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===n)));
@@ -92,13 +64,6 @@ export function handleModule01Click(t){
   if(s.playing){s.playing=false;clearInterval(s.timer);s.timer=null;button.textContent='REPRODUZIR';state.set(panel,s);return true;}
   s.playing=true;button.textContent='PAUSAR';s.timer=setInterval(()=>{if(!panel.isConnected){clearInterval(s.timer);return;}s.index=(s.index+1)%4;paintJourney(panel,s);},1800);
   state.set(panel,s);return true;
- }
- if(button.dataset.m01Choice!==undefined){
-  const panel=button.closest('[data-m01-quiz]');const n=Number(button.dataset.m01Choice);
-  panel.querySelectorAll('[data-m01-choice]').forEach((node,j)=>node.setAttribute('aria-pressed',String(j===n)));
-  const data=quiz[Number(panel.dataset.m01Quiz)],feedback=panel.querySelector('.m01-feedback');
-  feedback.textContent=(n===data.answer?'Correto. ':'Revise. ')+data.detail;
-  feedback.dataset.correct=String(n===data.answer);return true;
  }
  return false;
 }
