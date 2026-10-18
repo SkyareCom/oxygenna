@@ -11,6 +11,7 @@ test('Home mantém busca global acima do slogan e imagem, sem card de busca',()=
  assert.ok(search>=0&&title>search&&subtitle>title&&image>subtitle);
  assert.match(html,/data-consulta-busca/);
  assert.doesNotMatch(html,/<section class="panel"><label class="lab-label" for="busca-oxygenna"/);
+ assert.doesNotMatch(html,/CONTINUAR ESTUDANDO|study-resume|ABRIR CAPÍTULO/);
 });
 
 test('Busca global cobre decisões clínicas, módulos e temas, sem distinção de acento',()=>{
