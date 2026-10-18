@@ -72,10 +72,10 @@ export function renderPhysicsActivities(lang='pt'){
  '<p class="fb-note">'+label(v.rule)+'</p></section>';
  const boyle='<section class="panel fb-card fb-boyle-activity"><h2>'+label(v.boyleTitle)+'</h2><p>'+label(v.boyleIntro)+'</p>'+
  bubbleSVG+'<label class="fb-activity-slider">'+label(v.pressure)+'<input type="range" data-boyle-pressure min="1" max="6" value="1" step=".5"></label>'+
- '<div class="fb-live-metrics"><div><small>'+label(v.pressure)+'</small><strong data-boyle-atm>1,0 ATA</strong></div><div><small>'+label(v.volume)+'</small><strong data-boyle-volume>1.000 mL</strong></div></div><p class="fb-note">'+label(v.boyleNote)+'</p></section>';
+ '<div class="fb-live-metrics"><div><small>'+label(v.pressure)+'</small><strong data-boyle-atm>'+fmt(1,lang,1)+' ATA</strong></div><div><small>'+label(v.volume)+'</small><strong data-boyle-volume>'+fmt(1000,lang,0)+' mL</strong></div></div><p class="fb-note">'+label(v.boyleNote)+'</p></section>';
  const oxygen='<section class="panel fb-card fb-oxygen-activity"><h2>'+label(v.oxygenTitle)+'</h2><p>'+label(v.oxygenIntro)+'</p>'+gasesSVG+
  '<div class="fb-controls"><label>'+label(v.pressure)+'<input data-gas-pressure type="range" min="1" max="3" step=".5" value="1"></label><label>'+label(v.oxygen)+'<input data-gas-fraction type="range" min="0" max="100" step="1" value="21"></label></div>'+
- '<div class="fb-live-metrics"><div><small>'+label(v.pressure)+'</small><strong data-gas-atm>1,0 ATA</strong></div><div><small>'+label(v.oxygen)+'</small><strong data-gas-percent>21%</strong></div><div class="fb-wide-metric"><small>'+label(v.partial)+'</small><strong data-gas-partial>'+fmt(21.27825,lang)+' kPa</strong></div></div><p class="fb-note">'+label(v.oxygenNote)+'</p></section>';
+ '<div class="fb-live-metrics"><div><small>'+label(v.pressure)+'</small><strong data-gas-atm>'+fmt(1,lang,1)+' ATA</strong></div><div><small>'+label(v.oxygen)+'</small><strong data-gas-percent>21%</strong></div><div class="fb-wide-metric"><small>'+label(v.partial)+'</small><strong data-gas-partial>'+fmt(21.27825,lang)+' kPa</strong></div></div><p class="fb-note">'+label(v.oxygenNote)+'</p></section>';
  return '<div class="fb-interactive-group"><p class="tag">'+label(v.visuals)+'</p>'+depth+boyle+oxygen+'</div>';
 }
 export function updatePhysicsActivity(target,lang='pt'){
