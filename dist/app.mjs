@@ -48,10 +48,15 @@ const langButtons=()=>`<div class="languages" role="group" aria-label="${e(t().l
 const back=(href='#learn')=>`<a class="back" href="${href}">${icon('left')}${t().back}</a>`;
 const primary=(label,href,cls='')=>`<a class="primary ${cls}" href="${href}">${e(label)}${icon('right')}</a>`;
 function sourceLinks(ids){return ids.map(id=>{const s=sources[id];return `<a class="source" href="${e(s.url)}" target="_blank" rel="noopener noreferrer"><strong>${e(s.title)} <span class="card-arrow" aria-hidden="true">↗</span></strong><small>${e(s.author)}${s.year?' · '+s.year:''}${s.doi?' · DOI: '+e(s.doi):''}</small><small class="source-type">${e(t().access[s.access])}</small><small>${t().consulted}: 15/10/2026</small></a>`}).join('');}
+const homeExtraCopy={
+ pt:{subtitle:'CONTEÚDO EXTRA DISPONÍVEL',title:'FUNDAMENTOS BÁSICOS',action:'COMEÇAR ESTUDOS'},
+ en:{subtitle:'ADDITIONAL CONTENT AVAILABLE',title:'BASIC FUNDAMENTALS',action:'START STUDYING'},
+ es:{subtitle:'CONTENIDO EXTRA DISPONIBLE',title:'FUNDAMENTOS BÁSICOS',action:'COMENZAR ESTUDIOS'}
+};
 function renderHome(){
- const n=navigationUI[state.lang],next=getNextLesson(state.completed),parent=next?modules.find(m=>m.lessons.includes(next.id)):null;
- const label=next?(state.completed.length?n.resume:n.start):n.review;
- return `<p class="eyebrow">${t().campus}</p><h1 class="display home-title">${t().hero}</h1><div class="home-hero">${art('home-art')}</div><section class="study-resume">${next?`<p class="tag">${n.next}</p><h2>${e(next[state.lang].title)}</h2>`:''}${primary(label,next?lessonHref(next.id,parent?.phase):'#chapters')}</section>${renderStudyMap({lang:state.lang,completed:state.completed,e,icon})}`;
+ const next=getNextLesson(state.completed),parent=next?modules.find(m=>m.lessons.includes(next.id)):null;
+ const copy=homeExtraCopy[state.lang]||homeExtraCopy.pt;
+ return `<p class="eyebrow">${t().campus}</p><h1 class="display home-title">${t().hero}</h1><div class="home-hero">${art('home-art')}</div><section class="study-resume"><p class="tag">${e(copy.subtitle)}</p><h2>${e(copy.title)}</h2>${primary(e(copy.action),next?lessonHref(next.id,parent?.phase):'#chapters')}</section>${renderStudyMap({lang:state.lang,completed:state.completed,e,icon})}`;
 }
 function renderLearn(){return `${back('#home')}<h1 class="display learn-heading">${t().motto}</h1>${art('chamber-art')}<div class="tracks" id="tracks">${tracks.map(track=>`<a class="track" href="#track/${track.id}">${art('crop-'+track.crop)}<div class="copy"><strong>${e(track[state.lang][0])}</strong><small>${e(track[state.lang][1])}</small></div>${icon('right')}</a>`).join('')}</div><button class="primary explore" type="button" data-explore>${t().explore}${icon('right')}</button>`;}
 function renderTrack(id){const track=tracks.find(a=>a.id===id);if(!track)return notFound();const items=lessons.filter(a=>a.track===id);return `${back()}<p class="tag">${t().trails}</p><h1 class="display page-title">${e(track[state.lang][0])}</h1><p class="subtle">${e(track[state.lang][1])} · ${items.length} ${t().lessons}</p><a class="secondary" href="#curriculum/${track.id}">${curriculumUI[state.lang].map}${icon('right')}</a><div class="lesson-list">${items.map((lesson,i)=>`<a class="lesson-link" href="#lesson/${lesson.id}"><span class="lesson-number">${String(i+1).padStart(2,'0')}</span><strong>${e(lesson[state.lang].title)}</strong>${icon(state.completed.includes(lesson.id)?'check':'right')}</a>`).join('')}</div><p class="micro">${t().summary}</p>`;}

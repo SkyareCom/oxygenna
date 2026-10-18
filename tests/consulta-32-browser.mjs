@@ -28,7 +28,12 @@ try{
  if(JSON.stringify(await getFooter())!==JSON.stringify(expectedFooter))throw Error('Ordem do rodapé HOME incorreta: '+JSON.stringify(await getFooter()));
  if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('Home antiga: título não restaurado');
  if(await page.locator('.home-hero img').count()!==1)throw Error('Home antiga: imagem ausente');
- if(await page.locator('.study-resume').count()!==1)throw Error('Home antiga: card da próxima aula ausente');
+ if(await page.locator('.study-resume').count()!==1)throw Error('Card de conteúdo extra da Home ausente');
+ if((await page.locator('.study-resume .tag').innerText()).trim()!=='CONTEÚDO EXTRA DISPONÍVEL')throw Error('Subtítulo da Home incorreto');
+ if((await page.locator('.study-resume h2').innerText()).trim()!=='FUNDAMENTOS BÁSICOS')throw Error('Título do card da Home incorreto');
+ const startStudies=page.locator('.study-resume a.primary');
+ if((await startStudies.innerText()).trim()!=='COMEÇAR ESTUDOS')throw Error('Botão de estudos com nome incorreto');
+ if(!/^#(?:lesson\/|chapters$)/.test(await startStudies.getAttribute('href')))throw Error('Botão perdeu a navegação original');
  if(await page.locator('.study-stage').count()!==6)throw Error('Home precisa de seis cards');
  const homeCards=await page.locator('.study-stage .stage-copy strong').allTextContents();
  if(JSON.stringify(homeCards.map(x=>x.trim()))!==JSON.stringify(['Fisiologia','Clínica','Câmara','Operação','Indicações e Protocolos','Em Foco']))throw Error('Ordem dos seis cards da Home incorreta: '+JSON.stringify(homeCards));
