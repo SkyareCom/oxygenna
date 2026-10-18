@@ -1,6 +1,6 @@
 import {renderChapterClinical} from './clinical-view.mjs';
 import {renderCamaraTopicExtras} from './camara-view.mjs?rev=topic-cards-20261017';
-import {renderModule01Media,renderModule01Visual} from './module01-media.mjs?rev=borda-unica-20261017';
+import {renderModule01Media,renderModule01Visual} from './module01-media.mjs?rev=camera-direta-20261018';
 import {camaraAtTopic,topicReading} from './topic-readings.mjs';
 import {phases,curriculumUI,getModule} from './curriculum.mjs';
 import {navigationUI,sectionModules,normalizeContext,getCurriculumItems,moduleHref,lessonHref,mapHref} from './navigation.mjs';
@@ -36,7 +36,7 @@ export function renderModule(id,{lang,lessons,e,icon,back,sourceLinks,notFound,c
   '<div class="module-navigation">'+(before?'<a class="secondary" href="'+moduleHref(before.id,context)+'">'+icon('left')+c.previous+'</a>':'')+
   (after?'<a class="secondary" href="'+moduleHref(after.id,context)+'">'+c.next+icon('right')+'</a>':'')+'</div>';
 }
-export function renderModuleTopic(moduleId,topicIndex,{lang,lessons,e,icon,back,sourceLinks,notFound,context,camaraAnswers=new Map()}){
+export function renderModuleTopic(moduleId,topicIndex,{lang,lessons,e,icon,back,sourceLinks,notFound,context,camaraAnswers=new Map(),embedded=false}){
  const m=getModule(moduleId),n=Number(topicIndex);if(!m||!Number.isInteger(n)||n<0||n>=m[lang].topics.length)return notFound();
  context=normalizeContext(context)||'all';
  const topic=m[lang].topics[n],notes=topicReading(m.id,n),camaraId=camaraAtTopic(m.id,n);
