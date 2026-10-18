@@ -4,6 +4,7 @@ on:
     paths:
       - "dist/**"
       - "tests/camara-front.test.mjs"
+      - "tests/consulta-32-front.test.mjs"
       - "tests/module01-media.test.mjs"
       - "tests/knowledge-final.test.mjs"
       - "tests/module-topics.test.mjs"
@@ -13,6 +14,7 @@ on:
     paths:
       - "dist/**"
       - "tests/camara-front.test.mjs"
+      - "tests/consulta-32-front.test.mjs"
       - "tests/module01-media.test.mjs"
       - "tests/knowledge-final.test.mjs"
       - "tests/module-topics.test.mjs"
