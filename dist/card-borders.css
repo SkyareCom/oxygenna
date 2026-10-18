@@ -59,3 +59,6 @@
 
 /* Preserve a leitura clínica: focos, acertos e erros continuam sinalizados
    por texto, fundo e ícones, sem alterar o contorno dourado. */
+
+/* Remove a segunda linha azul do item ativo do rodapé. */
+.bottom-nav a.active { box-shadow: none; }
