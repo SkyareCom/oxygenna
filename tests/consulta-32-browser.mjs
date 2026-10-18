@@ -40,8 +40,8 @@ try{
  if(await page.locator('main.fundamentos-basicos .fb-formula').count()<7)throw Error('Fórmulas físicas não renderizadas');
  await page.locator('[data-fb-value]').fill('2');
  await page.locator('[data-fb-from]').selectOption('bar');
- const result=await page.locator('[data-fb-results]').innerText();
- if(!result.includes('200'))throw Error('Conversor de 2 bar para 200 kPa falhou');
+ const pressureConversionText=await page.locator('[data-fb-results]').innerText();
+ if(!pressureConversionText.includes('200'))throw Error('Conversor de 2 bar para 200 kPa falhou');
  if(await page.locator('main.fundamentos-basicos .lesson-body,main.fundamentos-basicos .quiz').count())throw Error('Conteúdo da aula anterior ainda está visível no botão');
  await page.locator('main.fundamentos-basicos a.back[href="#home"]').click();
  await page.locator('.study-resume').waitFor();
