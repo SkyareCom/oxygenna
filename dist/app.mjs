@@ -71,18 +71,28 @@ function renderCamaraPreservingExpansion(){
  render();
  if(typeof document.querySelectorAll==='function')for(const item of document.querySelectorAll('details.camara-inline-chapter'))if(open.includes(item.dataset.camaraId))item.open=true;
 }
+// As quatro telas principais ficam visualmente vazias até a próxima etapa editorial.
+// O banco de capítulos e as rotas internas continuam preservados.
+const EMPTY_SECTION_ROUTES=new Set(['/fisiologia','/clinica','/camara','/operacao']);
+function renderEmptySectionBase(){
+ return '<div class="oxygenna-section-base" role="group" aria-label="Créditos da página">'+
+  '<span class="oxygenna-section-base-left">PAPOS DE ALTITUDE</span>'+
+  '<img class="oxygenna-section-base-logo" src="./assets/oxygenna-logo.png" width="38" height="38" alt="OXYGENNA">'+
+  '<span class="oxygenna-section-base-right">PH4 DEV &amp; HEALTH</span></div>';
+}
 function render(){
  if(showConsulta()){
   const route=consultaRoute(),chapter=route.startsWith('/capitulo/')?route.split('/')[2]:null;
   const item=chapter?consultaById.get(chapter):null;
   if(item){consultaUltimo=chapter;saveConsulta();}
   const filter=item?.filtro||route.slice(1);
-  const main=renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}});
+  const blank=EMPTY_SECTION_ROUTES.has(route);
+  const main=blank?renderEmptySectionBase():renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}});
   document.documentElement.lang='pt-BR';
   document.title='OXYGENNA — Medicina Hiperbárica';
   document.querySelector('.skip').textContent='Ir ao conteúdo';
   document.querySelector('#app').innerHTML=renderHeader({lang:'pt',icon,e,unread:false})+
-   '<main id="main" tabindex="-1" class="module">'+main+'</main>'+
+   '<main id="main" tabindex="-1" class="module'+(blank?' oxygenna-blank-page':'')+'">'+main+'</main>'+
    renderFooter({lang:'pt',active:filter,icon,e,consulta:true,chapter,favorite:consultaFavoritos.has(chapter),backRoute:consultaOrigem,nextRoute:item?.proximo_logico_id?'/capitulo/'+item.proximo_logico_id:'/home'});
   const brand=document.querySelector('.brand');
   if(brand){brand.href=consultaHref('home');brand.setAttribute('data-consulta-link','');}
