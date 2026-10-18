@@ -1,4 +1,4 @@
-import {navigationUI,getStudySteps,NOTICE_IDS} from './navigation.mjs';
+import {navigationUI,NOTICE_IDS} from './navigation.mjs';
 
 export function renderHeader({lang,icon,e,unread}){
  const n=navigationUI[lang];
