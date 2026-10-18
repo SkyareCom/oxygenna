@@ -48,9 +48,13 @@ test('oito materiais CÂMARA são mapeados uma única vez ao tema certo',()=>{
  assert.ok(m1.includes('História e desenvolvimento'));
  assert.ok(m1.includes('Papel da equipe de saúde'));
  assert.ok(!m1.includes('CONTEÚDOS DO CAPÍTULO'));
+ assert.ok(m1.includes('class="chamber-lesson"'));
+ assert.equal((m1.match(/class="chamber-topic"/g)||[]).length,6);
+ assert.ok(!m1.includes('module-topic-card'));
+ assert.ok(!m1.includes('href="#topic/01/0/chamber"'));
  const pt=renderModuleTopic('01',3,ctx);
- assert.ok(pt.includes('m01-quiz'));
- assert.ok(pt.includes('src="./assets/m01-monoplace.webp?rev=borda-unica-20261017"'));
+ assert.ok(pt.includes('m01-hotspots'));
+ assert.ok(pt.includes('src="./assets/m01-monoplace.webp?rev=camera-direta-20261018"'));
  assert.ok(!renderModuleTopic('01',4,ctx).includes('data-m01-quiz="3"'),'não repetir questionário de outros temas');
  assert.equal(activeSection('topic/01/3/chamber'),'chamber');
  assert.equal(activeSection('topic/13/0/all'),'chapters');
@@ -61,5 +65,5 @@ test('rotas inválidas não abrem texto e o CSS da HOME permanece isolado',()=>{
  assert.ok(css.includes('.module .module-topic-title'));
  assert.ok(css.includes('.topic .topic-reading'));
  const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
- assert.ok(html.includes('app.mjs?rev=borda-unica-20261017'));
+ assert.ok(html.includes('app.mjs?rev=camera-direta-20261018'));
 });
