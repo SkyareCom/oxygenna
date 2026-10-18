@@ -1,3 +1,4 @@
+import {renderKnowledgeCheck} from './knowledge-check.mjs?rev=knowledge-final-20261018';
 import {getModule,curriculumUI} from './curriculum.mjs';
 import {getCurriculumItems,moduleHref} from './navigation.mjs';
 export function renderChamberLearning(id,opts,renderTopic){
@@ -10,7 +11,7 @@ export function renderChamberLearning(id,opts,renderTopic){
  return back('#chamber')+'<article class="chamber-lesson">'+
  '<p class="tag">'+m.id+' / '+String(items.length).padStart(2,'0')+'</p>'+
  '<h1 class="display page-title">'+e(title)+'</h1>'+
- themes+
+ themes+renderKnowledgeCheck(id,{lang,e})+
  '<details class="chamber-references"><summary>'+e(curriculumUI[lang].sources)+'</summary>'+sourceLinks(m.sources)+'</details>'+
  '<nav class="module-navigation chamber-chapter-navigation">'+
  (prev?'<a class="secondary" href="'+moduleHref(prev.id,'chamber')+'">'+icon('left')+e('CAPÍTULO ANTERIOR')+'</a>':'')+

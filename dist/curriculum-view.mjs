@@ -1,6 +1,7 @@
-import {renderChamberLearning} from './chamber-learning.mjs';
+import {renderChamberLearning} from './chamber-learning.mjs?rev=knowledge-final-20261018';
+import {renderOxygenComparison} from './oxygen-comparison.mjs';
 import {renderChapterClinical} from './clinical-view.mjs';
-import {renderCamaraTopicExtras} from './camara-view.mjs?rev=topic-cards-20261017';
+import {renderCamaraTopicExtras} from './camara-view.mjs?rev=knowledge-final-20261018';
 import {renderModule01Media,renderModule01Visual} from './module01-media.mjs?rev=camera-direta-20261018';
 import {camaraAtTopic,topicReading} from './topic-readings.mjs';
 import {phases,curriculumUI,getModule} from './curriculum.mjs';
@@ -50,11 +51,12 @@ export function renderModuleTopic(moduleId,topicIndex,{lang,lessons,e,icon,back,
  // Imagens distribuídas ENTRE os parágrafos, sem galerias e sem duplicar conteúdo.
  const chapterReading=(m.id==='01'&&notes?.length
    ? notes.map((p,i)=>'<article class="panel topic-reading" lang="pt-BR"><p>'+e(p)+'</p></article>'+
-      renderModule01Visual(m.id,n,i===0?'first':'middle',{lang,e})).join('')+
+      renderModule01Visual(m.id,n,i===0?'first':'middle',{lang,e})+
+      (n===2&&i===0?renderOxygenComparison({e}):'')).join('')+
       renderModule01Visual(m.id,n,'after',{lang,e})
    : '<article class="panel topic-reading" lang="pt-BR">'+(notes?.length?notes.map(p=>'<p>'+e(p)+'</p>').join(''):'<p>'+e(m.pt.objective)+'</p>')+'</article>');
 
- if(embedded)return '<section class="chamber-topic" id="tema-'+m.id+'-'+n+'"><h2 class="chamber-topic-title">'+e(topic)+'</h2>'+chapterReading+(m.id==='01'?renderModule01Media(m.id,n,{lang,e}):camaraId?renderCamaraTopicExtras(camaraId,{lang,e,answers:camaraAnswers}):'')+'</section>';
+ if(embedded)return '<section class="chamber-topic" id="tema-'+m.id+'-'+n+'"><h2 class="chamber-topic-title">'+e(topic)+'</h2>'+chapterReading+(m.id==='01'?renderModule01Media(m.id,n,{lang,e}):camaraId?renderCamaraTopicExtras(camaraId,{lang,e,answers:camaraAnswers,includeActivity:false}):'')+'</section>';
  return back(moduleHref(m.id,context))+
   '<p class="tag">'+heading+' '+number+' / 06 · '+m.id+'</p>'+
   '<h1 class="display page-title">'+e(topic)+'</h1>'+
