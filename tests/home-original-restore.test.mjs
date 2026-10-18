@@ -28,8 +28,9 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       assert.match(markup,/Próxima aula disponível/);
       assert.match(markup,/class="study-map"/);
       assert.match(markup,/Seu mapa de estudos/);
-      assert.match(markup,/#chapters\/common/);
-      assert.match(markup,/#chapters\/diving/);
+      assert.doesNotMatch(markup,/ETAPA 0[1-4]|Fundamentos comuns/);
+      for(const route of ['fisiologia','clinica','camara','operacao'])assert.ok(markup.includes('/'+route+'"'),route);
+      assert.equal((markup.match(/class="study-stage"/g)||[]).length,4);
       const footer=markup.match(/<nav class="bottom-nav[\s\S]*?<\/nav>/)?.[0]??'';
       for(const name of ['HOME','FISIOLOGIA','CLÍNICA','CÂMARA','OPERAÇÃO'])assert.ok(footer.includes(name),name);
       assert.doesNotMatch(markup,/SEU APP DE DECISÕES CLÍNICAS/);
