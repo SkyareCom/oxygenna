@@ -65,5 +65,5 @@ test('rotas inválidas não abrem texto e o CSS da HOME permanece isolado',()=>{
  assert.ok(css.includes('.module .module-topic-title'));
  assert.ok(css.includes('.topic .topic-reading'));
  const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
- assert.ok(html.includes('app.mjs?rev=home-cards-footer-20261018'));
+ assert.ok(html.includes('app.mjs?rev=home-original-large-cards-20261018'));
 });
