@@ -15,8 +15,8 @@ export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,fav
      ['PRÓXIMO',nextRoute,'right']
    ]:[
      ['HOME','home','home'],
-     ['FISIOLOGIA','fisiologia','chamber'],
      ['CLÍNICA','clinica','book'],
+     ['FISIOLOGIA','fisiologia','chamber'],
      ['CÂMARA','camara','indications'],
      ['OPERAÇÃO','operacao','protocols']
    ];
