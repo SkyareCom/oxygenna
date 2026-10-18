@@ -23,6 +23,9 @@ try{
  await page.goto('http://127.0.0.1:4173/oxygenna/',{waitUntil:'domcontentloaded',timeout:30000});
  await page.locator('.bottom-nav a').first().waitFor({timeout:15000});
  if(await page.locator('.bottom-nav a').count()!==5)throw Error('Rodapé não contém cinco filtros');
+ const expectedFooter=['HOME','FISIOLOGIA','CLÍNICA','CÂMARA','OPERAÇÃO'];
+ const getFooter=()=>page.locator('.bottom-nav a span').allTextContents().then(items=>items.map(x=>x.trim()));
+ if(JSON.stringify(await getFooter())!==JSON.stringify(expectedFooter))throw Error('Ordem do rodapé HOME incorreta: '+JSON.stringify(await getFooter()));
  if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('Home antiga: título não restaurado');
  if(await page.locator('.home-hero img').count()!==1)throw Error('Home antiga: imagem ausente');
  if(await page.locator('.study-resume').count()!==1)throw Error('Home antiga: card da próxima aula ausente');
@@ -30,14 +33,14 @@ try{
  if(await page.locator('.brand-logo').count()!==1)throw Error('Logotipo não preservado');
  const styles=await page.evaluate(()=>({header:getComputedStyle(document.querySelector('.app-header')).position,footer:getComputedStyle(document.querySelector('.bottom-nav')).position,font:getComputedStyle(document.body).fontFamily}));
  if(styles.header!=='fixed'||styles.footer!=='fixed')throw Error('Header/footer originais deixaram de ser fixos: '+JSON.stringify(styles));
- await page.evaluate(()=>{
-  history.pushState(null,'','/oxygenna/fisiologia');
-  window.dispatchEvent(new PopStateEvent('popstate'));
- });
+ await page.locator('.bottom-nav a[href$="/fisiologia"]').click();
+ if(!page.url().endsWith('/fisiologia'))throw Error('FISIOLOGIA não navega corretamente');
+ if(JSON.stringify(await getFooter())!==JSON.stringify(expectedFooter))throw Error('Ordem do rodapé FISIOLOGIA incorreta');
  await page.locator('main .lesson-link').first().waitFor();
  if(await page.locator('main .lesson-link').count()!==8)throw Error('Fisiologia não possui 8');
  await page.locator('[data-consulta-link][href$="/clinica"]').first().click();
  if(await page.locator('main .lesson-link').count()!==12)throw Error('Clínica não possui 12');
+ if(JSON.stringify(await getFooter())!==JSON.stringify(expectedFooter))throw Error('Ordem do rodapé CLÍNICA incorreta');
  await page.locator('[data-consulta-link][href$="/camara"]').first().click();
  if(await page.locator('main .lesson-link').count()!==8)throw Error('Câmara não possui 8');
  await page.locator('[data-consulta-link][href$="/operacao"]').first().click();

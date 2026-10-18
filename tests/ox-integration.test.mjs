@@ -47,7 +47,7 @@ test('OX tasks are integrated in Home and every internal route has a contextual 
     go('#'+mode+'/compromised-flaps');
     assert.ok(main().includes('clinical-panel'));
     assert.ok(main().includes('href="#'+(mode==='indication'?'protocol':'indication')+'/compromised-flaps"'));
-    assert.ok(html.includes('href="#'+index+'" class="active"'));
+    assert.ok(html.includes('href="/'+(index==='indications'?'clinica':'operacao')+'" class="active"'));
    }
   }
   for(const lang of ['pt','en','es']){
@@ -56,12 +56,12 @@ test('OX tasks are integrated in Home and every internal route has a contextual 
    assert.ok(main().includes('class="clinical-chapter-record"'));
    assert.ok(main().includes('data-condition="severe-anemia"'));
    assert.ok(main().includes('href="#protocol/severe-anemia"'));
-   assert.ok(html.includes('href="#indications" class="active"'));
+   assert.ok(html.includes('href="/clinica" class="active"'));
   }
   language('pt');
   go('#focus');
   for(const id of ['esporte','regenerativa','plastica','ciencia'])assert.ok(main().includes(`href="#focus/${id}"`));
-  assert.ok(/href="#home" class="active"/.test(html),'focus remains under Home in the existing footer');
+  assert.ok(/href="\/home" class="active"/.test(html),'focus remains under Home in the existing footer');
   go('#focus/plastica');assert.ok(main().includes('CIRURGIA PLÁSTICA'));
   language('en');assert.ok(main().includes('PLASTIC SURGERY'));
   language('es');assert.ok(main().includes('CIRUGÍA PLÁSTICA'));

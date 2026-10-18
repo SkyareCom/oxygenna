@@ -16,7 +16,7 @@ test('skip fragment reload renders the app, changes language, and preserves less
   assert.ok(appHTML.includes('class="app-header"'),'#main reload must not leave a blank app');
   const footer=()=>appHTML.match(/<nav class="bottom-nav[\s\S]*?<\/nav>/)?.[0]??'';
   assert.equal((footer().match(/<a /g)||[]).length,5,'footer provides the five requested destinations');
-  for(const label of ['HOME','CÂMARA','CAPÍTULOS','INDICAÇÕES','PROTOCOLOS'])assert.ok(footer().includes(label));
+  for(const label of ['HOME','FISIOLOGIA','CLÍNICA','CÂMARA','OPERAÇÃO'])assert.ok(footer().includes(label));
   assert.ok(appHTML.includes('class="brand-logo"'));
   assert.ok(appHTML.includes('href="#notifications"'));
   assert.ok(appHTML.includes('href="#profile"'));
@@ -34,7 +34,7 @@ test('skip fragment reload renders the app, changes language, and preserves less
   assert.ok(appHTML.includes('#lesson/honey/indications'));
   location.hash='#lesson/honey/indications';windowEvents.hashchange();
   assert.ok(appHTML.includes('href="#module/13/indications"'),'lesson Back retains its module and category');
-  assert.ok(/href="#indications" class="active"/.test(footer()));
+  assert.ok(/href="\/(?:oxygenna\/)?clinica" class="active"/.test(footer()));
   location.hash='#protocols';windowEvents.hashchange();
   assert.ok(appHTML.includes('#protocol/severe-anemia'));
   assert.ok(appHTML.includes('#protocol/decompression'));

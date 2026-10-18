@@ -52,7 +52,7 @@ test('não há gerador de catálogo duplicado e módulos 07/08 ficam fora de CÂ
  assert.ok(!view.includes('camara-chapter-grid'),'nenhum card paralelo');
  assert.ok(!app.includes('renderCamaraCatalog'),'não inserir catálogo na aba');
  assert.ok(!css.includes('.camara-chapter-grid'),'CSS antigo eliminado');
- assert.ok(html.includes('app.mjs?rev=restore-original-home-20261018'),'novo JS deve carregar com versão');
+ assert.ok(html.includes('app.mjs?rev=footer-five-20261018'),'novo JS deve carregar com versão');
  assert.equal(Object.values(CAMARA_MODULE_LESSONS).flat().length,8);
  assert.ok(!('07' in CAMARA_MODULE_LESSONS));
  assert.ok(!('08' in CAMARA_MODULE_LESSONS));
@@ -124,7 +124,7 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   go('#topic/01/1/chamber');
   assert.ok(main().includes('A medicina subaquática estuda o organismo'));
   assert.ok(main().includes('data-m01-picture="subaquatica"'));
-  assert.ok(footer().includes('href="#chamber" class="active"'));
+  assert.ok(footer().includes('href="/camara" class="active"'));
   go('#camara/camara-01'); // Rota legada mantém seus exercícios e registro de progresso.
   const target={dataset:{camaraAnswer:'1',camaraId:'camara-01'},hasAttribute:()=>false};
   for(const cb of answerEvents)cb({target:{closest:sel=>sel==='button'?target:null},preventDefault(){}});
@@ -139,6 +139,6 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   assert.ok(main().includes('id="camara-calc-answer"'));
   go('#home');
   assert.ok(main().includes('Ciência sob pressão.'));
-  assert.ok(footer().includes('href="#home" class="active"'));
+  assert.ok(footer().includes('href="/home" class="active"'));
  }finally{for(const [key,value] of Object.entries(saved)){if(value===undefined)delete globalThis[key];else globalThis[key]=value;}}
 });

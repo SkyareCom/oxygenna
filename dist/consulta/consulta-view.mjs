@@ -4,8 +4,8 @@ import {modules} from '../curriculum.mjs';
 export const consultaCapitulos=consultaData.capitulos;
 export const consultaById=new Map(consultaCapitulos.map(c=>[c.id,c]));
 export const consultaFilters=['home','fisiologia','clinica','camara','operacao'];
-export const consultaFooterLabels=['HOME','CLÍNICA','FISIOLOGIA','CÂMARA','OPERAÇÃO'];
-export const consultaFiltersIcon=['home','book','chamber','indications','protocols'];
+export const consultaFooterLabels=['HOME','FISIOLOGIA','CLÍNICA','CÂMARA','OPERAÇÃO'];
+export const consultaFiltersIcon=['home','chamber','book','indications','protocols'];
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function consultaHref(route){
  const base=typeof location!=='undefined'&&String(location.pathname??'').startsWith('/oxygenna')?'/oxygenna/':'/';
