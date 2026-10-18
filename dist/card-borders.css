@@ -60,23 +60,32 @@
 /* Preserve a leitura clínica: focos, acertos e erros continuam sinalizados
    por texto, fundo e ícones, sem alterar o contorno dourado. */
 
-/* Remove a segunda linha azul do item ativo do rodapé. */
-.bottom-nav a.active { box-shadow: none; }
+/* No rodapé, o feedback é exclusivamente a cor dourada do ícone e texto.
+   Nunca adicionar fundo ou borda interna à aba selecionada. */
+.bottom-nav a {
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: color 160ms ease;
+}
+.bottom-nav a .icon { color: inherit !important; stroke: currentColor; }
+.bottom-nav a:is(.active,[aria-current="page"],:hover,:active,:focus-visible) {
+  color: #857557 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.bottom-nav a:focus-visible { outline: 2px solid #857557; outline-offset: -2px; }
+@media (prefers-reduced-motion: reduce) {
+  .bottom-nav a { transition: none; }
+}
 
 /* Cards da Home: proporções e conectores restaurados do template original. */
 
 /* Quatro telas vazias: somente créditos em três colunas acima do rodapé fixo.
    Preserva os tamanhos e a navegação definidos no front original. */
-.oxygenna-blank-page .oxygenna-section-base {
-  position: fixed;
-  z-index: 5;
-  left: 50%;
-  bottom: calc(120px + env(safe-area-inset-bottom));
-  transform: translateX(-50%);
-  width: min(calc(100% - 40px), 440px);
+.oxygenna-section-base {
   min-height: 44px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: center;
   column-gap: 6px;
   padding: 0 2px;
@@ -86,6 +95,19 @@
   letter-spacing: .05em;
   line-height: 1.25;
   pointer-events: none;
+}
+.oxygenna-blank-page .oxygenna-section-base {
+  position: fixed;
+  z-index: 5;
+  left: 50%;
+  bottom: calc(120px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(calc(100% - 40px), 440px);
+}
+main.home > .oxygenna-section-base {
+  position: relative;
+  margin: 28px 0 12px;
+  width: 100%;
 }
 .oxygenna-section-base-left { text-align: left; }
 .oxygenna-section-base-logo { width: 38px; height: 38px; object-fit: contain; justify-self: center; }
