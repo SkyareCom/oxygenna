@@ -53,10 +53,10 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       location.pathname='/oxygenna/'+section;
       listeners.popstate();
       assert.match(markup,/class="module oxygenna-blank-page"/);
-      const mainHtml=markup.match(/<main[^>]*>([\\s\\S]*?)<\\/main>/)?.[1]??'';
+      const mainHtml=markup.match(/<main[^>]*>([\s\S]*?)<\/main>/)?.[1]??'';
       assert.match(mainHtml,/class="oxygenna-section-base"/);
       assert.match(mainHtml,/PAPOS DE ALTITUDE/);
-      assert.match(mainHtml,/oxygenna-logo\\.png/);
+      assert.match(mainHtml,/oxygenna-logo\.png/);
       assert.match(mainHtml,/PH4 DEV &amp; HEALTH/);
       assert.doesNotMatch(mainHtml,/<h[1-6]|class="panel"|class="lesson-link"|data-consulta-busca/);
       assert.equal((markup.match(/<nav class="bottom-nav[^>]*>/g)||[]).length,1);
