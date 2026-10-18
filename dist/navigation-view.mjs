@@ -8,7 +8,7 @@ export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,fav
  const n=navigationUI[lang];
  if(consulta){
    const base=typeof location==='undefined'||!String(location.pathname??'').startsWith('/oxygenna')?'/':'/oxygenna/';
-   const to=route=>base+String(route).replace(/^\\/+/, '');
+   const to=route=>base+String(route).replace(/^\/+/, '');
    const choices=chapter?[
      ['VOLTAR',backRoute,'left'],
      [favorite?'FAVORITADO':'FAVORITAR','#favorite','check'],
