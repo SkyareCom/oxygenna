@@ -1,31 +1,31 @@
 /** Conteúdo editorial exclusivo por tema. Nunca renderizar o mesmo material em dois temas. */
 export const topicReadings = {
   "01": [
-    [
-      "A história da medicina hiperbárica começa com a busca pelo controle da pressão em ambientes fechados, muito antes dos equipamentos clínicos atuais. A evolução das câmaras acompanhou o desenvolvimento de vasos de pressão, da fisiologia respiratória, das técnicas de mergulho e da compreensão dos efeitos do oxigênio. Entre experiências pioneiras e prática contemporânea houve uma mudança decisiva: a observação empírica deu lugar à avaliação de indicações, riscos e resultados mensuráveis.",
-      "A história não deve ser confundida com uma prova de eficácia. Um uso tradicional, por si só, não demonstra benefício para uma doença. A consolidação da área exige métodos de pesquisa, protocolos de segurança, seleção de pacientes e revisão periódica das evidências."
-    ],
-    [
-      "A medicina hiperbárica estuda aplicações clínicas de ambientes pressurizados e da oxigenoterapia hiperbárica, enquanto a medicina subaquática considera a fisiologia, a prevenção e o atendimento de problemas relacionados à imersão e ao mergulho. As duas áreas compartilham conhecimentos sobre gases, pressão e barotrauma, mas respondem a perguntas diferentes.",
-      "Em mergulho, a exposição à pressão decorre do ambiente e pode trazer riscos específicos durante a descida e a subida. Em uma câmara clínica, pressão, duração, gás respirado e acompanhamento são deliberadamente controlados. Ter a mesma pressão absoluta não torna as exposições equivalentes."
-    ],
-    [
-      "Oxigênio normobárico significa administrar oxigênio sem elevar a pressão do ambiente acima da pressão atmosférica local. Na oxigenoterapia hiperbárica, a exposição se dá sob pressão ambiente superior à atmosférica e com oxigênio prescrito. Tanto a fração inspirada de O₂ quanto a pressão absoluta influenciam a pressão parcial do gás.",
-      "A hemoglobina costuma transportar a maior parcela do oxigênio sanguíneo. Em condições hiperbáricas adequadas, aumenta especialmente o oxigênio fisicamente dissolvido no plasma. Esse mecanismo não significa que a terapia resolva qualquer hipóxia: a perfusão, a doença de base e a indicação continuam determinantes. Pressão, concentração inspirada e PaO₂ são grandezas diferentes."
-    ],
-    [
-      "Câmaras monoplace acomodam normalmente uma pessoa. A arquitetura pode permitir pressurização por oxigênio e exige seleção criteriosa de materiais, supervisão externa e comunicação contínua. Em modelos multiplace, vários ocupantes compartilham o ambiente; frequentemente a pressurização é feita com ar e o oxigênio é administrado individualmente.",
-      "O tipo de câmara não define sozinho a qualidade da assistência. Importam o equipamento, o plano de atendimento, a equipe habilitada, o acesso ao paciente durante intercorrências e o controle de segurança. É indispensável distinguir o gás presente na câmara daquele realmente inalado pelo paciente."
-    ],
-    [
-      "A assistência segura envolve avaliação médica, enfermagem, operação técnica da câmara e profissionais de apoio conforme o perfil do serviço. A equipe médica estabelece a indicação, avalia contraindicações e acompanha a resposta clínica. A enfermagem prepara e observa o paciente, administra cuidados previstos e reconhece eventos adversos; a operação técnica controla o equipamento segundo os procedimentos autorizados.",
-      "Essas responsabilidades se articulam antes, durante e depois da sessão. Comunicação funcional, listas de verificação, manutenção do equipamento e treinamento para emergências integram o cuidado. Nenhuma função deve ser improvisada, e a organização exata depende da regulamentação e do modelo de câmara."
-    ],
-    [
-      "O vocabulário técnico distingue conceitos que parecem semelhantes. ATA expressa atmosferas absolutas; FiO₂ é a fração inspirada de oxigênio; PIO₂ é a pressão parcial inspirada de oxigênio; PaO₂ descreve a pressão parcial arterial, medida no sangue. OHB significa oxigenoterapia hiperbárica; barotrauma designa lesão relacionada a diferenças de pressão.",
-      "Correspondências úteis: *hyperbaric oxygen therapy* (inglês) e *oxigenoterapia hiperbárica* (espanhol); *monoplace chamber* e *cámara monoplaza*; *multiplace chamber* e *cámara multiplaza*; *equalization* e *compensación de presión*. Termos traduzidos preservam diferenças entre pressão absoluta, fração de gás e medidas de oxigenação."
-    ]
+  [
+    "A história da medicina hiperbárica começou com experimentos de pressurização e estudo do comportamento dos gases. O conhecimento acumulado na engenharia, na fisiologia respiratória e na medicina do mergulho permitiu construir câmaras destinadas ao cuidado clínico.",
+    "Hoje, a indicação de oxigenoterapia hiperbárica depende de avaliação clínica, segurança do equipamento e evidências de benefício. Uma prática antiga não é, por si só, prova de eficácia."
   ],
+  [
+    "A medicina subaquática estuda o organismo exposto à imersão e às mudanças de pressão durante o mergulho. A medicina hiperbárica aplica conhecimento semelhante em ambientes pressurizados sob controle técnico, com finalidades assistenciais definidas.",
+    "Pressões absolutas iguais não tornam as exposições equivalentes. O gás respirado, a duração, o perfil de pressão e as necessidades da pessoa distinguem mergulho e atendimento em câmara."
+  ],
+  [
+    "Em condições normobáricas, o oxigênio é administrado sem elevar a pressão ambiente acima da atmosférica local. Na oxigenoterapia hiperbárica, ele é respirado sob pressão aumentada, elevando sua pressão parcial inspirada.",
+    "Sob condições apropriadas, a pressão maior aumenta a quantidade de oxigênio dissolvida no plasma. Esse efeito físico não garante correção de toda hipóxia: circulação, troca pulmonar e doença de base continuam fundamentais. PIO₂ não é a mesma medida que PaO₂."
+  ],
+  [
+    "A câmara monoplace acomoda uma pessoa; a multiplace permite vários ocupantes e pode facilitar acompanhamento presencial, conforme o modelo. Em ambas, a segurança depende de operadores treinados, comunicação e equipamentos compatíveis.",
+    "É essencial distinguir o gás que pressuriza o ambiente daquele que o paciente respira. A escolha entre as câmaras depende da condição clínica, da necessidade de assistência e dos recursos do serviço."
+  ],
+  [
+    "A equipe médica avalia indicação, riscos e resposta clínica. A enfermagem prepara o paciente, acompanha sinais de desconforto e presta os cuidados previstos. A operação técnica verifica o equipamento e executa a pressurização segundo procedimentos autorizados.",
+    "O atendimento envolve preparação, compressão, exposição e descompressão. Comunicação entre profissionais e paciente permite identificar problemas precocemente e interromper ou adaptar a sessão quando indicado."
+  ],
+  [
+    "Algumas siglas descrevem o ambiente, outras a mistura respirada ou uma medida sanguínea. Confundi-las pode levar a interpretações físicas e clínicas incorretas. O glossário abaixo permite comparar seus significados.",
+    "A nomenclatura em português, inglês e espanhol não altera as unidades nem o conceito físico. Em material técnico, mantenha consistente a diferença entre pressão absoluta, fração inspirada e pressão parcial."
+  ]
+],
   "02": [
     [
       "A pressão absoluta soma a pressão atmosférica externa à parcela relativa indicada por instrumentos manométricos. Para gases e cavidades corporais, a pressão absoluta é a referência dos cálculos físicos. Pressão em ATA não é o mesmo que aumento manométrico de ATA."
