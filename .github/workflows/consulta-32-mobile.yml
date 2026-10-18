@@ -1,0 +1,44 @@
+name: OXYGENNA — validação Android da consulta 32
+on:
+  push:
+    branches:
+      - feat/oxygenna-32-front-preservado
+    paths:
+      - .github/workflows/consulta-32-mobile.yml
+      - tests/consulta-32-browser.mjs
+      - dist/consulta/**
+      - dist/app.mjs
+      - dist/navigation-view.mjs
+      - dist/index.html
+  pull_request:
+    paths:
+      - .github/workflows/consulta-32-mobile.yml
+      - tests/consulta-32-browser.mjs
+      - dist/consulta/**
+      - dist/app.mjs
+      - dist/navigation-view.mjs
+      - dist/index.html
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar regressão e arquivos originais
+        run: |
+          npm test
+          git fetch origin main --depth=1
+          test "$(git show origin/main:dist/styles.css | sha256sum | cut -d' ' -f1)" = "$(sha256sum dist/styles.css | cut -d' ' -f1)"
+          test "$(git show origin/main:dist/camara.css | sha256sum | cut -d' ' -f1)" = "$(sha256sum dist/camara.css | cut -d' ' -f1)"
+          test "$(git show origin/main:dist/module01-media.css | sha256sum | cut -d' ' -f1)" = "$(sha256sum dist/module01-media.css | cut -d' ' -f1)"
+      - name: Preparar navegador móvel
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install chromium
+      - name: Abrir Home, filtros, busca e DCS2 no navegador Android
+        run: node tests/consulta-32-browser.mjs
