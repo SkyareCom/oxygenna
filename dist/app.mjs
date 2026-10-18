@@ -8,7 +8,7 @@ import {renderFocusCard,renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
 import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,thermalRatio,pressureUnits} from './core.mjs';
 import {tracks,lessons,sources} from './content.mjs';
-import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=camara-6mod-20261017';
+import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=knowledge-final-20261018';
 import {camaraAnswer} from './camara-data.mjs';
 
 const UI={
