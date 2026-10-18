@@ -80,6 +80,11 @@ function renderEmptySectionBase(){
   '<img class="oxygenna-section-base-logo" src="./assets/oxygenna-logo.png" width="38" height="38" alt="OXYGENNA">'+
   '<span class="oxygenna-section-base-right">PH4 DEV &amp; HEALTH</span></div>';
 }
+function renderFisiologiaPresentation(){
+ return '<figure class="oxygenna-fisiologia-presentation" aria-label="Apresentação da seção Fisiologia">'+
+  '<img src="./assets/fisiologia-camara-apresentacao.webp" width="800" height="522" loading="eager" decoding="async" alt="Câmara hiperbárica hospitalar com título FISIOLOGIA na base da imagem">'+
+  '<figcaption class="sr-only">Fisiologia</figcaption></figure>';
+}
 function render(){
  if(showConsulta()){
   const route=consultaRoute(),chapter=route.startsWith('/capitulo/')?route.split('/')[2]:null;
@@ -87,7 +92,7 @@ function render(){
   if(item){consultaUltimo=chapter;saveConsulta();}
   const filter=item?.filtro||route.slice(1);
   const blank=EMPTY_SECTION_ROUTES.has(route);
-  const main=blank?renderEmptySectionBase():renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}});
+  const main=blank?(route==='/fisiologia'?renderFisiologiaPresentation():'')+renderEmptySectionBase():renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}});
   document.documentElement.lang='pt-BR';
   document.title='OXYGENNA — Medicina Hiperbárica';
   document.querySelector('.skip').textContent='Ir ao conteúdo';
