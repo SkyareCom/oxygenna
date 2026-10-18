@@ -11,9 +11,40 @@ const FOOTER_ITEMS=[
  ['CÂMARA','camara','indications'],
  ['OPERAÇÃO','operacao','protocols']
 ];
-const HOME_ADDITIONAL_CARDS=[
- ['INDICAÇÕES E PROTOCOLOS','#indications','protocols'],
- ['EM FOCO','#focus','activity']
+// Mesmo template original do mapa de estudos: marcador numerado,
+ // etapa, título, descrição, metadados e linha informativa.
+ // Somente conteúdos e destinos dos seis cards foram atualizados.
+const HOME_STUDY_AREAS=[
+ {route:'fisiologia',title:{pt:'Fisiologia',en:'Physiology',es:'Fisiología'},description:{
+  pt:'Pressão, gases, oxigênio e respostas fisiológicas do organismo em ambientes hiperbáricos.',
+  en:'Pressure, gases, oxygen and the body’s physiological responses in hyperbaric environments.',
+  es:'Presión, gases, oxígeno y respuestas fisiológicas del organismo en ambientes hiperbáricos.'
+ },meta:{pt:'8 temas',en:'8 topics',es:'8 temas'}},
+ {route:'clinica',title:{pt:'Clínica',en:'Clinical Care',es:'Clínica'},description:{
+  pt:'Avaliação do paciente, raciocínio clínico, riscos e decisões em medicina hiperbárica.',
+  en:'Patient assessment, clinical reasoning, risks and decisions in hyperbaric medicine.',
+  es:'Evaluación del paciente, razonamiento clínico, riesgos y decisiones en medicina hiperbárica.'
+ },meta:{pt:'12 temas',en:'12 topics',es:'12 temas'}},
+ {route:'camara',title:{pt:'Câmara',en:'Chamber',es:'Cámara'},description:{
+  pt:'Tipos de câmara, funcionamento, equipamentos e segurança durante a terapia.',
+  en:'Chamber types, operation, equipment and safety during therapy.',
+  es:'Tipos de cámara, funcionamiento, equipos y seguridad durante la terapia.'
+ },meta:{pt:'8 temas',en:'8 topics',es:'8 temas'}},
+ {route:'operacao',title:{pt:'Operação',en:'Operations',es:'Operación'},description:{
+  pt:'Preparação, monitoramento, checklists e rotinas operacionais do atendimento.',
+  en:'Preparation, monitoring, checklists and operating routines for patient care.',
+  es:'Preparación, monitorización, listas de verificación y rutinas operativas de atención.'
+ },meta:{pt:'4 temas',en:'4 topics',es:'4 temas'}},
+ {route:'#indications',title:{pt:'Indicações e Protocolos',en:'Indications and Protocols',es:'Indicaciones y Protocolos'},description:{
+  pt:'Condições clínicas, critérios de indicação e protocolos terapêuticos relacionados.',
+  en:'Clinical conditions, selection criteria and related treatment protocols.',
+  es:'Condiciones clínicas, criterios de indicación y protocolos terapéuticos relacionados.'
+ },meta:{pt:'Indicações · Protocolos',en:'Indications · Protocols',es:'Indicaciones · Protocolos'}},
+ {route:'#focus',title:{pt:'Em Foco',en:'In Focus',es:'En Foco'},description:{
+  pt:'Esporte, medicina regenerativa, cirurgia plástica e pesquisa científica.',
+  en:'Sports, regenerative medicine, plastic surgery and scientific research.',
+  es:'Deporte, medicina regenerativa, cirugía plástica e investigación científica.'
+ },meta:{pt:'4 assuntos especiais',en:'4 featured subjects',es:'4 temas especiales'}}
 ];
 export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,favorite=false,backRoute='/home',nextRoute='/home'}){
  const n=navigationUI[lang];
@@ -35,14 +66,12 @@ export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,fav
  return `<nav class="bottom-nav footer-card" aria-label="${e(n.navigation)}">${FOOTER_ITEMS.map(([title,route,symbol])=>`<a data-consulta-link href="${to(route)}" class="${activePage===route?'active':''}" ${activePage===route?'aria-current="page"':''}>${icon(symbol)}<span>${e(title)}</span></a>`).join('')}</nav>`;
 }
 export function renderStudyMap({lang,e,icon}){
- const n=navigationUI[lang];
- const intro={
-  pt:'Escolha uma área para explorar os conteúdos.',
-  en:'Choose an area to explore the content.',
-  es:'Elige un área para explorar los contenidos.'
- }[lang]||'Escolha uma área para explorar os conteúdos.';
- const base=typeof location==='undefined'||!String(location.pathname??'').startsWith('/oxygenna')?'/':'/oxygenna/';
- return `<section class="study-map" aria-labelledby="study-map-title"><p class="tag">${n.browse}</p><h2 id="study-map-title" class="display">${n.map}</h2><p class="subtle">${intro}</p><ol class="study-stages">${[...FOOTER_ITEMS.filter(([,route])=>route!=='home').map(([title,route,symbol])=>[title,base+route,symbol,true]),...HOME_ADDITIONAL_CARDS.map(([title,route,symbol])=>[title,route,symbol,false])].map(([title,url,symbol,consulta])=>`<li><a class="study-stage" ${consulta?'data-consulta-link ':''}href="${url}" aria-label="${e(title)}"><span class="stage-marker" aria-hidden="true">${icon(symbol)}</span><span class="stage-copy"><strong>${e(title)}</strong></span>${icon('right')}</a></li>`).join('')}</ol><a class="primary chapter-cta" href="#chapters">${n.viewAll}${icon('right')}</a></section>`;
+ const n=navigationUI[lang],base=typeof location==='undefined'||!String(location.pathname??'').startsWith('/oxygenna')?'/':'/oxygenna/';
+ const action={pt:'Explorar conteúdos',en:'Explore the content',es:'Explorar contenidos'}[lang]||'Explorar conteúdos';
+ return `<section class="study-map" aria-labelledby="study-map-title"><p class="tag">${n.browse}</p><h2 id="study-map-title" class="display">${n.map}</h2><p class="subtle">${e(n.mapIntro)}</p><ol class="study-stages">${HOME_STUDY_AREAS.map((item,i)=>{
+  const clinical=!item.route.startsWith('#'),href=clinical?base+item.route:item.route;
+  return `<li><a class="study-stage" ${clinical?'data-consulta-link ':''}href="${href}"><span class="stage-marker" aria-hidden="true">${i+1}</span><span class="stage-copy"><span class="tag">${e(n.step)} ${String(i+1).padStart(2,'0')}</span><strong>${e(item.title[lang]||item.title.pt)}</strong><span class="stage-description">${e(item.description[lang]||item.description.pt)}</span><span class="stage-meta">${e(item.meta[lang]||item.meta.pt)}</span><span class="stage-status">${e(action)}</span></span>${icon('right')}</a></li>`;
+ }).join('')}</ol><a class="primary chapter-cta" href="#chapters">${n.viewAll}${icon('right')}</a></section>`;
 }
 export function renderNotices({lang,readNotices,e,back,noticePersisted}){
  const n=navigationUI[lang],allRead=NOTICE_IDS.every(id=>readNotices.includes(id));

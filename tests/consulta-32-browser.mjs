@@ -31,7 +31,10 @@ try{
  if(await page.locator('.study-resume').count()!==1)throw Error('Home antiga: card da próxima aula ausente');
  if(await page.locator('.study-stage').count()!==6)throw Error('Home precisa de seis cards');
  const homeCards=await page.locator('.study-stage .stage-copy strong').allTextContents();
- if(JSON.stringify(homeCards.map(x=>x.trim()))!==JSON.stringify(['FISIOLOGIA','CLÍNICA','CÂMARA','OPERAÇÃO','INDICAÇÕES E PROTOCOLOS','EM FOCO']))throw Error('Ordem dos seis cards da Home incorreta: '+JSON.stringify(homeCards));
+ if(JSON.stringify(homeCards.map(x=>x.trim()))!==JSON.stringify(['Fisiologia','Clínica','Câmara','Operação','Indicações e Protocolos','Em Foco']))throw Error('Ordem dos seis cards da Home incorreta: '+JSON.stringify(homeCards));
+ if(await page.locator('.study-stage .stage-description').count()!==6)throw Error('Descrições dos cards grandes não restauradas');
+ const stageMetrics=await page.locator('.study-stage').evaluateAll(els=>els.map(el=>({height:el.getBoundingClientRect().height,border:getComputedStyle(el).borderColor})));
+ if(stageMetrics.some(el=>el.height<125||el.border!=='rgb(133, 117, 87)'))throw Error('Template dos cards grandes ou cor de borda incorretos: '+JSON.stringify(stageMetrics));
  if(await page.locator('#oxygenna-em-foco-card').count()!==0)throw Error('O card grande Em Foco ainda aparece abaixo de Ver todos os capítulos');
  await page.locator('.study-stage[href="#indications"]').click();
  await page.locator('main .clinical-catalog').waitFor();
