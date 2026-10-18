@@ -54,7 +54,21 @@ jobs:
           await page.goto(root+'#module/01/chamber',{waitUntil:'domcontentloaded'});
           await page.locator('.chamber-lesson').waitFor({timeout:15000});
           console.log('CAPÍTULO LOADED','topics',await page.locator('.chamber-topic').count(),'tables',await page.locator('.oxygen-table-block').count(),'knowledge',await page.locator('.knowledge-check').count());
-          const images=await page.locator('.m01-context-figure img').evaluateAll(nodes=>nodes.map(n=>({src:n.currentSrc||n.src,loaded:n.complete&&n.naturalWidth>0})));
+          const locator=page.locator('.m01-context-figure img');
+          const images=[];
+          for(let i=0;i<await locator.count();i++){
+            const img=locator.nth(i);
+            await img.scrollIntoViewIfNeeded();
+            await img.evaluate(async node=>{
+              if(node.complete&&node.naturalWidth>0)return;
+              await new Promise((resolve,reject)=>{
+                const t=setTimeout(()=>reject(new Error('Timeout carregando '+node.src)),15000);
+                node.addEventListener('load',()=>{clearTimeout(t);resolve();},{once:true});
+                node.addEventListener('error',()=>{clearTimeout(t);reject(new Error('Falha '+node.src));},{once:true});
+              });
+            });
+            images.push(await img.evaluate(node=>({src:node.currentSrc||node.src,loaded:node.complete&&node.naturalWidth>0,width:node.naturalWidth})));
+          }
           console.log('IMAGES',JSON.stringify(images));
           console.log('RUNTIME ERRORS',JSON.stringify(failures));
           if(failures.length)throw Error('Erros JS: '+failures.join('; '));
