@@ -13,7 +13,7 @@ test('Botão da Home abandona aula antiga e abre fundamentos físicos exclusivos
  assert.ok(app.includes("section==='fundamentos-basicos'"));
  assert.ok(app.includes("renderFundamentosBasicos(state.lang,icon,back,e)"));
  assert.ok(html.includes('fundamentos-basicos.css?rev=fundamentos-visuais-v2-20261018'));
- assert.ok(html.includes('app.mjs?rev=fundamentos-fisica-v1-20261018'));
+ assert.ok(html.includes('app.mjs?rev=fundamentos-visuais-v2-20261018'));
  assert.ok(css.includes('border: 1px solid #857557'));
  assert.ok(!css.includes('box-shadow:0'));
 });
