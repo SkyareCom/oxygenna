@@ -4,8 +4,28 @@ export function renderHeader({lang,icon,e,unread}){
  const n=navigationUI[lang];
  return `<header class="app-header"><a class="brand" href="#home" aria-label="${e(n.brand.join(' '))}"><img class="brand-logo" src="./assets/oxygenna-logo.png" width="44" height="44" alt=""><span class="brand-name">${n.brand.map(word=>`<span>${e(word)}</span>`).join('')}</span></a><div class="header-actions"><a class="icon-button" href="#notifications" aria-label="${e(n.notifications+(unread?' — '+n.unread:''))}">${icon('bell')}${unread?'<span class="notification-dot" aria-hidden="true"></span>':''}</a><a class="icon-button" href="#profile" aria-label="${e(n.profile)}">${icon('user')}</a></div></header>`;
 }
-export function renderFooter({lang,active,icon,e}){
+export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,favorite=false,backRoute='/home',nextRoute='/home'}){
  const n=navigationUI[lang];
+ if(consulta){
+   const base=typeof location==='undefined'||!String(location.pathname??'').startsWith('/oxygenna')?'/':'/oxygenna/';
+   const to=route=>base+String(route).replace(/^\\/+/, '');
+   const choices=chapter?[
+     ['VOLTAR',backRoute,'left'],
+     [favorite?'FAVORITADO':'FAVORITAR','#favorite','check'],
+     ['PRÓXIMO',nextRoute,'right']
+   ]:[
+     ['HOME','home','home'],
+     ['FISIOLOGIA','fisiologia','chamber'],
+     ['CLÍNICA','clinica','book'],
+     ['CÂMARA','camara','indications'],
+     ['OPERAÇÃO','operacao','protocols']
+   ];
+   return '<nav class="bottom-nav footer-card" aria-label="Filtros de consulta"'+(chapter?' style="grid-template-columns:repeat(3,minmax(0,1fr))"':'')+'>'+
+      choices.map(([title,route,symbol],i)=>'<a '+(chapter&&i===1?'data-consulta-favorite': 'data-consulta-link')+
+      ' href="'+(chapter&&i===1?'#favorite':to(route))+'" class="'+(active===route?'active':'')+'"'+(active===route?' aria-current="page"':'')+'>'+
+      icon(symbol)+'<span>'+e(title)+'</span></a>').join('')+'</nav>';
+ }
+
  return `<nav class="bottom-nav footer-card" aria-label="${e(n.navigation)}">${['home','chamber','chapters','indications','protocols'].map((id,i)=>`<a href="#${id}" class="${active===id?'active':''}" ${active===id?'aria-current="page"':''}>${icon(['home','chamber','book','indications','protocols'][i])}<span>${e(n.nav[i])}</span></a>`).join('')}</nav>`;
 }
 export function renderStudyMap({lang,completed,e,icon}){
