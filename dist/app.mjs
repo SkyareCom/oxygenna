@@ -12,7 +12,7 @@ import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,t
 import {tracks,lessons,sources} from './content.mjs';
 import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=knowledge-final-20261018';
 import {camaraAnswer} from './camara-data.mjs';
-import {renderFundamentosBasicos,handleFundamentosConversion} from './fundamentos-basicos.mjs?rev=fundamentos-fisica-v1-20261018';
+import {renderFundamentosBasicos,handleFundamentosConversion} from './fundamentos-basicos.mjs?rev=fundamentos-visuais-v2-20261018';
 import {updatePhysicsActivity,setDiverDepthFromPointer} from './fundamentos-interativos.mjs?rev=visual-experiments-20261018';
 
 const UI={
