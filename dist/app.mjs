@@ -5,7 +5,7 @@ import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view
 import {handleModule01Click,handleModule01Input} from './module01-media.mjs?rev=knowledge-final-20261018';
 import {handleKnowledgeClick} from './knowledge-check.mjs?rev=knowledge-final-20261018';
 import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,getNextLesson,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
-import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs?rev=home-cards-footer-20261018';
+import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs?rev=home-original-large-cards-20261018';
 import {renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
 import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,thermalRatio,pressureUnits} from './core.mjs';
