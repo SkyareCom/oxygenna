@@ -29,7 +29,9 @@ try{
  if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('Home antiga: título não restaurado');
  if(await page.locator('.home-hero img').count()!==1)throw Error('Home antiga: imagem ausente');
  if(await page.locator('.study-resume').count()!==1)throw Error('Home antiga: card da próxima aula ausente');
- if(await page.locator('.study-stage').count()!==4)throw Error('Home antiga: mapa de estudos incompleto');
+ if(await page.locator('.study-stage').count()!==4)throw Error('Home precisa de quatro cards');
+ const homeCards=await page.locator('.study-stage .stage-copy strong').allTextContents();
+ if(JSON.stringify(homeCards.map(x=>x.trim()))!==JSON.stringify(['FISIOLOGIA','CLÍNICA','CÂMARA','OPERAÇÃO']))throw Error('Ordem dos quatro cards da Home incorreta: '+JSON.stringify(homeCards));
  if(await page.locator('.brand-logo').count()!==1)throw Error('Logotipo não preservado');
  const styles=await page.evaluate(()=>({header:getComputedStyle(document.querySelector('.app-header')).position,footer:getComputedStyle(document.querySelector('.bottom-nav')).position,font:getComputedStyle(document.body).fontFamily}));
  if(styles.header!=='fixed'||styles.footer!=='fixed')throw Error('Header/footer originais deixaram de ser fixos: '+JSON.stringify(styles));
