@@ -1,4 +1,5 @@
-import {renderChamberLearning} from './chamber-learning.mjs';
+import {renderChamberLearning} from './chamber-learning.mjs?rev=knowledge-final-20261018';
+import {renderOxygenComparison} from './oxygen-comparison.mjs';
 import {renderChapterClinical} from './clinical-view.mjs';
 import {renderCamaraTopicExtras} from './camara-view.mjs?rev=topic-cards-20261017';
 import {renderModule01Media,renderModule01Visual} from './module01-media.mjs?rev=camera-direta-20261018';
@@ -50,7 +51,8 @@ export function renderModuleTopic(moduleId,topicIndex,{lang,lessons,e,icon,back,
  // Imagens distribuídas ENTRE os parágrafos, sem galerias e sem duplicar conteúdo.
  const chapterReading=(m.id==='01'&&notes?.length
    ? notes.map((p,i)=>'<article class="panel topic-reading" lang="pt-BR"><p>'+e(p)+'</p></article>'+
-      renderModule01Visual(m.id,n,i===0?'first':'middle',{lang,e})).join('')+
+      renderModule01Visual(m.id,n,i===0?'first':'middle',{lang,e})+
+      (n===2&&i===0?renderOxygenComparison({e}):'')).join('')+
       renderModule01Visual(m.id,n,'after',{lang,e})
    : '<article class="panel topic-reading" lang="pt-BR">'+(notes?.length?notes.map(p=>'<p>'+e(p)+'</p>').join(''):'<p>'+e(m.pt.objective)+'</p>')+'</article>');
 
