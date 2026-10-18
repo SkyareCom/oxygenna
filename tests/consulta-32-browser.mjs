@@ -45,6 +45,23 @@ try{
  if(!page.url().endsWith('#focus'))throw Error('Card Em Foco não abre os temas de foco');
  await page.locator('a[href="#home"].brand').click();
  await page.locator('.study-stage').first().waitFor();
+ // Os créditos da Home ficam depois dos cards, não flutuando sobre eles.
+ const homeBase=page.locator('main.home > .oxygenna-section-base');
+ if(await homeBase.count()!==1)throw Error('Home sem faixa inferior de três colunas');
+ if((await homeBase.locator('.oxygenna-section-base-left').innerText()).trim()!=='PAPOS DE ALTITUDE')throw Error('Crédito PAPOS DE ALTITUDE ausente na Home');
+ if((await homeBase.locator('.oxygenna-section-base-right').innerText()).trim()!=='PH4 DEV & HEALTH')throw Error('Crédito PH4 DEV & HEALTH ausente na Home');
+ if(await homeBase.locator('img.oxygenna-section-base-logo').count()!==1)throw Error('Logotipo central ausente na Home');
+ const homeBaseLayout=await page.evaluate(()=>{
+  const base=document.querySelector('main.home > .oxygenna-section-base');
+  const button=document.querySelector('main.home .chapter-cta');
+  return {position:getComputedStyle(base).position,afterCards:base.getBoundingClientRect().top>button.getBoundingClientRect().bottom};
+ });
+ if(homeBaseLayout.position!=='relative'||!homeBaseLayout.afterCards)throw Error('Faixa da Home fora da base: '+JSON.stringify(homeBaseLayout));
+ const homeActive=await page.locator('.bottom-nav a.active').evaluate(el=>{
+  const c=getComputedStyle(el),svg=getComputedStyle(el.querySelector('svg'));
+  return {color:c.color,icon:svg.color,bg:c.backgroundColor,shadow:c.boxShadow};
+ });
+ if(homeActive.color!=='rgb(133, 117, 87)'||homeActive.icon!=='rgb(133, 117, 87)'||homeActive.bg!=='rgba(0, 0, 0, 0)'||homeActive.shadow!=='none')throw Error('Home: clique do rodapé incorreto: '+JSON.stringify(homeActive));
  if(await page.locator('.brand-logo').count()!==1)throw Error('Logotipo não preservado');
  const styles=await page.evaluate(()=>({header:getComputedStyle(document.querySelector('.app-header')).position,footer:getComputedStyle(document.querySelector('.bottom-nav')).position,font:getComputedStyle(document.body).fontFamily}));
  if(styles.header!=='fixed'||styles.footer!=='fixed')throw Error('Header/footer originais deixaram de ser fixos: '+JSON.stringify(styles));
@@ -53,6 +70,11 @@ try{
   await page.locator('main.oxygenna-blank-page .oxygenna-section-base').waitFor();
   if(!page.url().endsWith('/'+route))throw Error('Rota '+route+' não abriu');
   if(JSON.stringify(await getFooter())!==JSON.stringify(expectedFooter))throw Error('Rodapé alterado em '+route);
+  const selected=await page.locator('.bottom-nav a.active').evaluate(el=>{
+   const a=getComputedStyle(el),svg=getComputedStyle(el.querySelector('svg'));
+   return {color:a.color,icon:svg.color,bg:a.backgroundColor,shadow:a.boxShadow};
+  });
+  if(selected.color!=='rgb(133, 117, 87)'||selected.icon!=='rgb(133, 117, 87)'||selected.bg!=='rgba(0, 0, 0, 0)'||selected.shadow!=='none')throw Error('Destaque dourado sem fundo falhou em '+route+': '+JSON.stringify(selected));
   if(await page.locator('main.oxygenna-blank-page > *').count()!==1)throw Error('Conteúdo indevido em '+route);
   if(await page.locator('main.oxygenna-blank-page h1,main.oxygenna-blank-page h2,main.oxygenna-blank-page .lesson-link,main.oxygenna-blank-page .panel,main.oxygenna-blank-page .home-card').count())throw Error('Página '+route+' não está em branco');
   const signature=page.locator('.oxygenna-section-base');
