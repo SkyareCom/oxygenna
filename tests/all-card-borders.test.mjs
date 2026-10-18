@@ -24,9 +24,9 @@ test('OXYGENNA: todos os cards têm a mesma cor externa #857557', () => {
 });
 
 test('OXYGENNA: última folha de estilo sobrepõe hover e seleção sem criar contorno extra', () => {
-  assert.match(html, /card-borders\.css\?rev=gold-footer-home-credits-20261018/);
+  assert.match(html, /card-borders\.css\?rev=fisiologia-hero-approved-20261018/);
   assert.ok(
-    html.indexOf('card-borders.css?rev=gold-footer-home-credits-20261018') >
+    html.indexOf('card-borders.css?rev=fisiologia-hero-approved-20261018') >
     html.indexOf('module01-media.css?rev=knowledge-final-20261018')
   );
   assert.ok(!css.includes('.consulta-global-search'));
