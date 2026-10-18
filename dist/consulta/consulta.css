@@ -1,0 +1,119 @@
+/* OXYGENNA — consulta estruturada, reutilizando shell, cores, header e footer originais. */
+@import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500&display=swap');
+#app.consulta-shell{
+ --consulta-radius:14px; --consulta-border:#988b6d;
+ font-family:'Saira Semi Condensed',sans-serif!important;
+ font-size:12px!important;font-weight:400!important;
+ height:100dvh;min-height:100dvh;max-height:100dvh;
+ display:flex;flex-direction:column;overflow:hidden;
+ padding-top:0;background:#031721;
+}
+#app.consulta-shell, #app.consulta-shell *{font-family:'Saira Semi Condensed',sans-serif!important;font-style:normal}
+#app.consulta-shell :is(h1,h2,h3,legend,strong,b){font-weight:500!important}
+#app.consulta-shell :is(p,div,span,small,label,button,a,input,td,th,li,summary,output,figcaption){font-weight:400}
+#app.consulta-shell :is(.app-header,.bottom-nav){flex-shrink:0}
+#app.consulta-shell .app-header{
+ position:relative;top:auto;left:auto;transform:none;
+ width:100%;max-width:none;min-height:var(--header-height);height:var(--header-height);
+ background:#031721;border-bottom:1px solid #23444f;z-index:20;
+}
+#app.consulta-shell .brand-name>span:first-child{font-size:18px!important;font-weight:500!important;letter-spacing:1px}
+#app.consulta-shell .brand-name>span:last-child{font-size:10px!important;font-weight:400!important}
+#app.consulta-shell .header-actions .icon-button{border:1px solid #284c58;box-shadow:none}
+#app.consulta-shell .bottom-nav.consulta-footer{
+ position:relative;left:auto;bottom:auto;transform:none;
+ width:calc(100% - 24px);max-width:none;
+ margin:0 12px calc(9px + env(safe-area-inset-bottom));
+ border:1px solid #365863;border-radius:19px;
+ background:#0a2935;box-shadow:none;backdrop-filter:none;
+ padding:7px 5px;z-index:20;
+}
+#app.consulta-shell .consulta-footer a{font-size:10px!important;font-weight:400!important;min-height:53px;line-height:1.25;white-space:normal;text-align:center}
+#app.consulta-shell .consulta-footer a.active{box-shadow:none;background:#13424b}
+#app.consulta-shell .consulta-footer.chapter-footer{grid-template-columns:repeat(3,minmax(0,1fr))}
+#app.consulta-shell main.consulta-main{
+ flex:1;min-height:0;height:auto;width:100%;overflow-y:auto;overscroll-behavior:contain;
+ padding:17px 20px 24px;scroll-padding-top:14px;scrollbar-gutter:stable;
+ -webkit-overflow-scrolling:touch;
+}
+#app.consulta-shell .consulta-main :is(.display,.page-title,h1){font-size:18px!important;font-weight:500!important;letter-spacing:.15px;line-height:1.25}
+#app.consulta-shell .consulta-main h2{font-size:14px!important;font-weight:500!important;line-height:1.3}
+#app.consulta-shell .consulta-main h3{font-size:12px!important;font-weight:500!important;line-height:1.35}
+#app.consulta-shell .consulta-main :is(p,li,td,fieldset,summary){font-size:12px!important;line-height:1.55}
+#app.consulta-shell .consulta-main :is(.consulta-answer,.consulta-card .consulta-answer){font-size:14px!important;font-weight:500!important}
+#app.consulta-shell .consulta-main :is(small,.consulta-micro,.consulta-citation,.consulta-disclaimer,.consulta-media-slot,.consulta-pill){font-size:9px!important;line-height:1.5}
+#app.consulta-shell .consulta-main :is(button,input){font-size:12px!important}
+#app.consulta-shell .consulta-main strong{font-weight:500!important}
+#app.consulta-shell .consulta-section-heading{margin:0 0 17px}
+#app.consulta-shell .consulta-section-heading h1{margin:0 0 6px}
+#app.consulta-shell .consulta-section-heading p{margin:0;color:var(--muted)}
+#app.consulta-shell .consulta-search{margin-bottom:19px}
+#app.consulta-shell .consulta-search label{display:block;font-size:12px!important;font-weight:500;margin-bottom:8px;color:var(--gold)}
+#app.consulta-shell .consulta-search input{width:100%;height:48px;padding:11px 13px;background:#0b2935;color:var(--text);border:1px solid var(--consulta-border);border-radius:var(--consulta-radius);outline-offset:2px}
+#app.consulta-shell .consulta-phase{margin:21px 0 25px}
+#app.consulta-shell .consulta-phase h2,#app.consulta-shell .consulta-results h2{margin:0 0 10px;color:var(--gold);letter-spacing:1px}
+#app.consulta-shell .consulta-list{display:grid;gap:9px}
+#app.consulta-shell .consulta-row{
+ min-height:60px;height:auto;max-height:none;padding:10px 13px;
+ border:1px solid var(--consulta-border);border-radius:var(--consulta-radius);
+ background:#0a2632;box-shadow:none;text-align:left;
+}
+#app.consulta-shell .consulta-row-body{display:grid;gap:2px;flex:1;min-width:0}
+#app.consulta-shell .consulta-row-body strong{font-size:14px!important;line-height:1.25}
+#app.consulta-shell .consulta-row-body small{font-size:9px!important;color:var(--muted);line-height:1.3}
+#app.consulta-shell .consulta-chevron{font-size:18px!important;color:var(--gold);line-height:1;flex-shrink:0}
+#app.consulta-shell .consulta-quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#app.consulta-shell .consulta-quick-card{display:flex;align-items:center;justify-content:center;min-height:62px;text-align:center;padding:8px;border:1px solid var(--consulta-border);border-radius:var(--consulta-radius);background:#0a2632;font-size:12px!important;font-weight:500!important}
+#app.consulta-shell .consulta-tabs{display:flex;gap:7px;margin:0 0 14px;overflow-x:auto;padding-bottom:5px}
+#app.consulta-shell .consulta-tabs button{flex:none;min-height:39px;padding:9px 12px;border:1px solid #5c6470;border-radius:10px;background:#0a2733;color:var(--muted);font-size:10px!important;font-weight:500!important}
+#app.consulta-shell .consulta-tabs button[aria-pressed=true]{border-color:var(--gold);background:#173a43;color:var(--gold)}
+#app.consulta-shell .consulta-table-wrap{width:100%;overflow-x:auto;border:0;background:transparent;margin:10px 0}
+#app.consulta-shell table{width:100%;border-collapse:collapse;border:0;table-layout:auto;background:transparent}
+#app.consulta-shell table th,#app.consulta-shell table td{font-size:10px!important;padding:9px 7px;line-height:1.45;text-align:left;vertical-align:top;border:0;border-bottom:1px solid #2b4650}
+#app.consulta-shell table thead th{font-weight:500!important;color:var(--gold)}
+#app.consulta-shell table tbody th{font-weight:500!important}
+#app.consulta-shell .consulta-protocol-table{min-width:390px}
+#app.consulta-shell .consulta-protocol-table td{min-width:91px}
+#app.consulta-shell .consulta-protocol-table small{display:block;color:var(--muted);font-size:9px!important}
+#app.consulta-shell .consulta-table-link{font-size:10px!important;color:var(--gold);text-decoration:underline}
+#app.consulta-shell .consulta-card{margin:0 0 13px;padding:16px;background:#092633;border:1px solid var(--consulta-border);border-radius:var(--consulta-radius);box-shadow:none}
+#app.consulta-shell .consulta-card h2{color:var(--gold);margin:0 0 11px;letter-spacing:.5px}
+#app.consulta-shell .consulta-card h3{color:#f0d2a0;margin:13px 0 5px}
+#app.consulta-shell .consulta-card p{margin:0 0 10px}
+#app.consulta-shell .consulta-card p:last-child{margin-bottom:0}
+#app.consulta-shell .consulta-pill{color:var(--muted);letter-spacing:1px;margin-bottom:10px!important}
+#app.consulta-shell .consulta-audio{display:inline-flex;min-height:41px;align-items:center;margin-top:10px;background:#173944;color:#f0d6a4;padding:11px 14px;border:0;border-radius:9px;font-size:10px!important;font-weight:500!important}
+#app.consulta-shell .consulta-plain-item{margin:10px 0}
+#app.consulta-shell .consulta-plain-item h3{margin:0 0 3px}
+#app.consulta-shell .consulta-figure{padding:0;margin:12px 0}
+#app.consulta-shell .consulta-figure svg{width:100%;height:auto}
+#app.consulta-shell .consulta-figure figcaption{color:var(--muted);font-size:9px!important}
+#app.consulta-shell .consulta-media-slot{color:var(--muted);margin:10px 0;font-size:9px!important}
+#app.consulta-shell .consulta-flow{list-style:none;padding:0;margin:7px 0 13px;display:grid;gap:10px}
+#app.consulta-shell .consulta-flow li{display:flex;gap:12px;align-items:start;position:relative}
+#app.consulta-shell .consulta-flow li>span{font-size:10px!important;color:var(--gold);min-width:18px;font-weight:500}
+#app.consulta-shell .consulta-flow li p{margin:0}
+#app.consulta-shell .consulta-checks{display:grid;gap:10px;margin:8px 0}
+#app.consulta-shell .consulta-checks label{display:flex;gap:9px;align-items:start;font-size:12px!important}
+#app.consulta-shell .consulta-checks input{accent-color:var(--gold);margin:4px 0 0}
+#app.consulta-shell .consulta-media-stubs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+#app.consulta-shell .consulta-media-stubs span{font-size:9px!important;color:var(--muted);background:#14303c;padding:7px 8px;border-radius:8px}
+#app.consulta-shell .consulta-card ul{margin:7px 0 12px;padding-left:19px}
+#app.consulta-shell .consulta-card li{margin:6px 0}
+#app.consulta-shell .consulta-note{color:#f0d6a4}
+#app.consulta-shell .consulta-question{border:0;padding:13px 0;margin:0;display:grid;gap:7px}
+#app.consulta-shell .consulta-question legend{padding:0 0 7px;font-size:14px!important;font-weight:500!important}
+#app.consulta-shell .consulta-question button{display:block;text-align:left;padding:10px 11px;min-height:40px;background:#143540;color:var(--text);border:0;border-radius:9px;font-weight:400}
+#app.consulta-shell .consulta-question button[aria-pressed=true]{background:#32515a;color:#f2d49c}
+#app.consulta-shell .consulta-feedback{color:#b8dacf;font-size:12px!important}
+#app.consulta-shell .consulta-refs{list-style:none;padding:0!important}
+#app.consulta-shell .consulta-refs li{margin:11px 0!important}
+#app.consulta-shell .consulta-refs li a{text-decoration:underline;color:#e4cd9e;font-size:9px!important}
+#app.consulta-shell .consulta-refs li small{display:block;color:var(--muted);font-size:9px!important}
+#app.consulta-shell .consulta-disclaimer{margin-top:18px!important;color:var(--muted)}
+#app.consulta-shell .consulta-main a:focus-visible,#app.consulta-shell .consulta-main button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (max-width:380px){
+ #app.consulta-shell main.consulta-main{padding:14px 16px 20px}
+ #app.consulta-shell .consulta-table-wrap table{min-width:320px}
+ #app.consulta-shell .app-header{padding-left:16px;padding-right:16px}
+}
