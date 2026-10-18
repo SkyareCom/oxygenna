@@ -1,3 +1,4 @@
+import {renderChamberLearning} from './chamber-learning.mjs';
 import {renderChapterClinical} from './clinical-view.mjs';
 import {renderCamaraTopicExtras} from './camara-view.mjs?rev=topic-cards-20261017';
 import {renderModule01Media,renderModule01Visual} from './module01-media.mjs?rev=camera-direta-20261018';
@@ -19,6 +20,7 @@ export const moduleTopicHref=(moduleId,topicIndex,context='all')=>`#topic/${modu
 export function renderModule(id,{lang,lessons,e,icon,back,sourceLinks,notFound,context,camaraAnswers=new Map(),camaraCompleted=[]}){
  context=normalizeContext(context)||'all';
  const m=getModule(id);if(!m)return notFound();
+ if(context==='chamber')return renderChamberLearning(id,{lang,lessons,e,icon,back,sourceLinks,notFound,camaraAnswers},renderModuleTopic);
  const c=curriculumUI[lang],text=m[lang],phase=phases.find(p=>p.id===m.phase);
  const items=getCurriculumItems(context),index=items.indexOf(m),before=index>0?items[index-1]:null,after=index>=0?items[index+1]:null;
  const ready=m.lessons.map(id=>lessons.find(l=>l.id===id)).filter(Boolean);
