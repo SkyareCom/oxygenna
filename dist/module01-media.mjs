@@ -1,7 +1,7 @@
 // OXYGENNA — Módulo 01: mídias nativas às páginas #topic/01/*, sem segundo aplicativo.
 // Imagens de contexto independentes; não utilizar atlas, ampliar ou galeria duplicada.
 const photo=Object.freeze({"experimentacao":"./assets/m01-experimentacao.webp?rev=borda-unica-20261017","subaquatica":"./assets/m01-subaquatica.webp?rev=borda-unica-20261017","camara-clinica":"./assets/m01-camara-clinica.webp?rev=borda-unica-20261017","pratica-atual":"./assets/m01-pratica-atual.webp?rev=borda-unica-20261017","oxigenio":"./assets/m01-oxigenio.webp?rev=borda-unica-20261017","monoplace":"./assets/m01-monoplace.webp?rev=borda-unica-20261017","multiplace":"./assets/m01-multiplace.webp?rev=borda-unica-20261017","componentes":"./assets/m01-componentes.webp?rev=borda-unica-20261017","preparacao":"./assets/m01-preparacao.webp?rev=borda-unica-20261017","exposicao":"./assets/m01-exposicao.webp?rev=borda-unica-20261017"});
-const placement=Object.freeze({0:{first:['experimentacao'],middle:['camara-clinica'],after:['pratica-atual']},1:{first:['subaquatica']},2:{first:['oxigenio']},3:{first:['monoplace'],middle:['multiplace'],after:['componentes']},4:{first:['preparacao'],middle:['exposicao']}});
+const placement=Object.freeze({0:{first:['experimentacao'],after:['pratica-atual']},1:{first:['subaquatica']},2:{first:['oxigenio']},3:{first:['monoplace'],middle:['multiplace']},4:{first:['preparacao']}});
 const altText=Object.freeze({"experimentacao":"Experimentos históricos com gases e pressão","subaquatica":"Fisiologia da imersão e medicina subaquática","camara-clinica":"Câmara clínica e assistência monitorizada","pratica-atual":"Prática hiperbárica baseada em evidências","oxigenio":"Paciente em câmara hiperbárica: ilustração da oferta de oxigênio","monoplace":"Câmara monoplace com leito individual","multiplace":"Câmara multiplace com vários assentos","componentes":"Janela, máscara, comunicação, painel e segurança de uma câmara","preparacao":"Preparo e compressão gradual","exposicao":"Exposição monitorizada e descompressão controlada"});
 const steps=[
  ['Preparação','Orientação, triagem e conferência do equipamento antes do início.'],
@@ -51,12 +51,7 @@ export function renderModule01Media(moduleId,index,{lang='pt',e}={}){
  const i=Number(index);if(!Number.isInteger(i)||i<0||i>5)return '';
  e=e??(s=>String(s));
  const c=msg(lang),section=[];
- if(i===0){
-  section.push('<section class="m01-panel m01-timeline" data-m01-stepper="timeline"><h2>'+e(c.timeline)+'</h2><div class="m01-stepper">'+processHTML(timeline)+'</div><p class="m01-step-output" aria-live="polite" lang="pt-BR">'+e(timeline[0][1])+'</p></section>');
- }
- if(i===1){
-  section.push('<section class="m01-panel m01-pressure" data-m01-dive><h2>'+e(c.pressure)+'</h2><p class="m01-hint" lang="pt-BR">Exemplo idealizado de água do mar ao nível do mar: a pressão cresce cerca de 1 ATA a cada 10 metros. Não é uma tabela de planejamento de mergulho.</p><label for="m01-depth">Profundidade simulada <output id="m01-depth-out">10 m</output></label><input id="m01-depth" type="range" min="0" max="30" step="5" value="10" data-m01-depth><div class="m01-two-values"><div><strong data-m01-depth-ata>2,0 ATA</strong><span>Pressão absoluta aprox.</span></div><div><strong data-m01-depth-kpa>203 kPa</strong><span>Pressão absoluta aprox.</span></div></div></section>');
- }
+
  if(i===2){
   section.push('<section class="m01-panel m01-oxygen" data-m01-oxygen><h2>Gráfico interativo • PIO₂ umidificada</h2><p class="m01-hint" lang="pt-BR">FiO₂ = 100%, pressão de vapor de água estimada em 47 mmHg. PIO₂ não equivale à PaO₂.</p><svg aria-label="Gráfico de PIO₂ em relação à pressão absoluta" role="img" viewBox="0 0 340 170" class="m01-plot"><path d="M35 12V140H330" fill="none" stroke="#9aabb1" stroke-width="1"/><path d="M35 102L330 18" fill="none" stroke="#d5b16c" stroke-width="3"/><path d="M35 139H330" fill="none" stroke="#526977" stroke-dasharray="3 6"/><circle data-m01-point cx="184" cy="60" r="6" stroke="#d5b16c" fill="#082b3b" stroke-width="3"/><text x="32" y="158" font-size="11" fill="#b5cbd0">1 ATA</text><text x="293" y="158" font-size="11" fill="#b5cbd0">3 ATA</text><text x="35" y="9" font-size="11" fill="#b5cbd0">PIO₂ (mmHg)</text></svg><label for="m01-ata">Pressão absoluta <output id="m01-ata-out">2,0 ATA</output></label><input id="m01-ata" data-m01-ata type="range" min="1" max="3" step="0.1" value="2.0"><div class="m01-number"><strong data-m01-pio2>1.473 mmHg</strong><span>Pressão parcial inspirada estimada</span></div></section>');
  }
@@ -70,7 +65,7 @@ export function renderModule01Media(moduleId,index,{lang='pt',e}={}){
   const terms=[['ATA','Atmosferas absolutas'],['FiO₂','Fração inspirada de oxigênio'],['PIO₂','Pressão parcial inspirada de oxigênio'],['PaO₂','Pressão parcial arterial de oxigênio'],['OHB','Oxigenoterapia hiperbárica']];
   section.push('<section class="m01-panel m01-glossary"><h2>VOCABULÁRIO INTERATIVO</h2><p class="m01-hint">Toque em cada termo para revelar sua definição.</p>'+terms.map(([term,def])=>'<details><summary>'+e(term)+'</summary><p lang="pt-BR">'+e(def)+'</p></details>').join('')+'</section>');
  }
- return '<section class="m01-media" data-m01-topic="'+i+'" aria-label="'+e(c.media)+'">'+mediaHeader(c.media,'Uma mídia principal por tema e exercícios objetivos.',e)+section.join('')+quizHTML(i,{lang,e})+'</section>';
+ return '<section class="m01-media" data-m01-topic="'+i+'" aria-label="'+e(c.media)+'">'+(section.length?mediaHeader(c.media,'',e):'')+section.join('')+([0,2,5].includes(i)?quizHTML(i,{lang,e}):'')+'</section>';
 }
 function fmtNumber(n,dec=0){return n.toLocaleString('pt-BR',{maximumFractionDigits:dec,minimumFractionDigits:dec});}
 function findRoot(t){return t?.closest?.('.m01-media')??null;}
