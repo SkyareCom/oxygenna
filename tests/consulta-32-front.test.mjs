@@ -58,7 +58,7 @@ test('footer mantém CSS e ícones originais, troca somente destinos e textos',(
  assert.ok(css.includes('.bottom-nav{position:fixed'));
  assert.ok(css.includes('.app-header{position:fixed'));
  const index=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
- assert.ok(index.includes('styles.css?rev=knowledge-final-20261018'));
+ assert.ok(index.includes('styles.css?rev=busca-global-20261018'));
  assert.ok(!index.includes('consulta.css'));
 });
 test('URLs diretas e rotas legadas seguem caminhos distintos',()=>{
