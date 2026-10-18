@@ -64,6 +64,15 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       assert.match(mainHtml,/oxygenna-logo\.png/);
       assert.match(mainHtml,/PH4 DEV &amp; HEALTH/);
       assert.doesNotMatch(mainHtml,/<h[1-6]|class="panel"|class="lesson-link"|data-consulta-busca/);
+      if(section==='fisiologia'){
+        assert.match(mainHtml,/class="oxygenna-fisiologia-presentation"/);
+        assert.match(mainHtml,/fisiologia-camara-apresentacao\.webp/);
+        assert.match(mainHtml,/alt="Câmara hiperbárica hospitalar/);
+        assert.ok(mainHtml.indexOf('oxygenna-fisiologia-presentation')<mainHtml.indexOf('oxygenna-section-base'),'Card deve ficar antes dos créditos');
+      } else {
+        assert.doesNotMatch(mainHtml,/oxygenna-fisiologia-presentation/);
+        assert.doesNotMatch(mainHtml,/fisiologia-camara-apresentacao/);
+      }
       assert.equal((markup.match(/<nav class="bottom-nav[^>]*>/g)||[]).length,1);
       assert.match(markup,/data-consulta-link/);
     }
