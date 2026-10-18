@@ -20,8 +20,8 @@ test('skip fragment reload renders the app, changes language, and preserves less
   assert.ok(appHTML.includes('class="brand-logo"'));
   assert.ok(appHTML.includes('href="#notifications"'));
   assert.ok(appHTML.includes('href="#profile"'));
-  assert.ok(appHTML.includes('#chapters/common'),'Home provides the first learning stage');
-  assert.ok(appHTML.includes('#chapters/diving'),'Home retains the diving learning stage');
+  assert.ok(appHTML.includes('/fisiologia"'),'Home provides the Fisiologia card');
+  assert.ok(appHTML.includes('/operacao"'),'Home provides the Operação card');
   location.hash='#chamber';windowEvents.hashchange();
   assert.ok(appHTML.includes('#module/01/chamber'));
   assert.ok(appHTML.includes('#module/06/chamber'));
