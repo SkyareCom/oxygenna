@@ -35,10 +35,15 @@ test('OXYGENNA: última folha de estilo sobrepõe hover e seleção sem criar co
 });
 
 test('Rodapé destaca texto e ícone só em dourado, sem fundo ou contorno duplo', () => {
-  assert.match(css, /\.bottom-nav a \\{[\\s\\S]*?background:\\s*transparent\\s*!important/);
-  assert.match(css, /\.bottom-nav a \.icon \\{[\\s\\S]*?color:\\s*inherit\\s*!important/);
-  assert.match(css, /\.bottom-nav a:is\\(\.active,\\[aria-current="page"\\],:hover,:active,:focus-visible\\) \\{[\\s\\S]*?color:\\s*#857557\\s*!important/);
-  assert.match(css, /\.bottom-nav a:focus-visible\\s*\\{/);
-  assert.match(css, /main\.home > \.oxygenna-section-base\\s*\\{/);
-  assert.match(css, /\.oxygenna-section-base-logo\\s*\\{/);
+  const footerRule=css.slice(css.indexOf('.bottom-nav a {'),css.indexOf('.bottom-nav a .icon {'));
+  const activeRule=css.slice(css.indexOf('.bottom-nav a:is('),css.indexOf('.bottom-nav a:focus-visible {'));
+  assert.ok(footerRule.includes('background: transparent !important;'));
+  assert.ok(footerRule.includes('box-shadow: none !important;'));
+  assert.ok(css.includes('.bottom-nav a .icon { color: inherit !important; stroke: currentColor; }'));
+  assert.ok(activeRule.includes('color: #857557 !important;'));
+  assert.ok(activeRule.includes('background: transparent !important;'));
+  assert.ok(activeRule.includes(':active'));
+  assert.ok(css.includes('.bottom-nav a:focus-visible {'));
+  assert.ok(css.includes('main.home > .oxygenna-section-base {'));
+  assert.ok(css.includes('.oxygenna-section-base-logo {'));
 });
