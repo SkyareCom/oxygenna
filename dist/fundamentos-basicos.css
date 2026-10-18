@@ -1,0 +1,77 @@
+/* Conteúdo EXTRA da Home: painel científico no front original OXYGENNA.
+   Um único contorno por card. Sem sombras, novos layouts ou paletas. */
+.fundamentos-basicos .fb-intro { margin: 8px 0 20px; }
+.fundamentos-basicos .fb-intro .subtle { margin: 10px 0 0; font-size: 14px; line-height: 1.5; }
+.fundamentos-basicos .fb-topics { display: grid; gap: 14px; margin: 14px 0 24px; }
+.fundamentos-basicos .fb-card {
+  margin: 0;
+  border: 1px solid #857557;
+  border-radius: 16px;
+  box-shadow: none;
+  background: #0c2933;
+  padding: 16px;
+  min-width: 0;
+}
+.fundamentos-basicos .fb-card h2 { font-size: 18px; font-weight: 500; line-height: 1.28; margin: 0 0 9px; }
+.fundamentos-basicos .fb-card p { font-size: 12px; line-height: 1.55; margin: 0 0 12px; }
+.fundamentos-basicos .fb-card .fb-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+.fundamentos-basicos .fb-formula {
+  display: block;
+  font-size: 14px !important;
+  color: var(--gold);
+  font-weight: 500;
+  letter-spacing: .02em;
+  overflow-wrap: anywhere;
+  margin: 8px 0 !important;
+}
+.fundamentos-basicos .fb-example { color: var(--text); }
+.fundamentos-basicos .fb-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  background: transparent;
+  margin: 12px 0 0;
+}
+.fundamentos-basicos .fb-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.fundamentos-basicos .fb-table th,
+.fundamentos-basicos .fb-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 9px 6px;
+  border-bottom: 1px solid rgba(133,117,87,.42);
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+.fundamentos-basicos .fb-table th { width: 40%; color: var(--gold); }
+.fundamentos-basicos .fb-table tr:last-child th,
+.fundamentos-basicos .fb-table tr:last-child td { border-bottom: 0; }
+.fundamentos-basicos .fb-equation { padding: 11px 0; border-bottom: 1px solid rgba(133,117,87,.42); }
+.fundamentos-basicos .fb-equation:last-child { border-bottom: 0; }
+.fundamentos-basicos .fb-equation strong { display: block; font-size: 14px; font-weight: 500; }
+.fundamentos-basicos .fb-equation p { margin-bottom: 0; color: var(--muted); }
+.fundamentos-basicos .fb-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  margin: 12px 0;
+}
+.fundamentos-basicos .fb-controls label { font-size: 12px; display: grid; gap: 6px; }
+.fundamentos-basicos .fb-controls input,
+.fundamentos-basicos .fb-controls select {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 8px;
+  min-height: 43px;
+  color: var(--text);
+  background: #061d27;
+  border: 1px solid #857557;
+  border-radius: 12px;
+  outline-offset: 2px;
+  font: 400 14px "Saira Semi Condensed",sans-serif;
+}
+.fundamentos-basicos .fb-converter .tag { font-size: 10px; margin-top: 12px; }
+.fundamentos-basicos .micro { margin: 8px 0 26px; }
+.fundamentos-basicos .micro a { color: var(--gold); text-decoration: underline; }
