@@ -85,7 +85,7 @@ export function renderFundamentosBasicos(lang='pt',icon=()=>'',back=()=>'',escap
  const converter='<section class="panel fb-card fb-converter" aria-labelledby="fb-converter-title"><h2 id="fb-converter-title">'+escape(v.converter)+'</h2><p>'+escape(v.converterHelp)+'</p><div class="fb-controls"><label>'+escape(v.value)+'<input data-fb-value type="number" min="0" step="any" value="1" inputmode="decimal"></label><label>'+escape(v.unit)+'<select data-fb-from>'+convertUnits.map(u=>'<option value="'+u+'">'+u+'</option>').join('')+'</select></label></div><p class="tag">'+escape(v.results)+'</p><output data-fb-results aria-live="polite">'+showTable(initial)+'</output></section>';
  return back('#home')+'<section class="fb-intro"><p class="tag">'+escape(v.tag)+'</p><h1 class="display page-title">'+escape(v.title)+'</h1><p class="subtle">'+escape(v.intro)+'</p></section><div class="fb-topics">'+cards.slice(0,cards.indexOf('</article>')+10)+converter+cards.slice(cards.indexOf('</article>')+10)+'</div><p class="micro">'+escape(v.reference)+' <a href="https://www.bipm.org/en/publications/si-brochure" target="_blank" rel="noopener noreferrer">BIPM</a> · <a href="https://physics.nist.gov/cuu/Units/" target="_blank" rel="noopener noreferrer">NIST</a></p>';
 }
-export function handleFundamentosConversion(target,documentRef,lang='pt'){
+export function handleFundamentosConversion(target,lang='pt'){
  if(!target?.matches?.('[data-fb-value],[data-fb-from]'))return false;
  const root=target.closest('.fb-converter');
  if(!root)return false;
