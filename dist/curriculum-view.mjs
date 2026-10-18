@@ -52,7 +52,7 @@ export function renderModuleTopic(moduleId,topicIndex,{lang,lessons,e,icon,back,
       renderModule01Visual(m.id,n,'after',{lang,e})
    : '<article class="panel topic-reading" lang="pt-BR">'+(notes?.length?notes.map(p=>'<p>'+e(p)+'</p>').join(''):'<p>'+e(m.pt.objective)+'</p>')+'</article>');
 
- if(embedded)return chapterReading;
+ if(embedded)return '<section class="chamber-topic" id="tema-'+m.id+'-'+n+'"><h2 class="chamber-topic-title">'+e(topic)+'</h2>'+chapterReading+'</section>';
  return back(moduleHref(m.id,context))+
   '<p class="tag">'+heading+' '+number+' / 06 · '+m.id+'</p>'+
   '<h1 class="display page-title">'+e(topic)+'</h1>'+
