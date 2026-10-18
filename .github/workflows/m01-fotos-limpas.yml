@@ -1,0 +1,62 @@
+name: OXYGENNA — fotografias sem títulos
+
+on:
+  push:
+    branches:
+      - feat/oxygenna-teste-final-tabelas-midia-limpa
+    paths:
+      - .github/workflows/m01-fotos-limpas.yml
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow==11.3.0
+      - name: Criar imagens fotográficas sem textos embutidos
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          d=Path('dist/assets')
+          areas={
+            'experimentacao': (642,142,1352,752),
+            'pratica-atual': (667,152,1352,742),
+            'subaquatica': (737,162,1352,762),
+            'oxigenio': (687,137,1352,637),
+            'monoplace': (12,162,1352,782),
+            'multiplace': (7,162,1352,772),
+            'preparacao': (12,162,1352,780),
+          }
+          for name,box in areas.items():
+              original=d/('m01-'+name+'.webp')
+              assert original.is_file(),original
+              with Image.open(original) as img:
+                  img=img.convert('RGB')
+                  assert img.width>=1352 and img.height>=780,(name,img.size)
+                  segment=img.crop(box)
+                  photo=ImageOps.fit(segment,(960,600),method=Image.Resampling.LANCZOS)
+                  result=d/('m01-foto-'+name+'.webp')
+                  photo.save(result,'WEBP',quality=88,method=6)
+                  print(name,photo.size,result.stat().st_size)
+                  assert result.stat().st_size>30000
+          PY
+      - name: Publicar somente imagens na branch de revisão
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/assets/m01-foto-*.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "assets(m01): sete fotografias sem títulos incorporados"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
