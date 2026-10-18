@@ -59,7 +59,6 @@ export function renderConsultaSearch(query){
 export function renderConsultaHome({query='',lastId='',illustration='',icon=()=>''}={}){
  const links=[['É INDICAÇÃO?','clinica','indications'],['PODE ENTRAR?','capitulo/contraindicacoes','chamber'],['QUAL PROTOCOLO?','camara','protocols']];
  const quick=links.map(([label,route,symbol])=>'<a class="home-card" data-consulta-link href="'+consultaHref(route)+'">'+icon(symbol)+'<span class="copy"><strong>'+label+'</strong></span></a>').join('');
- const last=consultaById.get(lastId);
  return '<section class="consulta-global-search" role="search" aria-label="Busca global">'+
  '<label class="sr-only" for="busca-oxygenna">BUSCA GLOBAL NO OXYGENNA</label>'+
  '<div class="consulta-search-line"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>'+
@@ -68,8 +67,6 @@ export function renderConsultaHome({query='',lastId='',illustration='',icon=()=>
  '<div id="resultado-oxygenna" aria-live="polite">'+renderConsultaSearch(query)+'</div>'+
  (illustration?'<div class="home-hero">'+illustration+'</div>':'')+
  '<section><p class="tag">ACESSO RÁPIDO</p><div class="home-links">'+quick+'</div></section>'+
- '<section class="study-resume"><p class="tag">CONTINUAR ESTUDANDO</p>'+
- (last?'<h2>'+esc(last.titulo_curto)+'</h2><a class="secondary" data-consulta-link href="'+href(last.id)+'">ABRIR CAPÍTULO</a>':'<p class="subtle">Abra um tema para começar seu histórico.</p>')+'</section>'+
  '<p class="micro">'+esc(consultaData.aviso)+'</p>';
 }
 export function renderConsultaList(filter){
