@@ -28,8 +28,8 @@ test('OX tasks are integrated in Home and every internal route has a contextual 
  const language=lang=>{const target={dataset:{lang},hasAttribute:()=>false};for(const click of clicks)click({target:{closest:s=>s==='button'?target:null},preventDefault(){}});};
  try{
   await import('../dist/app.mjs?ox-integration');
-  assert.ok(main().includes('href="#focus"'),'Home has a compact Em Foco navigation card');
-  assert.ok(main().includes('INDICAÇÕES E PROTOCOLOS'),'Home includes combined indications and protocols navigation');
+  assert.ok(main().includes('href="#focus"'),'Home has the restored large Em Foco navigation card');
+  assert.ok(main().includes('Indicações e Protocolos'),'Home includes combined indications and protocols navigation');
   assert.equal((main().match(/id="oxygenna-em-foco-card"/g)||[]).length,0,'Remove old large card below View all chapters');
   assert.ok(!main().includes('class="back"'),'Home does not acquire a redundant Back button');
   const parents={'#learn':'#home','#lab':'#chamber','#lab/units':'#chamber','#profile':'#home','#sources':'#profile','#notifications':'#home','#chapters':'#home','#curriculum/path-diving':'#home','#chamber':'#home','#indications':'#home','#protocols':'#home','#indication/compromised-flaps':'#indications','#protocol/compromised-flaps':'#protocols','#module/02/chamber':'#chamber','#lesson/units/chamber':'#module/02/chamber','#track/pressure':'#learn','#focus':'#home','#focus/esporte':'#focus','#focus/regenerativa':'#focus','#focus/plastica':'#focus','#focus/ciencia':'#focus'};
@@ -66,7 +66,7 @@ test('OX tasks are integrated in Home and every internal route has a contextual 
   language('en');assert.ok(main().includes('PLASTIC SURGERY'));
   language('es');assert.ok(main().includes('CIRUGÍA PLÁSTICA'));
   go('#focus/unknown');assert.ok(main().includes('Página no encontrada')&&main().includes('class="back"'));
-  go('#home');assert.ok(main().includes('EM FOCO')&&!main().includes('id="oxygenna-em-foco-card"'));
+  go('#home');assert.ok(main().includes('Em Foco')&&!main().includes('id="oxygenna-em-foco-card"'));
   assert.deepEqual(JSON.parse(store.get('hyperbaric-campus-v1')).completed,['units'],'browsing focus and clinical records never increments or clears lesson progress');
  }finally{for(const [k,v] of Object.entries(saved)){if(v===undefined)delete globalThis[k];else globalThis[k]=v;}}
 });
