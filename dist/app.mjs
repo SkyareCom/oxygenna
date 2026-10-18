@@ -104,7 +104,7 @@ function render(){
  document.documentElement.lang={pt:'pt-BR',en:'en',es:'es'}[state.lang];document.title=u.brand+' — '+u.hero;document.querySelector('.skip').textContent=u.skip;
  const curriculumOptions={lang:state.lang,lessons,e,icon,back,sourceLinks};
  let page;
- if(section==='home')page=renderHome();
+ if(section==='home')page=renderHome()+renderEmptySectionBase();
  else if(section==='learn')page=renderLearn();
  else if(section==='track')page=renderTrack(id);
  else if(section==='lesson')page=renderLesson(id,context);

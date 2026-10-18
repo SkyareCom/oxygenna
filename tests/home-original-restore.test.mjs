@@ -43,6 +43,11 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       assert.match(markup,/href="#focus"/);
       assert.match(markup,/>Em Foco</);
       assert.doesNotMatch(markup,/id="oxygenna-em-foco-card"/);
+      const homeMain=markup.match(/<main[^>]*>([\s\S]*?)<\/main>/)?.[1]??'';
+      assert.equal((homeMain.match(/class="oxygenna-section-base"/g)||[]).length,1,'Home has one three-column base');
+      assert.ok(homeMain.includes('PAPOS DE ALTITUDE')&&homeMain.includes('PH4 DEV &amp; HEALTH'));
+      assert.ok(homeMain.includes('oxygenna-section-base-logo')&&homeMain.includes('oxygenna-logo.png'));
+      assert.ok(homeMain.indexOf('oxygenna-section-base')>homeMain.indexOf('chapter-cta'),'Credits follow the study map');
       const footer=markup.match(/<nav class="bottom-nav[\s\S]*?<\/nav>/)?.[0]??'';
       for(const name of ['HOME','FISIOLOGIA','CLÍNICA','CÂMARA','OPERAÇÃO'])assert.ok(footer.includes(name),name);
       assert.doesNotMatch(markup,/SEU APP DE DECISÕES CLÍNICAS/);
