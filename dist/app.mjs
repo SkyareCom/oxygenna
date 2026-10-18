@@ -120,7 +120,7 @@ document.addEventListener('click',event=>{
    event.preventDefault();
    const url=new URL(routeLink.href,location.href);
    if(url.origin!==location.origin)return;
-   const next=url.pathname.replace(/^\\/oxygenna\\//,'/').replace(/^\\/oxygenna$/,'/home');
+   const next=url.pathname.startsWith('/oxygenna/')?'/'+url.pathname.slice('/oxygenna/'.length):url.pathname;
    if(!next.startsWith('/capitulo/'))consultaOrigem=next;
    irConsulta(next);
    return;
