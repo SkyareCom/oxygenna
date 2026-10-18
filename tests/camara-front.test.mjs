@@ -52,7 +52,7 @@ test('não há gerador de catálogo duplicado e módulos 07/08 ficam fora de CÂ
  assert.ok(!view.includes('camara-chapter-grid'),'nenhum card paralelo');
  assert.ok(!app.includes('renderCamaraCatalog'),'não inserir catálogo na aba');
  assert.ok(!css.includes('.camara-chapter-grid'),'CSS antigo eliminado');
- assert.ok(html.includes('app.mjs?rev=borda-unica-20261017'),'novo JS deve carregar com versão');
+ assert.ok(html.includes('app.mjs?rev=camera-direta-20261018'),'novo JS deve carregar com versão');
  assert.equal(Object.values(CAMARA_MODULE_LESSONS).flat().length,8);
  assert.ok(!('07' in CAMARA_MODULE_LESSONS));
  assert.ok(!('08' in CAMARA_MODULE_LESSONS));
@@ -114,16 +114,16 @@ test('navegação integrada: CÂMARA mantém conteúdo antigo, novo, rodapé e p
   const footer=()=>html.match(/<nav class="bottom-nav[\s\S]*?<\/nav>/)?.[0]??'';
   assert.equal((footer().match(/<a /g)||[]).length,5);
   go('#module/01/chamber');
-  assert.ok(main().includes('Temas do módulo'));
+  assert.ok(!main().includes('Temas do módulo'));
   assert.ok(main().includes('História e desenvolvimento'));
   assert.ok(main().includes('Câmaras monoplace e multiplace'));
-  assert.ok(main().includes('href="#topic/01/1/chamber"'));
+  assert.ok(!main().includes('href="#topic/01/1/chamber"'));
   assert.ok(!main().includes('Objetivo de aprendizagem'));
   assert.ok(!main().includes('camara-inline-chapter'));
   assert.ok(!main().includes('camara-chapter-grid'));
   go('#topic/01/1/chamber');
-  assert.ok(main().includes('A medicina hiperbárica estuda aplicações clínicas'));
-  assert.ok(main().includes('m01-quiz'));
+  assert.ok(main().includes('A medicina subaquática estuda o organismo'));
+  assert.ok(main().includes('data-m01-picture="subaquatica"'));
   assert.ok(footer().includes('href="#chamber" class="active"'));
   go('#camara/camara-01'); // Rota legada mantém seus exercícios e registro de progresso.
   const target={dataset:{camaraAnswer:'1',camaraId:'camara-01'},hasAttribute:()=>false};
