@@ -115,18 +115,20 @@ function render(){
  document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:activeSection(route),icon,e})}`;
 }
 document.addEventListener('click',event=>{
+ const el=event.target;
+ const routeLink=el.closest('[data-consulta-link]');
+ if(routeLink){
+  const url=new URL(routeLink.href,location.href);
+  if(url.origin!==location.origin)return;
+  const next=url.pathname.startsWith('/oxygenna/')?'/'+url.pathname.slice('/oxygenna/'.length):url.pathname;
+  if(!isConsultaRoute(next))return;
+  event.preventDefault();
+  if(!next.startsWith('/capitulo/'))consultaOrigem=next;
+  irConsulta(next);
+  window.scrollTo?.(0,0);
+  return;
+ }
  if(showConsulta()){
-  const el=event.target;
-  const routeLink=el.closest('[data-consulta-link]');
-  if(routeLink){
-   event.preventDefault();
-   const url=new URL(routeLink.href,location.href);
-   if(url.origin!==location.origin)return;
-   const next=url.pathname.startsWith('/oxygenna/')?'/'+url.pathname.slice('/oxygenna/'.length):url.pathname;
-   if(!next.startsWith('/capitulo/'))consultaOrigem=next;
-   irConsulta(next);
-   return;
-  }
   const favorite=el.closest('[data-consulta-favorite]');
   if(favorite){
    event.preventDefault();
