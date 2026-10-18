@@ -6,7 +6,7 @@
 :is(.topic,.module) .m01-media .m01-panel h2{font:600 16px/1.25 var(--sans);color:var(--gold,#F7C75B);margin:0 0 9px}
 :is(.topic,.module) .m01-media .m01-panel p{font:400 12px/1.5 var(--sans)}
 :is(.topic,.module) .m01-media :is(button,summary,input){font-family:var(--sans)}
-:is(.topic,.module) .m01-media button{min-height:42px;border:1px solid rgba(212,207,189,.52);background:#103241;color:#eef6f7;border-radius:9px;padding:9px 12px;font-size:12px;cursor:pointer;text-align:left}
+:is(.topic,.module) .m01-media button{min-height:42px;border:1px solid var(--card-border-gold);background:#103241;color:#eef6f7;border-radius:9px;padding:9px 12px;font-size:12px;cursor:pointer;text-align:left}
 :is(.topic,.module) .m01-media button[aria-pressed="true"]{border-color:var(--gold,#F7C75B);background:#234047;color:#ffdfa4}
 :is(.topic,.module) .m01-media button:focus-visible{outline:2px solid var(--gold,#F7C75B);outline-offset:2px}
 :is(.topic,.module) .m01-media .m01-stepper{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
