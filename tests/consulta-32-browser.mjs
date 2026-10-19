@@ -111,6 +111,25 @@ try{
  if(await page.locator('main.fundamentos-basicos .lesson-body,main.fundamentos-basicos .quiz').count())throw Error('Conteúdo da aula anterior ainda está visível no botão');
  await page.locator('main.fundamentos-basicos a.back[href="#home"]').click();
  await page.locator('.study-resume').waitFor();
+ const studyCTA=page.locator('main.home .study-map .chapter-cta');
+ if((await studyCTA.innerText()).trim()!=='INICIAR OS ESTUDOS')throw Error('Nome do botão de capítulos não alterado');
+ if(await studyCTA.getAttribute('href')!=='#chapters')throw Error('Destino antigo do botão foi alterado');
+ const historyCard=page.locator('main.home > .history-home-card');
+ if(await historyCard.count()!==1)throw Error('Card HISTÓRIA DA MEDICINA HIPERBÁRICA ausente');
+ const historyPos=await historyCard.evaluate(el=>({
+  top:el.getBoundingClientRect().top,buttonBottom:document.querySelector('main.home .study-map .chapter-cta').getBoundingClientRect().bottom,
+  artWidth:el.querySelector('svg')?.getBoundingClientRect().width,
+  artHeight:el.querySelector('svg')?.getBoundingClientRect().height,
+  border:getComputedStyle(el).borderColor,shadow:getComputedStyle(el).boxShadow
+ }));
+ if(historyPos.top<historyPos.buttonBottom||historyPos.artWidth<100||historyPos.artHeight<70||historyPos.border!=='rgb(133, 117, 87)'||historyPos.shadow!=='none')throw Error('Card histórico sem imagem, fora de posição ou fora do padrão: '+JSON.stringify(historyPos));
+ await historyCard.click();
+ await page.locator('main.historia-medicina-hiperbarica .history-timeline-item').first().waitFor();
+ if(await page.locator('.history-timeline-item').count()!==7)throw Error('Página histórica com cronologia incompleta');
+ if(!(await page.locator('main.historia-medicina-hiperbarica h1').innerText()).includes('HISTÓRIA DA MEDICINA HIPERBÁRICA'))throw Error('Título da página histórica incorreto');
+ if(await page.locator('main.historia-medicina-hiperbarica dialog,main.historia-medicina-hiperbarica [aria-modal="true"]').count())throw Error('História abriu popup indevido');
+ await page.locator('main.historia-medicina-hiperbarica a.back[href="#home"]').click();
+ await page.locator('.study-stage').first().waitFor();
  if(await page.locator('.study-stage').count()!==6)throw Error('Home precisa de seis cards');
  const homeCards=await page.locator('.study-stage .stage-copy strong').allTextContents();
  if(JSON.stringify(homeCards.map(x=>x.trim()))!==JSON.stringify(['Fisiologia','Clínica','Câmara','Operação','Indicações e Protocolos','Em Foco']))throw Error('Ordem dos seis cards da Home incorreta: '+JSON.stringify(homeCards));
