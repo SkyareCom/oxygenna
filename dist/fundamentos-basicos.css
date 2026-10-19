@@ -87,17 +87,30 @@
   background:#082d3e; margin:12px 0 10px;
   touch-action:none; cursor:crosshair;
 }
-.fundamentos-basicos .fb-ocean-art { width:100%; height:100%; }
+/* Fotografia aprovada, sem segundo mergulhador sobre a cena.
+   O deslocamento da própria fotografia acompanha o movimento de profundidade. */
+.fundamentos-basicos .fb-ocean-photo {
+  display:block; position:absolute; inset:0; z-index:1;
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  transform:translateY(var(--fb-photo-y,-35px)) scale(1.28);
+  transform-origin:center center;
+  pointer-events:none; user-select:none; border:0; box-shadow:none;
+}
 .fundamentos-basicos .fb-diver-handle {
-  position:absolute; z-index:2; left:44%; top:5.5%;
-  display:grid; place-items:center; width:98px; height:64px;
+  position:absolute; z-index:2; left:16%; top:5.5%;
+  display:grid; place-items:center; width:40px; height:40px;
   padding:0; margin:0; border:0; background:transparent; box-shadow:none;
-  transform:translate(-50%,-50%); border-radius:12px;
+  transform:translate(-50%,-50%); border-radius:50%;
   cursor:grab; touch-action:none; user-select:none;
 }
 .fundamentos-basicos .fb-diver-handle:active { cursor:grabbing; }
-.fundamentos-basicos .fb-diver-handle:focus-visible { outline:2px solid #d5b77b; outline-offset:0; }
-.fundamentos-basicos .fb-diver-handle svg { pointer-events:none; }
+.fundamentos-basicos .fb-diver-handle:focus-visible { outline:2px solid #d5b77b; outline-offset:2px; }
+.fundamentos-basicos .fb-depth-marker {
+  display:grid;place-items:center;width:30px;height:30px;
+  color:#fff4d5; font:500 18px/1 "Saira Semi Condensed",sans-serif;
+  border:1px solid #857557;border-radius:50%;background:rgba(5,27,38,.65);
+  pointer-events:none;
+}
 .fundamentos-basicos .fb-depth-tick {
   position:absolute; right:10px; color:#d4ebed; font-size:10px;
   font-weight:500; transform:translateY(-50%);
@@ -132,4 +145,9 @@
 }
 @media(prefers-reduced-motion:reduce){
  .fundamentos-basicos .fb-diver-handle { transition:none; }
+}
+
+/* Valores de pressão: a mesma leitura aparece em atm e kPa, com quebra no celular. */
+.fundamentos-basicos .fb-live-metrics strong:is([data-depth-absolute],[data-depth-gauge],[data-depth-kpa],[data-boyle-atm],[data-gas-atm],[data-gas-partial]) {
+  font-size:14px;line-height:1.4;overflow-wrap:anywhere;
 }
