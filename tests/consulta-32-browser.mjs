@@ -116,16 +116,23 @@ try{
  if(await studyCTA.getAttribute('href')!=='#chapters')throw Error('Destino antigo do botão foi alterado');
  const historyCard=page.locator('main.home > .history-home-card');
  if(await historyCard.count()!==1)throw Error('Card HISTÓRIA DA MEDICINA HIPERBÁRICA ausente');
+ if(await page.locator('main.home .history-home-card .history-real-photo').count()!==1)throw Error('Falta a fotografia histórica ou foi mantido SVG genérico');
+ const photo=await page.locator('main.home .history-real-photo').evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,src:el.getAttribute('src'),fit:getComputedStyle(el).objectFit}));
+ if(!photo.loaded||!photo.src.includes('m01-foto-experimentacao.webp')||photo.fit!=='cover')throw Error('Fotografia editorial não carregou: '+JSON.stringify(photo));
+ if(await page.locator('main.home .history-home-card svg').count())throw Error('SVG cartunesco ainda visível no card');
  const historyPos=await historyCard.evaluate(el=>({
   top:el.getBoundingClientRect().top,buttonBottom:document.querySelector('main.home .study-map .chapter-cta').getBoundingClientRect().bottom,
-  artWidth:el.querySelector('svg')?.getBoundingClientRect().width,
-  artHeight:el.querySelector('svg')?.getBoundingClientRect().height,
+  artWidth:el.querySelector('img.history-real-photo')?.getBoundingClientRect().width,
+  artHeight:el.querySelector('img.history-real-photo')?.getBoundingClientRect().height,
   border:getComputedStyle(el).borderColor,shadow:getComputedStyle(el).boxShadow
  }));
  if(historyPos.top<historyPos.buttonBottom||historyPos.artWidth<100||historyPos.artHeight<70||historyPos.border!=='rgb(133, 117, 87)'||historyPos.shadow!=='none')throw Error('Card histórico sem imagem, fora de posição ou fora do padrão: '+JSON.stringify(historyPos));
  await historyCard.click();
  await page.locator('main.historia-medicina-hiperbarica .history-timeline-item').first().waitFor();
  if(await page.locator('.history-timeline-item').count()!==7)throw Error('Página histórica com cronologia incompleta');
+ if(await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').count()!==1)throw Error('Fotografia contemporânea não encontrada na página histórica');
+ const modernImageLoaded=await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').evaluate(el=>el.complete&&el.naturalWidth>0);
+ if(!modernImageLoaded)throw Error('Fotografia contemporânea não carregou');
  if(!(await page.locator('main.historia-medicina-hiperbarica h1').innerText()).includes('HISTÓRIA DA MEDICINA HIPERBÁRICA'))throw Error('Título da página histórica incorreto');
  if(await page.locator('main.historia-medicina-hiperbarica dialog,main.historia-medicina-hiperbarica [aria-modal="true"]').count())throw Error('História abriu popup indevido');
  await page.locator('main.historia-medicina-hiperbarica a.back[href="#home"]').click();
