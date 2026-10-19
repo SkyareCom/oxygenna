@@ -15,8 +15,8 @@ test('Home preserva seis áreas e troca apenas CTA para Iniciar os Estudos, card
  assert.ok(map.indexOf('history-home-card')>map.indexOf('href="#chapters">INICIAR OS ESTUDOS'));
  assert.match(map,/HISTÓRIA DA MEDICINA HIPERBÁRICA/);
  assert.match(map,/href="#historia-medicina-hiperbarica"/);
- assert.match(map,/class="history-hyperbaric-art"/);
- assert.match(map,/role="img"/);
+ assert.match(map,/class="history-real-photo"/);
+ assert.match(map,/alt="Cena fotográfica contextual/);
 });
 test('Card e página histórica completos em três idiomas, sem pop-ups nem referências fora do perfil',()=>{
  const titles=['HISTÓRIA DA MEDICINA HIPERBÁRICA','HISTORY OF HYPERBARIC MEDICINE','HISTORIA DE LA MEDICINA HIPERBÁRICA'];
@@ -31,16 +31,23 @@ test('Card e página histórica completos em três idiomas, sem pop-ups nem refe
   assert.equal(hyperbaricHistoryContent[lang].sections.length,7);
   assert.match(page,/href="#home"/);
   assert.match(page,/class="history-page-figure"/);
+  assert.match(page,/class="history-modern-figure"/);
+  assert.match(page,/assets\/m01-foto-pratica-atual\.webp/);
   assert.ok(page.includes(hyperbaricHistoryIllustration(lang)));
   assert.doesNotMatch(page,/<dialog|aria-modal="true"|target="_blank"|class="ref-vancouver-list"/);
  }
 });
-test('Imagem temática é uma ilustração SVG original completa e offline, não emoji nem ícone genérico',()=>{
- const art=hyperbaricHistoryIllustration('pt');
- for(const token of ['viewBox="0 0 640 320"','linearGradient','history-copper','history-steel','1660s','HOJE','role="img"','câmaras hiperbáricas'])assert.ok(art.includes(token),token);
- assert.ok((art.match(/<path /g)||[]).length>9);
- assert.ok((art.match(/<rect /g)||[]).length>=7);
- assert.doesNotMatch(art,/<image |\shref=["'](?:https?:|data:)|onclick/);
+test('Fotografia no card: local, sem desenho vetorial, legenda embutida ou link externo',()=>{
+ const card=hyperbaricHistoryIllustration('pt');
+ assert.match(card,/class="history-real-photo"/);
+ assert.match(card,/assets\/m01-foto-experimentacao\.webp/);
+ assert.match(card,/alt="Cena fotográfica contextual/);
+ assert.match(card,/loading="lazy"/);
+ assert.doesNotMatch(card,/<svg|<path|<rect|linearGradient|1660s|HOJE|https?:\/\/|<dialog/);
+ const page=renderHyperbaricHistory('pt',href=>'<a class="back" href="'+href+'">Voltar</a>');
+ assert.match(page,/class="history-modern-figure"/);
+ assert.match(page,/assets\/m01-foto-pratica-atual\.webp/);
+ assert.equal((page.match(/<img /g)||[]).length,2);
 });
 test('Fontes verificadas UHMS 15th edition e revisão 2020 ficam apenas no Perfil',()=>{
  const refs=getConsolidatedReferences().scientific;
@@ -59,6 +66,10 @@ test('Novos estilos preservam o desenho original e evitam sombra e modais',()=>{
  assert.ok(css.includes('border:1px solid #857557'));
  assert.ok(css.includes('box-shadow:none'));
  assert.ok(css.includes('.history-home-card')&&css.includes('.history-timeline-item'));
+ assert.ok(css.includes('.history-real-photo')&&css.includes('object-fit:cover'));
+ assert.ok(!css.includes('.history-hyperbaric-art'));
+ assert.ok(css.includes('.history-modern-figure'));
+
  assert.ok(html.includes('historia-hiperbarica.css?rev=historia-medica-20261019'));
  assert.ok(html.includes('app.mjs?rev=history-home-20261019'));
  assert.ok(app.includes("section==='historia-medicina-hiperbarica'"));
