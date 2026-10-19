@@ -1,4 +1,4 @@
-import {renderPhysicsActivities} from './fundamentos-interativos.mjs?rev=visual-experiments-20261018';
+import {renderPhysicsActivities} from './fundamentos-interativos.mjs?rev=photo-atm-20261019';
 // FUNDAMENTOS BÁSICOS — conteúdo novo e autônomo, sem reutilizar a aula antiga do botão da Home.
 // Unidades e relações seguem o SI, com modelos ideais usados somente para fins educativos.
 export const PRESSURE_TO_KPA=Object.freeze({
