@@ -32,6 +32,12 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       assert.doesNotMatch(markup,/class="study-resume"[\s\S]*?href="#lesson\//);
       assert.doesNotMatch(markup,/Próxima aula disponível|Uma pressão, várias unidades|Continuar estudos/);
       assert.match(markup,/class="study-map"/);
+      assert.match(markup,/href="#chapters">INICIAR OS ESTUDOS/);
+      assert.match(markup,/class="history-home-card"/);
+      assert.match(markup,/HISTÓRIA DA MEDICINA HIPERBÁRICA/);
+      assert.match(markup,/class="history-hyperbaric-art"/);
+      assert.match(markup,/href="#historia-medicina-hiperbarica"/);
+      assert.ok(markup.indexOf('history-home-card')>markup.indexOf('INICIAR OS ESTUDOS'),'História aparece depois do botão');
       assert.match(markup,/Seu mapa de estudos/);
       assert.doesNotMatch(markup,/Fundamentos comuns/);
       assert.match(markup,/Etapa 01/);
@@ -90,6 +96,12 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
     oldHome();
 
     location.pathname='/oxygenna/';
+    location.hash='#historia-medicina-hiperbarica';
+    listeners.hashchange();
+    assert.match(markup,/class="historia-medicina-hiperbarica"/);
+    assert.equal((markup.match(/class="history-timeline-item"/g)||[]).length,7);
+    assert.match(markup,/Paul Bert/);
+    assert.match(markup,/href="#home"/);
     location.hash='#chapters';
     listeners.hashchange();
     assert.match(markup,/class="chapters"/);

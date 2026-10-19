@@ -1,0 +1,77 @@
+/* HISTÓRIA DA MEDICINA HIPERBÁRICA: usa o front original, a fonte Saira e a borda única dourada. */
+main.home .history-home-card {
+  display:block;
+  color:inherit;
+  text-decoration:none;
+  overflow:hidden;
+  margin:16px 0 24px;
+  padding:0;
+  border:1px solid #857557;
+  border-radius:18px;
+  background:#0b2631;
+  box-shadow:none;
+  transition:border-color 160ms ease;
+}
+main.home .history-home-card:focus-visible {
+  outline:2px solid #e1c68f;
+  outline-offset:3px;
+}
+main.home .history-home-card:is(:hover,:active) { border-color:#e1c68f; }
+.history-home-image { display:block; width:100%; background:#081d2a; line-height:0; }
+.history-hyperbaric-art { display:block; width:100%; height:auto; max-height:235px; }
+.history-home-copy {
+ display:flex; flex-direction:column; gap:8px; padding:14px 17px 17px;
+}
+.history-home-copy>.tag { font:400 10px/1.3 var(--sans); color:#d3b986; letter-spacing:.09em; }
+.history-home-copy strong { font:500 18px/1.25 var(--sans); color:#f2f4ef; letter-spacing:.01em; }
+.history-home-description { font:400 12px/1.5 var(--sans); color:var(--muted); }
+.history-home-action {
+ display:flex; align-items:center; gap:12px;
+ margin-top:4px; font:500 12px/1.3 var(--sans); color:#d8b675;
+}
+.history-home-action>span { font:500 20px/1 sans-serif; margin-left:auto; }
+main.historia-medicina-hiperbarica .history-page-heading { margin:8px 0 16px; }
+main.historia-medicina-hiperbarica .history-page-heading .tag { font-size:10px; color:#d8b675; }
+main.historia-medicina-hiperbarica .history-page-heading h1 { font:500 20px/1.23 var(--sans); margin:10px 0; }
+main.historia-medicina-hiperbarica .history-page-heading>.subtle { margin:0; font-size:12px; }
+main.historia-medicina-hiperbarica .history-page-figure {
+ margin:14px 0 25px; padding:0;
+ border:1px solid #857557; border-radius:15px; overflow:hidden;
+ background:#091f2b; box-shadow:none;
+}
+main.historia-medicina-hiperbarica .history-page-figure figcaption {
+ padding:11px 13px;
+ font:400 12px/1.5 var(--sans); color:var(--muted);
+}
+main.historia-medicina-hiperbarica .history-timeline { margin:14px 0 20px; }
+main.historia-medicina-hiperbarica .history-timeline>h2 {
+ font:500 16px/1.4 var(--sans); color:#e9dbc3; margin:0 0 14px;
+}
+main.historia-medicina-hiperbarica .history-timeline-item {
+ position:relative; margin:0 0 11px; padding:15px 14px 16px 19px;
+ border:1px solid #857557; border-radius:13px;
+ background:#09232f; box-shadow:none;
+}
+main.historia-medicina-hiperbarica .history-timeline-item::before {
+ content:""; position:absolute; left:-1px; top:18px;
+ width:3px; height:21px; background:#cfb17b;
+}
+main.historia-medicina-hiperbarica .history-timeline-item .tag {
+ font:500 10px/1.35 var(--sans); color:#d8b675; letter-spacing:.05em;
+ margin:0 0 7px;
+}
+main.historia-medicina-hiperbarica .history-timeline-item h3 {
+ font:500 16px/1.3 var(--sans); margin:0 0 8px; color:#f4f1e8;
+}
+main.historia-medicina-hiperbarica .history-timeline-item>p:last-child {
+ margin:0; font:400 12px/1.56 var(--sans); color:#c7d5d4;
+}
+main.historia-medicina-hiperbarica .history-editorial-note {
+ margin:18px 0 12px; font:400 12px/1.55 var(--sans); color:#e1d0aa;
+}
+main.historia-medicina-hiperbarica .history-reference-note {
+ font:400 12px/1.5 var(--sans); margin:0 0 30px;
+}
+@media(prefers-reduced-motion:reduce) {
+ main.home .history-home-card { transition:none; }
+}

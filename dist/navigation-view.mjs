@@ -1,4 +1,5 @@
 import {navigationUI,NOTICE_IDS} from './navigation.mjs';
+import {renderHyperbaricHistoryCard} from './historia-hiperbarica.mjs?rev=historia-medica-20261019';
 
 export function renderHeader({lang,icon,e,unread}){
  const n=navigationUI[lang];
@@ -68,10 +69,11 @@ export function renderFooter({lang,active,icon,e,consulta=false,chapter=null,fav
 export function renderStudyMap({lang,e,icon}){
  const n=navigationUI[lang],base=typeof location==='undefined'||!String(location.pathname??'').startsWith('/oxygenna')?'/':'/oxygenna/';
  const action={pt:'Explorar conteúdos',en:'Explore the content',es:'Explorar contenidos'}[lang]||'Explorar conteúdos';
+ const startStudies={pt:'INICIAR OS ESTUDOS',en:'START STUDYING',es:'INICIAR LOS ESTUDIOS'}[lang]||'INICIAR OS ESTUDOS';
  return `<section class="study-map" aria-labelledby="study-map-title"><p class="tag">${n.browse}</p><h2 id="study-map-title" class="display">${n.map}</h2><p class="subtle">${e(n.mapIntro)}</p><ol class="study-stages">${HOME_STUDY_AREAS.map((item,i)=>{
   const clinical=!item.route.startsWith('#'),href=clinical?base+item.route:item.route;
   return `<li><a class="study-stage" ${clinical?'data-consulta-link ':''}href="${href}"><span class="stage-marker" aria-hidden="true">${i+1}</span><span class="stage-copy"><span class="tag">${e(n.step)} ${String(i+1).padStart(2,'0')}</span><strong>${e(item.title[lang]||item.title.pt)}</strong><span class="stage-description">${e(item.description[lang]||item.description.pt)}</span><span class="stage-meta">${e(item.meta[lang]||item.meta.pt)}</span><span class="stage-status">${e(action)}</span></span>${icon('right')}</a></li>`;
- }).join('')}</ol><a class="primary chapter-cta" href="#chapters">${n.viewAll}${icon('right')}</a></section>`;
+ }).join('')}</ol><a class="primary chapter-cta" href="#chapters">${e(startStudies)}${icon('right')}</a></section>${renderHyperbaricHistoryCard(lang)}`;
 }
 export function renderNotices({lang,readNotices,e,back,noticePersisted}){
  const n=navigationUI[lang],allRead=NOTICE_IDS.every(id=>readNotices.includes(id));

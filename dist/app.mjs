@@ -5,12 +5,13 @@ import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view
 import {handleModule01Click,handleModule01Input} from './module01-media.mjs?rev=knowledge-final-20261018';
 import {handleKnowledgeClick} from './knowledge-check.mjs?rev=knowledge-final-20261018';
 import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
-import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs?rev=home-original-large-cards-20261018';
+import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs?rev=historia-medica-20261019';
+import {renderHyperbaricHistory} from './historia-hiperbarica.mjs?rev=historia-medica-20261019';
 import {renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
 import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,thermalRatio,pressureUnits} from './core.mjs';
 import {tracks,lessons,sources} from './content.mjs';
-import {renderReferencesDrawer} from './reference-library.mjs?rev=central-refs-20261019';
+import {renderReferencesDrawer} from './reference-library.mjs?rev=history-refs-20261019';
 import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=knowledge-final-20261018';
 import {camaraAnswer} from './camara-data.mjs';
 import {renderFundamentosBasicos,handleFundamentosConversion} from './fundamentos-basicos.mjs?rev=photo-atm-20261019';
@@ -119,6 +120,7 @@ function render(){
  let page;
  if(section==='home')page=renderHome()+renderEmptySectionBase();
  else if(section==='fundamentos-basicos')page=renderFundamentosBasicos(state.lang,icon,back,e);
+ else if(section==='historia-medicina-hiperbarica')page=renderHyperbaricHistory(state.lang,back,e);
  else if(section==='learn')page=renderLearn();
  else if(section==='track')page=renderTrack(id);
  else if(section==='lesson')page=renderLesson(id,context);
@@ -137,7 +139,7 @@ function render(){
  else page=notFound();
  page=withInlineDrawers(page);
  const unread=NOTICE_IDS.some(id=>!readNotices.includes(id));
- document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:section==='fundamentos-basicos'?'home':activeSection(route),icon,e})}`;
+ document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:['fundamentos-basicos','historia-medicina-hiperbarica'].includes(section)?'home':activeSection(route),icon,e})}`;
 }
 document.addEventListener('click',event=>{
  const el=event.target;

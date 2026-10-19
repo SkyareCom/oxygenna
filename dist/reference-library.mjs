@@ -14,6 +14,12 @@ export function getConsolidatedReferences(){
  const scientific=known.filter(([,s])=>{
   const key=(s.url||s.title).toLowerCase().replace(/\/$/,'');if(seen.has(key))return false;seen.add(key);return true;
  }).map(([id,s])=>({id,...s}));
+ // História da medicina hiperbárica: bibliografia no Perfil, não após o conteúdo.
+ const historySources=[
+  {id:'historia-uhms-15',author:'Huang ET, editor; Undersea and Hyperbaric Medical Society',title:'Hyperbaric Medicine Indications Manual. 15th ed. Preface',year:'2023',url:'https://www.uhms.org/images/indications/UHMS%20Indications%2015th%20Ed%20Front%20Matter%20and%20References.pdf',consulted:true},
+  {id:'historia-hajhosseini-2020',author:'Hajhosseini B, Kuehlmann BA, Bonham CA, Kamperman KJ, Gurtner GC',title:'Hyperbaric Oxygen Therapy: Descriptive Review of the Technology and Current Application in Chronic Wounds. Plast Reconstr Surg Glob Open. 2020;8(9):e3136',year:'2020',doi:'10.1097/GOX.0000000000003136',url:'https://pubmed.ncbi.nlm.nih.gov/33133975/',consulted:true}
+ ];
+ for(const ref of historySources){const key=ref.url.toLowerCase().replace(/\/$/,'');if(!seen.has(key)){seen.add(key);scientific.push(ref);}}
  const legacy=[...new Set((consultaData.capitulos||[]).flatMap(c=>c.referencias||[]).map(s=>String(s).trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt'));
  const supplementary=[
   {author:'National Institute of Standards and Technology (NIST)',title:'The NIST Reference on Constants, Units, and Uncertainty: SI Units',url:'https://physics.nist.gov/cuu/Units/'},

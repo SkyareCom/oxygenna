@@ -37,7 +37,7 @@ test('fotos individuais e um único contorno continuam íntegras',()=>{
   assert.equal(file.subarray(0,4).toString(),'RIFF');
   assert.equal(file.subarray(8,12).toString(),'WEBP');
  }
- assert.ok(html.includes('app.mjs?rev=movable-diver-central-refs-20261019'));
+ assert.ok(html.includes('app.mjs?rev=history-home-20261019'));
  assert.ok(app.includes('handleModule01Click(event.target)'));
  assert.ok(app.includes('handleModule01Input(event.target)'));
 });
