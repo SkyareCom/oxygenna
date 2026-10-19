@@ -119,8 +119,8 @@ try{
  await historyCard.scrollIntoViewIfNeeded();
  await page.locator('main.home .history-real-photo').evaluate(async el=>{try{await el.decode()}catch{}});
  if(await page.locator('main.home .history-home-card .history-real-photo').count()!==1)throw Error('Falta a fotografia histórica ou foi mantido SVG genérico');
- const photo=await page.locator('main.home .history-real-photo').evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,src:el.getAttribute('src'),fit:getComputedStyle(el).objectFit}));
- if(!photo.loaded||!photo.src.includes('m01-foto-experimentacao.webp')||photo.fit!=='cover')throw Error('Fotografia editorial não carregou: '+JSON.stringify(photo));
+ const historyImageInfo=await page.locator('main.home .history-real-photo').evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,src:el.getAttribute('src'),fit:getComputedStyle(el).objectFit}));
+ if(!historyImageInfo.loaded||!historyImageInfo.src.includes('m01-foto-experimentacao.webp')||historyImageInfo.fit!=='cover')throw Error('Fotografia editorial não carregou: '+JSON.stringify(historyImageInfo));
  if(await page.locator('main.home .history-home-card svg').count())throw Error('SVG cartunesco ainda visível no card');
  const historyPos=await historyCard.evaluate(el=>({
   top:el.getBoundingClientRect().top,buttonBottom:document.querySelector('main.home .study-map .chapter-cta').getBoundingClientRect().bottom,
