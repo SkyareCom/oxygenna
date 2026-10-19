@@ -33,28 +33,6 @@ const text={
 };
 const fmt=(n,lang,dec=2)=>new Intl.NumberFormat(lang,{minimumFractionDigits:dec,maximumFractionDigits:dec}).format(n);
 const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function oceanSVG(){
- return '<svg class="fb-ocean-art" viewBox="0 0 320 400" preserveAspectRatio="none" role="img" aria-hidden="true">'+
- '<defs><linearGradient id="fb-water-illustration" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#16738a"/><stop offset=".47" stop-color="#0c485d"/><stop offset="1" stop-color="#061b31"/></linearGradient></defs>'+
- '<rect y="17" width="320" height="383" fill="url(#fb-water-illustration)"/>'+
- '<path d="M0 17 Q20 7 40 17T80 17T120 17T160 17T200 17T240 17T280 17T320 17" stroke="#9adada" stroke-width="2" fill="none"/>'+
- '<path d="M28 18l-20 220 32-220M182 18l-16 235 43-235" fill="#83bfd0" opacity=".085"/>'+
- Array.from({length:7},(_,i)=>'<path d="M0 '+(22+i*60)+'H320" stroke="#8cb5c1" opacity=".24" stroke-dasharray="4 7"/>').join('')+
- '<path d="M0 383 Q35 369 72 381T146 376T219 385T320 374V400H0Z" fill="#365b54"/>'+
- '<path d="M18 399Q7 363 20 346M18 380q-19-8-9-20M20 374q21-12 12-24M290 399q-14-45 0-63M292 372q-21-13-13-22M292 361q22-10 15-24" fill="none" stroke="#608f72" stroke-width="3"/>'+
- '<path d="M233 150l10-5 10 5-10 5zM253 210l11-5 11 5-11 5z" fill="#7ac5ce" opacity=".65"/>'+
- '<g stroke="#a6d7e7" fill="none" opacity=".5"><circle cx="180" cy="94" r="3"/><circle cx="194" cy="67" r="5"/><circle cx="203" cy="41" r="3"/><circle cx="270" cy="308" r="3"/><circle cx="279" cy="280" r="5"/></g></svg>';
-}
-const diverSVG='<svg class="fb-diver-illustration" viewBox="0 0 98 64" width="98" height="64" aria-hidden="true">'+
- '<path d="M20 27L5 19M19 40L7 51" stroke="#d8bd89" stroke-width="8" stroke-linecap="round"/>'+
- '<path d="M67 25L87 14L93 21M68 37L86 49L94 42" fill="none" stroke="#d8bd89" stroke-width="7" stroke-linecap="round"/>'+
- '<rect x="25" y="17" width="48" height="28" rx="12" fill="#e4ba72" stroke="#061d27" stroke-width="2"/>'+
- '<rect x="45" y="13" width="17" height="38" rx="6" fill="#4b7f82" stroke="#e0c68f" stroke-width="2"/>'+
- '<circle cx="20" cy="33" r="14" fill="#072e3a" stroke="#ebc581" stroke-width="3"/>'+
- '<rect x="10" y="26" width="22" height="13" rx="6" fill="#7fcbd4" stroke="#e0c68f" stroke-width="2"/>'+
- '<path d="M12 33H28" stroke="#cdf3f6" opacity=".8"/>'+
- '<path d="M29 43L30 51L37 51" fill="none" stroke="#ebc581" stroke-width="3" stroke-linecap="round"/>'+
- '</svg>';
 const bubbleSVG='<svg class="fb-bubble-art" viewBox="0 0 270 155" role="img" aria-label="Gas bubble volume illustration"><rect width="270" height="155" rx="12" fill="#092a38"/><path d="M12 132H258" stroke="#477a8b" stroke-width="2"/><circle data-boyle-bubble cx="135" cy="77" r="48" fill="#58bdd0" fill-opacity=".28" stroke="#a2e2ea" stroke-width="3"/><circle data-boyle-glint cx="118" cy="60" r="9" fill="#e6fbff" fill-opacity=".5"/><g fill="#b5e1e9" opacity=".55"><circle cx="28" cy="36" r="3"/><circle cx="225" cy="62" r="5"/><circle cx="248" cy="24" r="3"/></g></svg>';
 const gasesSVG='<svg viewBox="0 0 270 126" class="fb-gas-art" role="img" aria-label="Gas mixture visual representation"><rect width="270" height="126" rx="12" fill="#092a38"/><rect x="18" y="26" width="234" height="64" rx="8" fill="#214957"/><rect data-gas-oxygen x="18" y="26" width="49.14" height="64" rx="3" fill="#d2ae70"/><path d="M18 96H252" stroke="#97b4bd"/><text x="22" y="17" fill="#d9c595" font-size="11">O₂</text><text x="220" y="17" fill="#bacbd1" font-size="11">N₂ + …</text></svg>';
 export function renderPhysicsActivities(lang='pt'){
@@ -63,19 +41,20 @@ export function renderPhysicsActivities(lang='pt'){
  '<h2>'+label(v.depthTitle)+'</h2><p>'+label(v.depthIntro)+'</p>'+
  '<div class="fb-controls"><label>'+label(v.water)+'<select data-depth-water><option value="sea">'+label(v.sea)+'</option><option value="fresh">'+label(v.fresh)+'</option></select></label>'+
  '<label>'+label(v.depthLabel)+'<input type="range" min="0" max="60" step="1" value="0" data-depth-range aria-label="'+label(v.depthLabel)+'"></label></div>'+
- '<div class="fb-ocean-stage" data-depth-stage role="group" aria-label="'+label(v.visual)+'">'+oceanSVG()+
- '<button type="button" class="fb-diver-handle" data-depth-diver role="slider" aria-label="'+label(v.depthLabel)+'" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-valuetext="0 m" tabindex="0" style="top:5.5%">'+diverSVG+'</button>'+
+ '<div class="fb-ocean-stage" data-depth-stage role="group" aria-label="'+label(v.visual)+'">'+
+ '<img class="fb-ocean-photo" data-depth-photo src="./assets/mergulhador-realista-aprovado.webp" width="760" height="950" alt="" aria-hidden="true" draggable="false">'+
+ '<button type="button" class="fb-diver-handle" data-depth-diver role="slider" aria-label="'+label(v.depthLabel)+'" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-valuetext="0 m" tabindex="0" style="top:5.5%"><span class="fb-depth-marker" aria-hidden="true">↕</span></button>'+
  Array.from({length:7},(_,i)=>'<span class="fb-depth-tick" style="top:'+(5.5+i*14.3)+'%">'+(i*10)+' m</span>').join('')+'</div>'+
  '<p class="fb-note">'+label(v.depthHint)+'</p>'+
- '<div class="fb-live-metrics" aria-live="off"><div><small>'+label(v.depth)+'</small><strong data-depth-metres>0 m</strong></div><div><small>'+label(v.abs)+'</small><strong data-depth-absolute>'+fmt(p.absoluteAtm,lang)+' atm</strong></div>'+
- '<div><small>'+label(v.gauge)+'</small><strong data-depth-gauge>'+fmt(0,lang)+' atm</strong></div><div><small>'+label(v.kpa)+'</small><strong data-depth-kpa>'+fmt(p.absoluteKPa,lang)+' kPa</strong></div></div>'+
+ '<div class="fb-live-metrics" aria-live="off"><div><small>'+label(v.depth)+'</small><strong data-depth-metres>0 m</strong></div><div><small>'+label(v.abs)+'</small><strong data-depth-absolute>'+fmt(p.absoluteAtm,lang)+' atm · '+fmt(p.absoluteKPa,lang)+' kPa</strong></div>'+
+ '<div><small>'+label(v.gauge)+'</small><strong data-depth-gauge>+'+fmt(0,lang)+' atm · +'+fmt(0,lang)+' kPa</strong></div><div><small>'+label(v.kpa)+'</small><strong data-depth-kpa>'+fmt(p.absoluteKPa,lang)+' kPa · '+fmt(p.absoluteAtm,lang)+' atm</strong></div></div>'+
  '<p class="fb-note">'+label(v.rule)+'</p></section>';
  const boyle='<section class="panel fb-card fb-boyle-activity"><h2>'+label(v.boyleTitle)+'</h2><p>'+label(v.boyleIntro)+'</p>'+
  bubbleSVG+'<label class="fb-activity-slider">'+label(v.pressure)+'<input type="range" data-boyle-pressure min="1" max="6" value="1" step=".5"></label>'+
- '<div class="fb-live-metrics"><div><small>'+label(v.pressure)+'</small><strong data-boyle-atm>'+fmt(1,lang,1)+' ATA</strong></div><div><small>'+label(v.volume)+'</small><strong data-boyle-volume>'+fmt(1000,lang,0)+' mL</strong></div></div><p class="fb-note">'+label(v.boyleNote)+'</p></section>';
+ '<div class="fb-live-metrics"><div><small>'+label(v.pressure)+'</small><strong data-boyle-atm>'+fmt(1,lang,1)+' ATA (= atm) · '+fmt(101.325,lang)+' kPa</strong></div><div><small>'+label(v.volume)+'</small><strong data-boyle-volume>'+fmt(1000,lang,0)+' mL</strong></div></div><p class="fb-note">'+label(v.boyleNote)+'</p></section>';
  const oxygen='<section class="panel fb-card fb-oxygen-activity"><h2>'+label(v.oxygenTitle)+'</h2><p>'+label(v.oxygenIntro)+'</p>'+gasesSVG+
  '<div class="fb-controls"><label>'+label(v.pressure)+'<input data-gas-pressure type="range" min="1" max="3" step=".5" value="1"></label><label>'+label(v.oxygen)+'<input data-gas-fraction type="range" min="0" max="100" step="1" value="21"></label></div>'+
- '<div class="fb-live-metrics"><div><small>'+label(v.pressure)+'</small><strong data-gas-atm>'+fmt(1,lang,1)+' ATA</strong></div><div><small>'+label(v.oxygen)+'</small><strong data-gas-percent>21%</strong></div><div class="fb-wide-metric"><small>'+label(v.partial)+'</small><strong data-gas-partial>'+fmt(21.27825,lang)+' kPa</strong></div></div><p class="fb-note">'+label(v.oxygenNote)+'</p></section>';
+ '<div class="fb-live-metrics"><div><small>'+label(v.pressure)+'</small><strong data-gas-atm>'+fmt(1,lang,1)+' ATA (= atm) · '+fmt(101.325,lang)+' kPa</strong></div><div><small>'+label(v.oxygen)+'</small><strong data-gas-percent>21%</strong></div><div class="fb-wide-metric"><small>'+label(v.partial)+'</small><strong data-gas-partial>'+fmt(21.27825,lang)+' kPa · '+fmt(.21,lang)+' atm</strong></div></div><p class="fb-note">'+label(v.oxygenNote)+'</p></section>';
  return '<div class="fb-interactive-group"><p class="tag">'+label(v.visuals)+'</p>'+depth+boyle+oxygen+'</div>';
 }
 export function updatePhysicsActivity(target,lang='pt'){
@@ -90,18 +69,20 @@ export function updatePhysicsActivity(target,lang='pt'){
   const result=depthPressure(Number(range.value),water.value);
   if(!result)return false;
   attr('[data-depth-metres]',nf(result.depth,0)+' m');
-  attr('[data-depth-absolute]',nf(result.absoluteAtm)+' atm');
-  attr('[data-depth-gauge]','+'+nf(result.gaugeAtm)+' atm');
-  attr('[data-depth-kpa]',nf(result.absoluteKPa)+' kPa');
+  attr('[data-depth-absolute]',nf(result.absoluteAtm)+' atm · '+nf(result.absoluteKPa)+' kPa');
+  attr('[data-depth-gauge]','+'+nf(result.gaugeAtm)+' atm · +'+nf(result.gaugeKPa)+' kPa');
+  attr('[data-depth-kpa]',nf(result.absoluteKPa)+' kPa · '+nf(result.absoluteAtm)+' atm');
   const diver=root.querySelector('[data-depth-diver]');
   if(diver){diver.style.top=(5.5+result.depth/60*85.8)+'%';diver.setAttribute('aria-valuenow',String(result.depth));diver.setAttribute('aria-valuetext',nf(result.depth,0)+' m');}
+  const photo=root.querySelector('[data-depth-photo]');
+  if(photo?.style?.setProperty)photo.style.setProperty('--fb-photo-y',String(-35+result.depth/60*70)+'px');
   return true;
  }
  if(root.matches('.fb-boyle-activity')){
   if(!target.matches('[data-boyle-pressure]'))return false;
   const ata=Number(target.value),ml=boyleVolume(ata);
   if(ml===null)return false;
-  attr('[data-boyle-atm]',nf(ata,1)+' ATA');attr('[data-boyle-volume]',nf(ml,0)+' mL');
+  attr('[data-boyle-atm]',nf(ata,1)+' ATA (= atm) · '+nf(ata*101.325)+' kPa');attr('[data-boyle-volume]',nf(ml,0)+' mL');
   const bubble=root.querySelector('[data-boyle-bubble]'),glint=root.querySelector('[data-boyle-glint]');
   if(bubble){const radius=48*Math.cbrt(ml/1000);bubble.setAttribute('r',String(radius));if(glint)glint.setAttribute('cx',String(135-radius*.35));}
   return true;
@@ -111,7 +92,7 @@ export function updatePhysicsActivity(target,lang='pt'){
   const ata=Number(root.querySelector('[data-gas-pressure]').value),pct=Number(root.querySelector('[data-gas-fraction]').value);
   const kpa=dryGasPartialPressure(ata,pct);
   if(kpa===null)return false;
-  attr('[data-gas-atm]',nf(ata,1)+' ATA');attr('[data-gas-percent]',nf(pct,0)+'%');attr('[data-gas-partial]',nf(kpa)+' kPa');
+  attr('[data-gas-atm]',nf(ata,1)+' ATA (= atm) · '+nf(ata*101.325)+' kPa');attr('[data-gas-percent]',nf(pct,0)+'%');attr('[data-gas-partial]',nf(kpa)+' kPa · '+nf(kpa/101.325)+' atm');
   const bar=root.querySelector('[data-gas-oxygen]');if(bar)bar.setAttribute('width',String(234*pct/100));
   return true;
  }

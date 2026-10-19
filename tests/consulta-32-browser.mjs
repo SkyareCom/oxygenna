@@ -44,7 +44,10 @@ try{
  if(!pressureConversionText.includes('200'))throw Error('Conversor de 2 bar para 200 kPa falhou');
  const activities=page.locator('main.fundamentos-basicos .fb-interactive-group');
  if(await activities.locator('.fb-depth-activity,.fb-boyle-activity,.fb-oxygen-activity').count()!==3)throw Error('Três atividades visuais não aparecem');
- if(await activities.locator('svg.fb-ocean-art,svg.fb-bubble-art,svg.fb-gas-art').count()!==3)throw Error('Ilustrações das atividades ausentes');
+ if(await activities.locator('img.fb-ocean-photo,svg.fb-bubble-art,svg.fb-gas-art').count()!==3)throw Error('Foto aprovada ou ilustrações das atividades ausentes');
+ const photo=await page.locator('.fb-ocean-photo').evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,src:el.getAttribute('src'),border:getComputedStyle(el).borderTopWidth,shadow:getComputedStyle(el).boxShadow}));
+ if(!photo.loaded||!photo.src.includes('mergulhador-realista-aprovado.webp')||photo.border!=='0px'||photo.shadow!=='none')throw Error('Fotografia aprovada não carregou limpa: '+JSON.stringify(photo));
+ if(await page.locator('.fb-diver-illustration,.fb-ocean-art').count())throw Error('Mergulhador antigo duplicado sobre a fotografia');
  const depthStage=page.locator('[data-depth-stage]');
  await depthStage.scrollIntoViewIfNeeded();
  const depthRect=await depthStage.boundingBox();
@@ -56,6 +59,7 @@ try{
  await page.locator('[data-depth-water]').selectOption('fresh');
  const freshValue=await page.locator('[data-depth-absolute]').innerText();
  if(seaValue===freshValue)throw Error('Água doce e salgada mostram a mesma pressão');
+ if(!seaValue.includes('atm')||!seaValue.includes('kPa'))throw Error('Pressão de mergulho não mostra ambas as unidades');
  const diver=page.locator('[data-depth-diver]');
  const diverBox=await diver.boundingBox();
  if(!diverBox)throw Error('Mergulhador não encontrado');
@@ -75,6 +79,8 @@ try{
  await page.locator('[data-gas-pressure]').evaluate(el=>{el.value='2';el.dispatchEvent(new Event('input',{bubbles:true}));});
  await page.locator('[data-gas-fraction]').evaluate(el=>{el.value='50';el.dispatchEvent(new Event('input',{bubbles:true}));});
  if(!(await page.locator('[data-gas-partial]').innerText()).includes('101'))throw Error('Experiência de Dalton não calculou 101,325 kPa');
+ if(!(await page.locator('[data-gas-partial]').innerText()).includes('atm'))throw Error('Dalton não exibe pressão parcial em atm');
+ if(!(await page.locator('[data-boyle-atm]').innerText()).includes('kPa'))throw Error('Boyle não exibe pressão equivalente em kPa');
 
  if(await page.locator('main.fundamentos-basicos .lesson-body,main.fundamentos-basicos .quiz').count())throw Error('Conteúdo da aula anterior ainda está visível no botão');
  await page.locator('main.fundamentos-basicos a.back[href="#home"]').click();
@@ -159,21 +165,18 @@ try{
  await page.locator('.bottom-nav a[href$="/home"]').click();
  await page.locator('.study-map').waitFor();
  if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('HOME original não foi preservada');
- // Em todas as seções, gavetas abrem direto na tela e não cobrem a navegação.
- await page.evaluate(()=>{location.hash='#chapters';});
- const inlineDrawer=page.locator('main.chapters details[data-inline-drawer]').first();
- await inlineDrawer.waitFor();
- const wasOpen=await inlineDrawer.evaluate(el=>el.open);
- await inlineDrawer.locator('summary').click();
- const drawerMetrics=await inlineDrawer.evaluate(el=>{
-  const s=getComputedStyle(el),header=getComputedStyle(document.querySelector('.app-header')),footer=getComputedStyle(document.querySelector('.bottom-nav'));
-  return {open:el.open,position:s.position,shadow:s.boxShadow,border:s.borderTopColor,borderWidth:s.borderTopWidth,header:header.position,footer:footer.position};
- });
- if(drawerMetrics.open===wasOpen)throw Error('A gaveta não respondeu ao clique');
- if(drawerMetrics.position!=='relative'||drawerMetrics.shadow!=='none'||drawerMetrics.header!=='fixed'||drawerMetrics.footer!=='fixed')throw Error('Gaveta abriu como sobreposição: '+JSON.stringify(drawerMetrics));
- if(await page.locator('main.chapters dialog,[aria-modal="true"]').count())throw Error('Abertura de popup/modal na tela de capítulos');
- await page.locator('a.brand[href="#home"]').click();
- await page.locator('.study-map').waitFor();
+ // FONTES: uma única gaveta no Perfil, abrindo no fluxo da página.
+ await page.evaluate(()=>{location.hash='#profile';});
+ const referencesCard=page.locator('main.profile details[data-profile-references]');
+ await referencesCard.waitFor();
+ if(await referencesCard.count()!==1)throw Error('Perfil não contém card único de fontes');
+ if(await referencesCard.evaluate(el=>el.open))throw Error('Fontes deveriam começar recolhidas');
+ await referencesCard.locator('summary').click();
+ if(!await referencesCard.evaluate(el=>el.open))throw Error('Gaveta de fontes não abriu');
+ if(await referencesCard.locator('.ref-vancouver-entry').count()<20)throw Error('Biblioteca de fontes incompleta');
+ const refStyle=await referencesCard.evaluate(el=>({position:getComputedStyle(el).position,border:getComputedStyle(el).borderTopWidth,shadow:getComputedStyle(el).boxShadow}));
+ if(refStyle.position!=='relative'||refStyle.border!=='1px'||refStyle.shadow!=='none')throw Error('Fontes abriram como popup ou borda dupla: '+JSON.stringify(refStyle));
+ await page.locator('a.brand[href="#home"]').click();await page.locator('.study-map').waitFor();
  // As rotas internas continuam tecnicamente disponíveis, embora não listadas nas quatro telas vazias.
  await page.evaluate(()=>{
   history.pushState(null,'','/oxygenna/capitulo/dcs-tipo2');

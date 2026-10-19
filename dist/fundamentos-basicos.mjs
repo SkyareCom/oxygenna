@@ -1,4 +1,4 @@
-import {renderPhysicsActivities} from './fundamentos-interativos.mjs?rev=visual-experiments-20261018';
+import {renderPhysicsActivities} from './fundamentos-interativos.mjs?rev=photo-atm-20261019';
 // FUNDAMENTOS BÁSICOS — conteúdo novo e autônomo, sem reutilizar a aula antiga do botão da Home.
 // Unidades e relações seguem o SI, com modelos ideais usados somente para fins educativos.
 export const PRESSURE_TO_KPA=Object.freeze({
@@ -73,7 +73,7 @@ const copy={
 };
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const fundamentalsContent=copy;
-const convertUnits=['ATA','kPa','bar','hPa','mmHg','psi'];
+const convertUnits=['ATA','atm','kPa','bar','hPa','mmHg','psi'];
 const showTable=(rows)=>'<div class="fb-table-scroll"><table class="fb-table"><tbody>'+rows.map(([a,b])=>'<tr><th scope="row">'+escapeHTML(a)+'</th><td>'+escapeHTML(b)+'</td></tr>').join('')+'</tbody></table></div>';
 export function renderFundamentosBasicos(lang='pt',icon=()=>'',back=()=>'',escape=escapeHTML){
  const v=copy[lang]||copy.pt,format=n=>new Intl.NumberFormat(lang,{maximumFractionDigits:4}).format(n);
@@ -84,7 +84,7 @@ export function renderFundamentosBasicos(lang='pt',icon=()=>'',back=()=>'',escap
   (item.note?'<p class="fb-note">'+escape(item.note)+'</p>':'')+'</article>');
  const initial=convertUnits.map(unit=>[unit,format(convertPressure(1,'ATA',unit))]);
  const converter='<section class="panel fb-card fb-converter" aria-labelledby="fb-converter-title"><h2 id="fb-converter-title">'+escape(v.converter)+'</h2><p>'+escape(v.converterHelp)+'</p><div class="fb-controls"><label>'+escape(v.value)+'<input data-fb-value type="number" min="0" step="any" value="1" inputmode="decimal"></label><label>'+escape(v.unit)+'<select data-fb-from>'+convertUnits.map(u=>'<option value="'+u+'">'+u+'</option>').join('')+'</select></label></div><p class="tag">'+escape(v.results)+'</p><output data-fb-results aria-live="polite">'+showTable(initial)+'</output></section>';
- return back('#home')+'<section class="fb-intro"><p class="tag">'+escape(v.tag)+'</p><h1 class="display page-title">'+escape(v.title)+'</h1><p class="subtle">'+escape(v.intro)+'</p></section><div class="fb-topics">'+cards.slice(0,3).join('')+converter+renderPhysicsActivities(lang)+cards.slice(3).join('')+'</div><p class="micro">'+escape(v.reference)+' <a href="https://www.bipm.org/en/publications/si-brochure" target="_blank" rel="noopener noreferrer">BIPM</a> · <a href="https://physics.nist.gov/cuu/Units/" target="_blank" rel="noopener noreferrer">NIST</a></p>';
+ return back('#home')+'<section class="fb-intro"><p class="tag">'+escape(v.tag)+'</p><h1 class="display page-title">'+escape(v.title)+'</h1><p class="subtle">'+escape(v.intro)+'</p></section><div class="fb-topics">'+cards.slice(0,3).join('')+converter+renderPhysicsActivities(lang)+cards.slice(3).join('')+'</div>';
 }
 export function handleFundamentosConversion(target,lang='pt'){
  if(!target?.matches?.('[data-fb-value],[data-fb-from]'))return false;

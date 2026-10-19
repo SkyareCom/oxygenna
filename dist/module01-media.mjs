@@ -32,7 +32,7 @@ export function renderModule01Media(moduleId,index,{lang='pt',e}={}){
  const c=msg(lang),section=[];
 
  if(i===2){
-  section.push('<section class="m01-panel m01-oxygen" data-m01-oxygen><h2>Gráfico interativo • PIO₂ umidificada</h2><p class="m01-hint" lang="pt-BR">FiO₂ = 100%, pressão de vapor de água estimada em 47 mmHg. PIO₂ não equivale à PaO₂.</p><svg aria-label="Gráfico de PIO₂ em relação à pressão absoluta" role="img" viewBox="0 0 340 170" class="m01-plot"><path d="M35 12V140H330" fill="none" stroke="#9aabb1" stroke-width="1"/><path d="M35 104L330 30" fill="none" stroke="#d5b16c" stroke-width="3"/><path d="M35 139H330" fill="none" stroke="#526977" stroke-dasharray="3 6"/><circle data-m01-point cx="184" cy="67" r="6" stroke="#d5b16c" fill="#082b3b" stroke-width="3"/><text x="32" y="158" font-size="11" fill="#b5cbd0">1 ATA</text><text x="293" y="158" font-size="11" fill="#b5cbd0">3 ATA</text><text x="35" y="9" font-size="11" fill="#b5cbd0">PIO₂ (mmHg)</text></svg><label for="m01-ata">Pressão absoluta <output id="m01-ata-out">2,0 ATA</output></label><input id="m01-ata" data-m01-ata type="range" min="1" max="3" step="0.1" value="2.0"><div class="m01-number"><strong data-m01-pio2>1.473 mmHg</strong><span>Pressão parcial inspirada estimada</span></div></section>');
+  section.push('<section class="m01-panel m01-oxygen" data-m01-oxygen><h2>Gráfico interativo • PIO₂ umidificada</h2><p class="m01-hint" lang="pt-BR">FiO₂ = 100%, pressão de vapor de água estimada em 47 mmHg. PIO₂ não equivale à PaO₂.</p><svg aria-label="Gráfico de PIO₂ em relação à pressão absoluta" role="img" viewBox="0 0 340 170" class="m01-plot"><path d="M35 12V140H330" fill="none" stroke="#9aabb1" stroke-width="1"/><path d="M35 104L330 30" fill="none" stroke="#d5b16c" stroke-width="3"/><path d="M35 139H330" fill="none" stroke="#526977" stroke-dasharray="3 6"/><circle data-m01-point cx="184" cy="67" r="6" stroke="#d5b16c" fill="#082b3b" stroke-width="3"/><text x="32" y="158" font-size="11" fill="#b5cbd0">1 ATA</text><text x="293" y="158" font-size="11" fill="#b5cbd0">3 ATA</text><text x="35" y="9" font-size="11" fill="#b5cbd0">PIO₂ (mmHg)</text></svg><label for="m01-ata">Pressão absoluta <output id="m01-ata-out">2,0 ATA (= atm) · 202,65 kPa</output></label><input id="m01-ata" data-m01-ata type="range" min="1" max="3" step="0.1" value="2.0"><div class="m01-number"><strong data-m01-pio2>1.473 mmHg · 196,38 kPa · 1,94 atm</strong><span>Pressão parcial inspirada estimada</span></div></section>');
  }
  if(i===3){
   section.push('<section class="m01-panel m01-hotspots" data-m01-hotspots><h2>'+e(c.hotspot)+'</h2><div class="m01-hotspot-list">'+components.map((item,j)=>'<button type="button" data-m01-component="'+j+'" aria-pressed="'+(j===0)+'">'+e(item[0])+'</button>').join('')+'</div><div class="m01-component-output" role="status" aria-live="polite" lang="pt-BR"><strong>'+e(components[0][0])+'</strong><p>'+e(components[0][1])+'</p></div></section>');
@@ -76,13 +76,13 @@ export function handleModule01Input(t){
  if(t?.dataset?.m01Depth!==undefined){
   const panel=t.closest('[data-m01-dive]'),d=Number(t.value),ata=1+d/10;
   panel.querySelector('#m01-depth-out').textContent=d+' m';
-  panel.querySelector('[data-m01-depth-ata]').textContent=fmtNumber(ata,1)+' ATA';
+  panel.querySelector('[data-m01-depth-ata]').textContent=fmtNumber(ata,1)+' ATA (= atm) · '+fmtNumber(ata*101.325,2)+' kPa';
   panel.querySelector('[data-m01-depth-kpa]').textContent=fmtNumber(ata*101.325,0)+' kPa';return true;
  }
  if(t?.dataset?.m01Ata!==undefined){
   const panel=t.closest('[data-m01-oxygen]'),ata=Number(t.value),pio2=760*ata-47;
-  panel.querySelector('#m01-ata-out').textContent=fmtNumber(ata,1)+' ATA';
-  panel.querySelector('[data-m01-pio2]').textContent=fmtNumber(pio2,0)+' mmHg';
+  panel.querySelector('#m01-ata-out').textContent=fmtNumber(ata,1)+' ATA (= atm) · '+fmtNumber(ata*101.325,2)+' kPa';
+  panel.querySelector('[data-m01-pio2]').textContent=fmtNumber(pio2,0)+' mmHg · '+fmtNumber(pio2*101.325/760,2)+' kPa · '+fmtNumber(pio2/760,3)+' atm';
   const p=panel.querySelector('[data-m01-point]');p.setAttribute('cx',String(35+(ata-1)/2*295));p.setAttribute('cy',String(139-(760*ata-47)/2450*120));
   return true;
  }
