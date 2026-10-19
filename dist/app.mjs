@@ -13,6 +13,7 @@ import {tracks,lessons,sources} from './content.mjs';
 import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=knowledge-final-20261018';
 import {camaraAnswer} from './camara-data.mjs';
 import {renderFundamentosBasicos,handleFundamentosConversion} from './fundamentos-basicos.mjs?rev=fundamentos-visuais-v2-20261018';
+import {withInlineDrawers} from './inline-drawers.mjs?rev=global-inline-drawers-20261019';
 import {updatePhysicsActivity,setDiverDepthFromPointer} from './fundamentos-interativos.mjs?rev=visual-experiments-20261018';
 
 const UI={
@@ -98,7 +99,7 @@ function render(){
   if(item){consultaUltimo=chapter;saveConsulta();}
   const filter=item?.filtro||route.slice(1);
   const blank=EMPTY_SECTION_ROUTES.has(route);
-  const main=blank?(route==='/fisiologia'?renderFisiologiaPresentation():'')+renderEmptySectionBase():renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}});
+  const main=withInlineDrawers(blank?(route==='/fisiologia'?renderFisiologiaPresentation():'')+renderEmptySectionBase():renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}}));
   document.documentElement.lang='pt-BR';
   document.title='OXYGENNA — Medicina Hiperbárica';
   document.querySelector('.skip').textContent='Ir ao conteúdo';
@@ -133,6 +134,7 @@ function render(){
  else if(section==='module')page=renderModule(id,{...curriculumOptions,notFound,context,camaraAnswers:selectedCamaraAnswers,camaraCompleted:state.completed});
  else if(section==='topic')page=renderModuleTopic(id,context,{...curriculumOptions,context:route.split('/')[3],notFound,camaraAnswers:selectedCamaraAnswers});
  else page=notFound();
+ page=withInlineDrawers(page);
  const unread=NOTICE_IDS.some(id=>!readNotices.includes(id));
  document.querySelector('#app').innerHTML=`${renderHeader({lang:state.lang,icon,e,unread})}<main id="main" tabindex="-1" class="${e(section==='track'?'track-page':section)}">${page}</main>${renderFooter({lang:state.lang,active:section==='fundamentos-basicos'?'home':activeSection(route),icon,e})}`;
 }
