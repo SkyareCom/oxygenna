@@ -33,6 +33,10 @@ const text={
 };
 const fmt=(n,lang,dec=2)=>new Intl.NumberFormat(lang,{minimumFractionDigits:dec,maximumFractionDigits:dec}).format(n);
 const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const diverPhotoSVG='<svg class="fb-real-diver-photo" viewBox="55 465 950 435" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">'+
+ '<defs><clipPath id="fb-real-diver-mask"><path d="M88 710 L110 692 L307 650 L360 640 L402 638 L427 655 L467 672 L515 672 L558 630 L585 572 L608 546 L669 520 L726 510 L750 532 L806 530 L828 514 L849 487 L876 487 L902 498 L928 521 L947 545 L959 563 L967 591 L980 602 L988 613 L970 629 L952 631 L937 653 L904 660 L892 691 L871 731 L843 740 L823 764 L800 786 L780 798 L758 784 L751 767 L763 747 L780 730 L748 710 L715 727 L679 758 L634 800 L607 816 L572 846 L546 845 L536 829 L546 807 L577 782 L608 748 L636 711 L596 752 L557 769 L512 781 L456 797 L401 813 L354 838 L318 855 L253 877 L191 885 L150 880 L119 863 L110 846 L148 831 L282 794 L332 775 L365 750 L333 733 L300 747 L253 758 L177 774 L143 772 L102 746 Z"/></clipPath></defs>'+
+ '<image href="./assets/mergulhador-realista-aprovado.webp" x="0" y="0" width="1122" height="1402" preserveAspectRatio="none" clip-path="url(#fb-real-diver-mask)"/>'+
+ '</svg>';
 const bubbleSVG='<svg class="fb-bubble-art" viewBox="0 0 270 155" role="img" aria-label="Gas bubble volume illustration"><rect width="270" height="155" rx="12" fill="#092a38"/><path d="M12 132H258" stroke="#477a8b" stroke-width="2"/><circle data-boyle-bubble cx="135" cy="77" r="48" fill="#58bdd0" fill-opacity=".28" stroke="#a2e2ea" stroke-width="3"/><circle data-boyle-glint cx="118" cy="60" r="9" fill="#e6fbff" fill-opacity=".5"/><g fill="#b5e1e9" opacity=".55"><circle cx="28" cy="36" r="3"/><circle cx="225" cy="62" r="5"/><circle cx="248" cy="24" r="3"/></g></svg>';
 const gasesSVG='<svg viewBox="0 0 270 126" class="fb-gas-art" role="img" aria-label="Gas mixture visual representation"><rect width="270" height="126" rx="12" fill="#092a38"/><rect x="18" y="26" width="234" height="64" rx="8" fill="#214957"/><rect data-gas-oxygen x="18" y="26" width="49.14" height="64" rx="3" fill="#d2ae70"/><path d="M18 96H252" stroke="#97b4bd"/><text x="22" y="17" fill="#d9c595" font-size="11">O₂</text><text x="220" y="17" fill="#bacbd1" font-size="11">N₂ + …</text></svg>';
 export function renderPhysicsActivities(lang='pt'){
@@ -43,10 +47,10 @@ export function renderPhysicsActivities(lang='pt'){
  '<label>'+label(v.depthLabel)+'<input type="range" min="0" max="60" step="1" value="0" data-depth-range aria-label="'+label(v.depthLabel)+'"></label></div>'+
  '<div class="fb-ocean-stage" data-depth-stage role="group" aria-label="'+label(v.visual)+'">'+
  '<img class="fb-ocean-photo" data-depth-photo src="./assets/mergulhador-realista-aprovado.webp" width="760" height="950" alt="" aria-hidden="true" draggable="false">'+
- '<button type="button" class="fb-diver-handle" data-depth-diver role="slider" aria-label="'+label(v.depthLabel)+'" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-valuetext="0 m" tabindex="0" style="top:5.5%"><span class="fb-depth-marker" aria-hidden="true">↕</span></button>'+
+ '<button type="button" class="fb-diver-handle" data-depth-diver role="slider" aria-label="'+label(v.depthLabel)+'" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-valuetext="0 m" tabindex="0" style="top:11%">'+diverPhotoSVG+'</button>'+
  '<span class="fb-depth-ruler" aria-hidden="true"></span>'+
- Array.from({length:7},(_,i)=>'<span class="fb-depth-guide" aria-hidden="true" style="top:'+(5.5+i*14.3)+'%"></span><span class="fb-depth-tick" aria-hidden="true" style="top:'+(5.5+i*14.3)+'%">'+(i*10)+' m</span>').join('')+
- '<span class="fb-depth-active-line" data-depth-active aria-hidden="true" style="top:5.5%"></span></div>'+
+ Array.from({length:7},(_,i)=>'<span class="fb-depth-guide" aria-hidden="true" style="top:'+(11+i*13)+'%"></span><span class="fb-depth-tick" aria-hidden="true" style="top:'+(11+i*13)+'%">'+(i*10)+' m</span>').join('')+
+ '<span class="fb-depth-active-line" data-depth-active aria-hidden="true" style="top:11%"></span></div>'+
  '<p class="fb-note">'+label(v.depthHint)+'</p>'+
  '<div class="fb-live-metrics" aria-live="off"><div><small>'+label(v.depth)+'</small><strong data-depth-metres>0 m</strong></div><div><small>'+label(v.abs)+'</small><strong data-depth-absolute>'+fmt(p.absoluteAtm,lang)+' atm · '+fmt(p.absoluteKPa,lang)+' kPa</strong></div>'+
  '<div><small>'+label(v.gauge)+'</small><strong data-depth-gauge>+'+fmt(0,lang)+' atm · +'+fmt(0,lang)+' kPa</strong></div><div><small>'+label(v.kpa)+'</small><strong data-depth-kpa>'+fmt(p.absoluteKPa,lang)+' kPa · '+fmt(p.absoluteAtm,lang)+' atm</strong></div></div>'+
@@ -75,11 +79,11 @@ export function updatePhysicsActivity(target,lang='pt'){
   attr('[data-depth-gauge]','+'+nf(result.gaugeAtm)+' atm · +'+nf(result.gaugeKPa)+' kPa');
   attr('[data-depth-kpa]',nf(result.absoluteKPa)+' kPa · '+nf(result.absoluteAtm)+' atm');
   const diver=root.querySelector('[data-depth-diver]');
-  if(diver){diver.style.top=(5.5+result.depth/60*85.8)+'%';diver.setAttribute('aria-valuenow',String(result.depth));diver.setAttribute('aria-valuetext',nf(result.depth,0)+' m');}
+  if(diver){diver.style.top=(11+result.depth/60*78)+'%';diver.setAttribute('aria-valuenow',String(result.depth));diver.setAttribute('aria-valuetext',nf(result.depth,0)+' m');}
   // A fotografia é apenas cenário estático: sem zoom ou deslocamento com a profundidade.
   // O marcador e a linha de leitura se movem juntos na régua de 0 a 60 metros.
   const reading=root.querySelector('[data-depth-active]');
-  if(reading?.style)reading.style.top=(5.5+result.depth/60*85.8)+'%';
+  if(reading?.style)reading.style.top=(11+result.depth/60*78)+'%';
   return true;
  }
  if(root.matches('.fb-boyle-activity')){
@@ -107,7 +111,7 @@ export function setDiverDepthFromPointer(stage,clientY,lang='pt'){
  if(!stage||!Number.isFinite(clientY))return false;
  const rect=stage.getBoundingClientRect();
  if(!rect.height)return false;
- const position=Math.max(0,Math.min(1,(clientY-rect.top-rect.height*.055)/(rect.height*.858)));
+ const position=Math.max(0,Math.min(1,(clientY-rect.top-rect.height*.11)/(rect.height*.78)));
  const range=stage.closest('.fb-depth-activity')?.querySelector('[data-depth-range]');
  if(!range)return false;
  range.value=String(Math.round(position*60));
