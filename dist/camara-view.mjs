@@ -39,7 +39,7 @@ function renderMedia(m,{lang,e}){
  }
  if(m.type==='interactive-graph'){
    return '<section class="panel camara-lab">'+lead(e(n.lab),e(m.caption||''))+
-    '<label for="camara-pressure">'+e(n.ata)+' — <output id="camara-pressure-output">2,4 ATA</output></label>'+
+    '<label for="camara-pressure">'+e(n.ata)+' — <output id="camara-pressure-output">2,4 ATA (= atm) · 243,18 kPa</output></label>'+
     '<input type="range" id="camara-pressure" data-camara-engine="'+e(m.engine)+'" min="'+Number(m.rangeATA?.[0]||1)+'" max="'+Number(m.rangeATA?.[1]||3)+'" step="0.1" value="2.4">'+
     '<p id="camara-graph-result" role="status">'+e(camaraGraphText(m.engine,2.4,lang))+'</p><p class="micro">'+e(n.disclaimer)+'</p></section>';
  }
