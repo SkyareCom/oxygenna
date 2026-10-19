@@ -11,7 +11,7 @@ import {renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
 import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,thermalRatio,pressureUnits} from './core.mjs';
 import {tracks,lessons,sources} from './content.mjs';
-import {renderReferencesDrawer} from './reference-library.mjs?rev=central-refs-20261019';
+import {renderReferencesDrawer} from './reference-library.mjs?rev=history-refs-20261019';
 import {renderCamaraDetail,camaraGraphText} from './camara-view.mjs?rev=knowledge-final-20261018';
 import {camaraAnswer} from './camara-data.mjs';
 import {renderFundamentosBasicos,handleFundamentosConversion} from './fundamentos-basicos.mjs?rev=photo-atm-20261019';
