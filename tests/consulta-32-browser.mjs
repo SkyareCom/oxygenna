@@ -47,6 +47,19 @@ try{
  if(await activities.locator('img.fb-ocean-photo,svg.fb-bubble-art,svg.fb-gas-art').count()!==3)throw Error('Foto aprovada ou ilustrações das atividades ausentes');
  const photo=await page.locator('.fb-ocean-photo').evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,src:el.getAttribute('src'),border:getComputedStyle(el).borderTopWidth,shadow:getComputedStyle(el).boxShadow}));
  if(!photo.loaded||!photo.src.includes('mergulhador-realista-aprovado.webp')||photo.border!=='0px'||photo.shadow!=='none')throw Error('Fotografia aprovada não carregou limpa: '+JSON.stringify(photo));
+ const scale=await page.locator('.fb-ocean-stage').evaluate(stage=>{
+  const photo=stage.querySelector('.fb-ocean-photo'),p=getComputedStyle(photo);
+  const ticks=[...stage.querySelectorAll('.fb-depth-tick')].map(el=>el.textContent.trim());
+  const guide=[...stage.querySelectorAll('.fb-depth-guide')];
+  const ruler=stage.querySelector('.fb-depth-ruler');
+  const active=stage.querySelector('[data-depth-active]');
+  return {fit:p.objectFit,transform:p.transform,photoWidth:photo.naturalWidth,photoHeight:photo.naturalHeight,
+   stageWidth:stage.getBoundingClientRect().width,ticks,guideCount:guide.length,rulerVisible:!!ruler&&getComputedStyle(ruler).borderRightWidth!=='0px',active:!!active};
+ });
+ if(scale.fit!=='contain'||scale.transform!=='none')throw Error('Imagem ainda está ampliada ou deslocada: '+JSON.stringify(scale));
+ if(JSON.stringify(scale.ticks)!==JSON.stringify(['0 m','10 m','20 m','30 m','40 m','50 m','60 m'])||scale.guideCount!==7||!scale.rulerVisible||!scale.active)throw Error('Régua de profundidade incompleta: '+JSON.stringify(scale));
+ if(scale.stageWidth>page.viewportSize().width)throw Error('Cenário transborda largura do Android');
+
  if(await page.locator('.fb-diver-illustration,.fb-ocean-art').count())throw Error('Mergulhador antigo duplicado sobre a fotografia');
  const depthStage=page.locator('[data-depth-stage]');
  await depthStage.scrollIntoViewIfNeeded();
@@ -55,6 +68,9 @@ try{
  await page.mouse.click(depthRect.x+depthRect.width*.58,depthRect.y+depthRect.height*.54);
  const actualDepth=Number((await page.locator('[data-depth-range]').inputValue()));
  if(actualDepth<25||actualDepth>43)throw Error('Toque na água não alterou a profundidade: '+actualDepth);
+ const activeGuide=await page.locator('[data-depth-active]').evaluate(el=>parseFloat(el.style.top));
+ if(!(activeGuide>5.5&&activeGuide<91.4))throw Error('Linha ativa não acompanhou a profundidade');
+ if(await page.locator('.fb-ocean-photo').evaluate(el=>getComputedStyle(el).transform)!=='none')throw Error('Imagem movimentou ao arrastar o controle');
  const seaValue=await page.locator('[data-depth-absolute]').innerText();
  await page.locator('[data-depth-water]').selectOption('fresh');
  const freshValue=await page.locator('[data-depth-absolute]').innerText();
