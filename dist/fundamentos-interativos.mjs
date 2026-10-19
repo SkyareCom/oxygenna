@@ -44,7 +44,9 @@ export function renderPhysicsActivities(lang='pt'){
  '<div class="fb-ocean-stage" data-depth-stage role="group" aria-label="'+label(v.visual)+'">'+
  '<img class="fb-ocean-photo" data-depth-photo src="./assets/mergulhador-realista-aprovado.webp" width="760" height="950" alt="" aria-hidden="true" draggable="false">'+
  '<button type="button" class="fb-diver-handle" data-depth-diver role="slider" aria-label="'+label(v.depthLabel)+'" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-valuetext="0 m" tabindex="0" style="top:5.5%"><span class="fb-depth-marker" aria-hidden="true">↕</span></button>'+
- Array.from({length:7},(_,i)=>'<span class="fb-depth-tick" style="top:'+(5.5+i*14.3)+'%">'+(i*10)+' m</span>').join('')+'</div>'+
+ '<span class="fb-depth-ruler" aria-hidden="true"></span>'+
+ Array.from({length:7},(_,i)=>'<span class="fb-depth-guide" aria-hidden="true" style="top:'+(5.5+i*14.3)+'%"></span><span class="fb-depth-tick" aria-hidden="true" style="top:'+(5.5+i*14.3)+'%">'+(i*10)+' m</span>').join('')+
+ '<span class="fb-depth-active-line" data-depth-active aria-hidden="true" style="top:5.5%"></span></div>'+
  '<p class="fb-note">'+label(v.depthHint)+'</p>'+
  '<div class="fb-live-metrics" aria-live="off"><div><small>'+label(v.depth)+'</small><strong data-depth-metres>0 m</strong></div><div><small>'+label(v.abs)+'</small><strong data-depth-absolute>'+fmt(p.absoluteAtm,lang)+' atm · '+fmt(p.absoluteKPa,lang)+' kPa</strong></div>'+
  '<div><small>'+label(v.gauge)+'</small><strong data-depth-gauge>+'+fmt(0,lang)+' atm · +'+fmt(0,lang)+' kPa</strong></div><div><small>'+label(v.kpa)+'</small><strong data-depth-kpa>'+fmt(p.absoluteKPa,lang)+' kPa · '+fmt(p.absoluteAtm,lang)+' atm</strong></div></div>'+
@@ -74,8 +76,10 @@ export function updatePhysicsActivity(target,lang='pt'){
   attr('[data-depth-kpa]',nf(result.absoluteKPa)+' kPa · '+nf(result.absoluteAtm)+' atm');
   const diver=root.querySelector('[data-depth-diver]');
   if(diver){diver.style.top=(5.5+result.depth/60*85.8)+'%';diver.setAttribute('aria-valuenow',String(result.depth));diver.setAttribute('aria-valuetext',nf(result.depth,0)+' m');}
-  const photo=root.querySelector('[data-depth-photo]');
-  if(photo?.style?.setProperty)photo.style.setProperty('--fb-photo-y',String(-35+result.depth/60*70)+'px');
+  // A fotografia é apenas cenário estático: sem zoom ou deslocamento com a profundidade.
+  // O marcador e a linha de leitura se movem juntos na régua de 0 a 60 metros.
+  const reading=root.querySelector('[data-depth-active]');
+  if(reading?.style)reading.style.top=(5.5+result.depth/60*85.8)+'%';
   return true;
  }
  if(root.matches('.fb-boyle-activity')){

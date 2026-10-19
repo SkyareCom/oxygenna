@@ -82,19 +82,38 @@
 .fundamentos-basicos .fb-interactive-group .fb-card { overflow:hidden; }
 .fundamentos-basicos .fb-interactive-group svg { display:block; max-width:100%; }
 .fundamentos-basicos .fb-ocean-stage {
-  position:relative; isolation:isolate; width:100%; height:370px;
+  position:relative; isolation:isolate; width:100%; height:390px;
   overflow:hidden; border-radius:12px; border:0;
   background:#082d3e; margin:12px 0 10px;
   touch-action:none; cursor:crosshair;
 }
-/* Fotografia aprovada, sem segundo mergulhador sobre a cena.
-   O deslocamento da própria fotografia acompanha o movimento de profundidade. */
+/* Fotografia aprovada: cenário estático em proporção natural, inteiramente
+   visível. Não ampliar para 128%, nem mover o fundo ao arrastar o marcador. */
 .fundamentos-basicos .fb-ocean-photo {
   display:block; position:absolute; inset:0; z-index:1;
-  width:100%; height:100%; object-fit:cover; object-position:center;
-  transform:translateY(var(--fb-photo-y,-35px)) scale(1.28);
-  transform-origin:center center;
-  pointer-events:none; user-select:none; border:0; box-shadow:none;
+  width:100%; height:100%;
+  object-fit:contain; object-position:center;
+  transform:none; max-width:none;
+  pointer-events:none; user-select:none; border:0; box-shadow:none; filter:none;
+}
+/* Contraste para a régua sem obscurecer a fotografia central. */
+.fundamentos-basicos .fb-ocean-stage::after {
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(90deg,rgba(2,23,36,.16),transparent 23%,transparent 66%,rgba(2,22,35,.44));
+}
+.fundamentos-basicos .fb-depth-ruler {
+  position:absolute; z-index:3; right:70px; top:5.5%; height:85.8%;
+  border-right:2px solid rgba(241,225,178,.85); pointer-events:none;
+}
+.fundamentos-basicos .fb-depth-guide {
+  position:absolute; z-index:3; left:0; right:0;
+  height:0; border-top:1px dashed rgba(244,233,201,.57);
+  pointer-events:none;
+}
+.fundamentos-basicos .fb-depth-active-line {
+  position:absolute; z-index:4; left:0; right:68px;
+  height:0; border-top:2px solid #f5ce82;
+  pointer-events:none;
 }
 .fundamentos-basicos .fb-diver-handle {
   position:absolute; z-index:2; left:16%; top:5.5%;
@@ -112,9 +131,11 @@
   pointer-events:none;
 }
 .fundamentos-basicos .fb-depth-tick {
-  position:absolute; right:10px; color:#d4ebed; font-size:10px;
-  font-weight:500; transform:translateY(-50%);
-  text-shadow:0 1px 2px #04131c;
+  position:absolute; z-index:4; right:4px; width:62px;
+  color:#fff2d2; font-size:12px; line-height:1.4;
+  font-weight:600; text-align:center; transform:translateY(-50%);
+  background:rgba(3,26,38,.83); border-radius:5px; padding:3px 1px;
+  font-variant-numeric:tabular-nums;
   pointer-events:none;
 }
 .fundamentos-basicos .fb-activity-slider {
@@ -140,7 +161,7 @@
   width:100%; height:auto; margin:10px auto 13px; border-radius:12px;
 }
 @media(max-width:360px){
- .fundamentos-basicos .fb-ocean-stage { height:330px; }
+ .fundamentos-basicos .fb-ocean-stage { height:360px; }
  .fundamentos-basicos .fb-live-metrics strong { font-size:16px; }
 }
 @media(prefers-reduced-motion:reduce){

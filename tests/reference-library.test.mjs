@@ -40,5 +40,5 @@ test('Perfil contém apenas uma gaveta de fontes; conteúdos não exibem bibliog
  }
  const index=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
  assert.ok(index.includes('reference-library.css?rev=central-refs-20261019'));
- assert.ok(index.includes('app.mjs?rev=photo-atm-central-refs-20261019'));
+ assert.ok(index.includes('app.mjs?rev=depth-ruler-central-refs-20261019'));
 });
