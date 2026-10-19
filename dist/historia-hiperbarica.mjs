@@ -59,8 +59,6 @@ const locale={
 const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const hyperbaricHistoryContent=locale;
 
-// Vetor ilustrativo histórico: bronze, aço e medidores manométricos.
-// É uma imagem SVG completa, não um ícone nem um pop-up; renderiza offline.
 // Reaproveita fotografias do próprio aplicativo: sem ilustração vetorial,
 // ícones simulando equipamentos, dependências externas ou novos arquivos de imagem.
 export function hyperbaricHistoryIllustration(lang='pt'){
