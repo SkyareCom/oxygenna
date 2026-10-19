@@ -35,7 +35,9 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       assert.match(markup,/href="#chapters">INICIAR OS ESTUDOS/);
       assert.match(markup,/class="history-home-card"/);
       assert.match(markup,/HISTÓRIA DA MEDICINA HIPERBÁRICA/);
-      assert.match(markup,/class="history-hyperbaric-art"/);
+      assert.match(markup,/class="history-real-photo"/);
+      assert.match(markup,/m01-foto-experimentacao\.webp/);
+      assert.doesNotMatch(markup,/class="history-hyperbaric-art"/);
       assert.match(markup,/href="#historia-medicina-hiperbarica"/);
       assert.ok(markup.indexOf('history-home-card')>markup.indexOf('INICIAR OS ESTUDOS'),'História aparece depois do botão');
       assert.match(markup,/Seu mapa de estudos/);
