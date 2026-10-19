@@ -46,8 +46,8 @@ export function renderPhysicsActivities(lang='pt'){
  '<button type="button" class="fb-diver-handle" data-depth-diver role="slider" aria-label="'+label(v.depthLabel)+'" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-valuetext="0 m" tabindex="0" style="top:5.5%"><span class="fb-depth-marker" aria-hidden="true">↕</span></button>'+
  Array.from({length:7},(_,i)=>'<span class="fb-depth-tick" style="top:'+(5.5+i*14.3)+'%">'+(i*10)+' m</span>').join('')+'</div>'+
  '<p class="fb-note">'+label(v.depthHint)+'</p>'+
- '<div class="fb-live-metrics" aria-live="off"><div><small>'+label(v.depth)+'</small><strong data-depth-metres>0 m</strong></div><div><small>'+label(v.abs)+'</small><strong data-depth-absolute>'+fmt(p.absoluteAtm,lang)+' atm · '+fmt(p.absoluteKPa,lang)+' kPa · '+fmt(p.absoluteAtm,lang)+' atm</strong></div>'+
- '<div><small>'+label(v.gauge)+'</small><strong data-depth-gauge>'+'+fmt(0,lang)+' atm · +'+fmt(0,lang)+' kPa</strong></div><div><small>'+label(v.kpa)+'</small><strong data-depth-kpa>'+fmt(p.absoluteKPa,lang)+' kPa · '+fmt(p.absoluteAtm,lang)+' atm</strong></div></div>'+
+ '<div class="fb-live-metrics" aria-live="off"><div><small>'+label(v.depth)+'</small><strong data-depth-metres>0 m</strong></div><div><small>'+label(v.abs)+'</small><strong data-depth-absolute>'+fmt(p.absoluteAtm,lang)+' atm · '+fmt(p.absoluteKPa,lang)+' kPa</strong></div>'+
+ '<div><small>'+label(v.gauge)+'</small><strong data-depth-gauge>+'+fmt(0,lang)+' atm · +'+fmt(0,lang)+' kPa</strong></div><div><small>'+label(v.kpa)+'</small><strong data-depth-kpa>'+fmt(p.absoluteKPa,lang)+' kPa · '+fmt(p.absoluteAtm,lang)+' atm</strong></div></div>'+
  '<p class="fb-note">'+label(v.rule)+'</p></section>';
  const boyle='<section class="panel fb-card fb-boyle-activity"><h2>'+label(v.boyleTitle)+'</h2><p>'+label(v.boyleIntro)+'</p>'+
  bubbleSVG+'<label class="fb-activity-slider">'+label(v.pressure)+'<input type="range" data-boyle-pressure min="1" max="6" value="1" step=".5"></label>'+
