@@ -75,7 +75,7 @@ export function updatePhysicsActivity(target,lang='pt'){
   const diver=root.querySelector('[data-depth-diver]');
   if(diver){diver.style.top=(5.5+result.depth/60*85.8)+'%';diver.setAttribute('aria-valuenow',String(result.depth));diver.setAttribute('aria-valuetext',nf(result.depth,0)+' m');}
   const photo=root.querySelector('[data-depth-photo]');
-  if(photo)photo.style.setProperty('--fb-photo-y',String(-35+result.depth/60*70)+'px');
+  if(photo?.style?.setProperty)photo.style.setProperty('--fb-photo-y',String(-35+result.depth/60*70)+'px');
   return true;
  }
  if(root.matches('.fb-boyle-activity')){
