@@ -56,11 +56,21 @@ try{
   return {fit:p.objectFit,transform:p.transform,photoWidth:photo.naturalWidth,photoHeight:photo.naturalHeight,
    stageWidth:stage.getBoundingClientRect().width,ticks,guideCount:guide.length,rulerVisible:!!ruler&&getComputedStyle(ruler).borderRightWidth!=='0px',active:!!active};
  });
- if(scale.fit!=='contain'||scale.transform!=='none')throw Error('Imagem ainda está ampliada ou deslocada: '+JSON.stringify(scale));
+ if(scale.fit!=='cover'||scale.transform!=='none')throw Error('Cenário aquático deve ser estático e sem mergulhador gravado visível: '+JSON.stringify(scale));
  if(JSON.stringify(scale.ticks)!==JSON.stringify(['0 m','10 m','20 m','30 m','40 m','50 m','60 m'])||scale.guideCount!==7||!scale.rulerVisible||!scale.active)throw Error('Régua de profundidade incompleta: '+JSON.stringify(scale));
  if(scale.stageWidth>page.viewportSize().width)throw Error('Cenário transborda largura do Android');
 
  if(await page.locator('.fb-diver-illustration,.fb-ocean-art').count())throw Error('Mergulhador antigo duplicado sobre a fotografia');
+ const liveDiver=await page.locator('[data-depth-diver]').evaluate(el=>{
+  const photo=el.querySelector('.fb-real-diver-photo');
+  const clip=photo?.querySelector('clipPath path'),source=photo?.querySelector('image');
+  const frame=el.getBoundingClientRect(),scene=el.closest('[data-depth-stage]');
+  return {exists:!!photo,cutout:!!clip,source:source?.getAttribute('href')||'',
+    width:frame.width,height:frame.height,aboveLines:Number(getComputedStyle(el).zIndex)>Number(getComputedStyle(scene.querySelector('.fb-depth-guide')).zIndex),
+    imageBox:scene.querySelector('.fb-ocean-photo').getBoundingClientRect().height,stageHeight:scene.getBoundingClientRect().height};
+ });
+ if(!liveDiver.exists||!liveDiver.cutout||!liveDiver.source.includes('mergulhador-realista-aprovado.webp')||liveDiver.width>170||liveDiver.height>95||!liveDiver.aboveLines||liveDiver.imageBox/liveDiver.stageHeight<3)throw Error('Falta mergulhador FOTOGRÁFICO pequeno e arrastável sobre fundo sem duplicação: '+JSON.stringify(liveDiver));
+ if(await page.locator('[data-depth-diver] .fb-depth-marker').count())throw Error('A seta ↕ antiga não foi removida do mergulhador');
  const depthStage=page.locator('[data-depth-stage]');
  await depthStage.scrollIntoViewIfNeeded();
  const depthRect=await depthStage.boundingBox();
