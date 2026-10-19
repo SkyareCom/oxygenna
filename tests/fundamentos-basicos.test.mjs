@@ -12,7 +12,7 @@ test('Botão da Home abandona aula antiga e abre fundamentos físicos exclusivos
  assert.ok(!app.includes("primary(e(copy.action),next?lessonHref"));
  assert.ok(app.includes("section==='fundamentos-basicos'"));
  assert.ok(app.includes("renderFundamentosBasicos(state.lang,icon,back,e)"));
- assert.ok(html.includes('fundamentos-basicos.css?rev=photo-atm-20261019'));
+ assert.ok(html.includes('fundamentos-basicos.css?rev=depth-ruler-20261019'));
  assert.ok(html.includes('app.mjs?rev=photo-atm-central-refs-20261019'));
  assert.ok(css.includes('border: 1px solid #857557'));
  assert.ok(!css.includes('box-shadow:0'));
