@@ -133,9 +133,12 @@ try{
  await page.locator('main.historia-medicina-hiperbarica .history-timeline-item').first().waitFor();
  if(await page.locator('.history-timeline-item').count()!==7)throw Error('Página histórica com cronologia incompleta');
  if(await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').count()!==1)throw Error('Fotografia contemporânea não encontrada na página histórica');
- await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').scrollIntoViewIfNeeded();
- const modernImageLoaded=await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').evaluate(async el=>{try{await el.decode()}catch{}return el.complete&&el.naturalWidth>0});
- if(!modernImageLoaded)throw Error('Fotografia contemporânea não carregou');
+ await page.waitForFunction(()=>{
+  const el=document.querySelector('main.historia-medicina-hiperbarica .history-modern-figure img');
+  if(!el?.isConnected)return false;
+  el.scrollIntoView({block:'nearest'});
+  return el.complete&&el.naturalWidth>0;
+ },null,{timeout:12000});
  if(!(await page.locator('main.historia-medicina-hiperbarica h1').innerText()).includes('HISTÓRIA DA MEDICINA HIPERBÁRICA'))throw Error('Título da página histórica incorreto');
  if(await page.locator('main.historia-medicina-hiperbarica dialog,main.historia-medicina-hiperbarica [aria-modal="true"]').count())throw Error('História abriu popup indevido');
  await page.locator('main.historia-medicina-hiperbarica a.back[href="#home"]').click();
