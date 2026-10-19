@@ -82,10 +82,13 @@ export function renderHyperbaricHistoryCard(lang='pt'){
 }
 export function renderHyperbaricHistory(lang='pt',back=()=>'',safe=escapeHtml){
  const v=locale[lang]||locale.pt;
+ const modernAlt={pt:'Imagem contextual de prática hiperbárica moderna em ambiente clínico.',en:'Contextual photograph of contemporary hyperbaric practice in a clinical setting.',es:'Imagen contextual de la práctica hiperbárica moderna en un entorno clínico.'};
+ const modernCaption={pt:'Medicina hiperbárica contemporânea.',en:'Contemporary hyperbaric medicine.',es:'Medicina hiperbárica contemporánea.'};
  return back('#home')+
   '<header class="history-page-heading"><p class="tag">'+safe(v.eyebrow)+'</p><h1 class="display page-title">'+safe(v.title)+'</h1><p class="subtle">'+safe(v.intro)+'</p></header>'+
   '<figure class="history-page-figure">'+hyperbaricHistoryIllustration(lang)+'<figcaption>'+safe(v.caption)+'</figcaption></figure>'+
   '<section class="history-timeline" aria-label="'+safe(v.chronology)+'"><h2>'+safe(v.chronology)+'</h2>'+
   v.sections.map(([time,title,description])=>'<article class="history-timeline-item"><p class="tag">'+safe(time)+'</p><h3>'+safe(title)+'</h3><p>'+safe(description)+'</p></article>').join('')+'</section>'+
+  '<figure class="history-modern-figure"><img src="./assets/m01-foto-pratica-atual.webp" width="960" height="600" loading="lazy" decoding="async" alt="'+safe(modernAlt[lang]||modernAlt.pt)+'"><figcaption>'+safe(modernCaption[lang]||modernCaption.pt)+'</figcaption></figure>'+
   '<p class="history-editorial-note">'+safe(v.note)+'</p><p class="subtle history-reference-note">'+safe(v.references)+'</p>';
 }
