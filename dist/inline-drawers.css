@@ -1,0 +1,66 @@
+/* Regra global OXYGENNA: toda gaveta abre no fluxo da tela, nunca em overlay.
+   Mantém a paleta, a tipografia Saira e a borda padrão #857557. */
+main details[data-inline-drawer] {
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+  max-width: 100%;
+  box-shadow: none !important;
+  scroll-margin-top: calc(var(--header-height, 90px) + 12px);
+}
+main details[data-inline-drawer] > summary {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  overflow-wrap: anywhere;
+}
+main details[data-inline-drawer="plain"]:not(.m01-glossary details) {
+  width: 100%;
+  padding: 0;
+  border: 1px solid #857557;
+  border-radius: 12px;
+  background: #0a2431;
+  overflow: hidden;
+  margin: 14px 0;
+}
+main details[data-inline-drawer="plain"]:not(.m01-glossary details) > summary {
+  min-height: 44px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 12px/1.4 var(--sans);
+  color: var(--gold);
+  list-style: none;
+}
+main details[data-inline-drawer="plain"]:not(.m01-glossary details) > summary::-webkit-details-marker {
+  display: none;
+}
+main details[data-inline-drawer="plain"]:not(.m01-glossary details) > summary::after {
+  content: "⌄";
+  font-size: 16px;
+  flex: none;
+  margin-left: auto;
+  transition: transform 160ms ease;
+}
+main details[data-inline-drawer="plain"]:not(.m01-glossary details)[open] > summary::after {
+  transform: rotate(180deg);
+}
+main details[data-inline-drawer="plain"]:not(.m01-glossary details) > :not(summary) {
+  margin-left: 14px;
+  margin-right: 14px;
+}
+main details[data-inline-drawer="plain"]:not(.m01-glossary details) > :last-child:not(summary) {
+  margin-bottom: 14px;
+}
+main details[data-inline-drawer="plain"]:not(.m01-glossary details) > .source {
+  border-color: rgba(133, 117, 87, .35);
+}
+/* Preserve os glossários existentes: abrem embaixo do termo, sem nova borda. */
+main .m01-glossary details[data-inline-drawer="plain"] {
+  position: relative;
+  box-shadow: none;
+}
+@media (prefers-reduced-motion: reduce) {
+ main details[data-inline-drawer="plain"] > summary::after { transition: none; }
+}
