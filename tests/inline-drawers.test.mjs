@@ -21,7 +21,7 @@ test('Gavetas globais mantêm uma borda, não flutuam e preservam classes espec�
  const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
  const app=readFileSync(new URL('../dist/app.mjs',import.meta.url),'utf8');
  assert.ok(html.includes('inline-drawers.css?rev=global-inline-drawers-20261019'));
- assert.ok(html.includes('app.mjs?rev=depth-ruler-central-refs-20261019'));
+ assert.ok(html.includes('app.mjs?rev=movable-diver-central-refs-20261019'));
  assert.ok(app.includes("withInlineDrawers(page)"));
  assert.ok(app.includes('const main=withInlineDrawers('));
  assert.ok(css.includes('position: relative !important'));
