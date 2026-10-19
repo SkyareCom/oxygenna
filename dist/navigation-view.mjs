@@ -1,5 +1,5 @@
 import {navigationUI,NOTICE_IDS} from './navigation.mjs';
-import {renderHyperbaricHistoryCard} from './historia-hiperbarica.mjs?rev=historia-medica-20261019';
+import {renderHyperbaricHistoryCard} from './historia-hiperbarica.mjs?rev=historia-fotos-20261019';
 
 export function renderHeader({lang,icon,e,unread}){
  const n=navigationUI[lang];
