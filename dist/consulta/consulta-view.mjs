@@ -86,21 +86,18 @@ const question=(q,i,chosen)=>'<fieldset class="quiz" data-consulta-quiz="'+i+'">
  q.opcoes.map((o,j)=>'<button type="button" class="answer" data-consulta-answer="'+j+'" data-consulta-question="'+i+'" aria-pressed="'+(chosen===j)+'"><span>'+String.fromCharCode(65+j)+'</span><span>'+esc(o)+'</span></button>').join('')+
  (chosen!==undefined?'<p class="feedback '+(chosen===q.correta?'':'wrong')+'" role="status">'+(chosen===q.correta?'Resposta correta.':'Reveja o conteúdo do bloco '+esc(q.retorno_bloco_id.replace('bloco-',''))+'.')+'</p>':'')+'</fieldset>';
 const block=(number,title,body)=>'<section class="panel" id="bloco-'+number+'"><p class="tag">'+esc(title)+'</p>'+body+'</section>';
-const referenceBlock=refs=>'<details><summary>FONTES DE REFERÊNCIA</summary>'+
- '<p class="micro">'+esc(consultaData.fontes_contexto)+'</p>'+
- refs.map(r=>'<p class="source"><strong>'+esc(r)+'</strong></p>').join('')+'</details>';
 export function renderConsultaChapter(id,{answers={}}={}){
  const c=consultaById.get(id);
  if(!c)return pageTitle('NÃO ENCONTRADO','CAPÍTULO')+'<a class="secondary" data-consulta-link href="'+consultaHref('home')+'">VOLTAR</a>';
  return '<article data-consulta-chapter="'+esc(c.id)+'">'+
  block(0,'RESPOSTA CURTA','<h1 class="display page-title">'+esc(c.titulo_curto)+'</h1><p class="subtle">'+esc(c.fase)+'</p><p>'+esc(c.resposta_curta)+'</p>')+
  block(1,'CASO CLÍNICO',para(c.caso.texto))+
- block(2,'POR QUE IMPORTA','<h2>MECANISMO GASOSO</h2>'+para(c.porque.mecanismo_gas)+'<p class="tag">CONCEITO CHAVE</p>'+para(c.porque.conceito_chave)+'<p class="micro">Referências bibliográficas: '+esc(c.referencias.join(' · '))+'</p>')+
+ block(2,'POR QUE IMPORTA','<h2>MECANISMO GASOSO</h2>'+para(c.porque.mecanismo_gas)+'<p class="tag">CONCEITO CHAVE</p>'+para(c.porque.conceito_chave)+'')+
  block(3,'CONDUTA E DIFERENCIAÇÃO','<h2>FLUXO</h2>'+flow(c.conduta.fluxograma.nos)+'<h2>TABELA COMPARATIVA</h2>'+plainTable(c.conduta.tabela_comparativa)+(['us-navy-tabela-5','us-navy-tabela-6','us-navy-tabela-9-hart','dcs-tipo2'].includes(id)?'<p class="micro">US Navy: consulte edição oficial. Este resumo não fornece regime executável.</p>':''))+
  block(4,'CHECKLIST DE CÂMARA',checkList(c.pericia.checklist)+'<p class="subtle">'+esc(c.pericia.dica_ouro)+'</p>')+
  block(5,'GALERIA E MÍDIAS','<p class="subtle">Recursos multimídia integráveis ao conteúdo, após curadoria científica.</p>')+
  block(6,'LEVE PARA A PRÁTICA','<ul class="curriculum-topics">'+c.fechamento.take_home.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul><h2>TESTE O CONHECIMENTO</h2>'+
- c.fechamento.quiz.map((q,i)=>question(q,i,answers[i])).join('')+referenceBlock(c.referencias))+
+ c.fechamento.quiz.map((q,i)=>question(q,i,answers[i])).join(''))+
  '<p class="micro">'+esc(consultaData.aviso)+'</p></article>';
 }
 export function renderConsultaPage(route,options={}){
