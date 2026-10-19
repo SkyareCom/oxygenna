@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths:
       - "dist/**"
-      - "scripts/escurecer-piso-fisiologia.py"
       - "tests/**"
       - "package.json"
       - ".github/workflows/github-pages.yml"
@@ -31,10 +30,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Aplicar piso escuro ao card FISIOLOGIA
-        run: |
-          python -m pip install --disable-pip-version-check --quiet Pillow==11.3.0
-          python scripts/escurecer-piso-fisiologia.py
       - name: Testar todas as rotas e conteúdos
         run: npm test
       - name: Verificar arquivos fundamentais
