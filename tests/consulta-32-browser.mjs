@@ -159,6 +159,21 @@ try{
  await page.locator('.bottom-nav a[href$="/home"]').click();
  await page.locator('.study-map').waitFor();
  if(await page.locator('.home-title').innerText()!=='Ciência sob pressão.')throw Error('HOME original não foi preservada');
+ // Em todas as seções, gavetas abrem direto na tela e não cobrem a navegação.
+ await page.evaluate(()=>{location.hash='#chapters';});
+ const inlineDrawer=page.locator('main.chapters details[data-inline-drawer]').first();
+ await inlineDrawer.waitFor();
+ const wasOpen=await inlineDrawer.evaluate(el=>el.open);
+ await inlineDrawer.locator('summary').click();
+ const drawerMetrics=await inlineDrawer.evaluate(el=>{
+  const s=getComputedStyle(el),header=getComputedStyle(document.querySelector('.app-header')),footer=getComputedStyle(document.querySelector('.bottom-nav'));
+  return {open:el.open,position:s.position,shadow:s.boxShadow,border:s.borderTopColor,borderWidth:s.borderTopWidth,header:header.position,footer:footer.position};
+ });
+ if(drawerMetrics.open===wasOpen)throw Error('A gaveta não respondeu ao clique');
+ if(drawerMetrics.position!=='relative'||drawerMetrics.shadow!=='none'||drawerMetrics.header!=='fixed'||drawerMetrics.footer!=='fixed')throw Error('Gaveta abriu como sobreposição: '+JSON.stringify(drawerMetrics));
+ if(await page.locator('main.chapters dialog,[aria-modal="true"]').count())throw Error('Abertura de popup/modal na tela de capítulos');
+ await page.locator('a.brand[href="#home"]').click();
+ await page.locator('.study-map').waitFor();
  // As rotas internas continuam tecnicamente disponíveis, embora não listadas nas quatro telas vazias.
  await page.evaluate(()=>{
   history.pushState(null,'','/oxygenna/capitulo/dcs-tipo2');
