@@ -5,8 +5,8 @@ import {renderCurriculum,renderModule,renderModuleTopic} from './curriculum-view
 import {handleModule01Click,handleModule01Input} from './module01-media.mjs?rev=knowledge-final-20261018';
 import {handleKnowledgeClick} from './knowledge-check.mjs?rev=knowledge-final-20261018';
 import {navigationUI,sectionModules,activeSection,normalizeContext,getCurriculumItems,moduleHref,lessonHref,NOTICE_IDS,loadReadNotices,markNoticesRead} from './navigation.mjs?rev=camara-6mod-20261017';
-import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs?rev=historia-medica-20261019';
-import {renderHyperbaricHistory} from './historia-hiperbarica.mjs?rev=historia-medica-20261019';
+import {renderHeader,renderFooter,renderStudyMap,renderNotices} from './navigation-view.mjs?rev=historia-fotos-20261019';
+import {renderHyperbaricHistory} from './historia-hiperbarica.mjs?rev=historia-fotos-20261019';
 import {renderFocus} from './focus-view.mjs';
 import {renderClinicalCatalog,renderClinicalDetail} from './clinical-view.mjs';
 import {loadState,saveState,completeLesson,boyle,partialPressure,henryRelative,thermalRatio,pressureUnits} from './core.mjs';
