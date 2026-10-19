@@ -116,6 +116,8 @@ try{
  if(await studyCTA.getAttribute('href')!=='#chapters')throw Error('Destino antigo do botão foi alterado');
  const historyCard=page.locator('main.home > .history-home-card');
  if(await historyCard.count()!==1)throw Error('Card HISTÓRIA DA MEDICINA HIPERBÁRICA ausente');
+ await historyCard.scrollIntoViewIfNeeded();
+ await page.locator('main.home .history-real-photo').evaluate(async el=>{try{await el.decode()}catch{}});
  if(await page.locator('main.home .history-home-card .history-real-photo').count()!==1)throw Error('Falta a fotografia histórica ou foi mantido SVG genérico');
  const photo=await page.locator('main.home .history-real-photo').evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,src:el.getAttribute('src'),fit:getComputedStyle(el).objectFit}));
  if(!photo.loaded||!photo.src.includes('m01-foto-experimentacao.webp')||photo.fit!=='cover')throw Error('Fotografia editorial não carregou: '+JSON.stringify(photo));
@@ -131,7 +133,8 @@ try{
  await page.locator('main.historia-medicina-hiperbarica .history-timeline-item').first().waitFor();
  if(await page.locator('.history-timeline-item').count()!==7)throw Error('Página histórica com cronologia incompleta');
  if(await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').count()!==1)throw Error('Fotografia contemporânea não encontrada na página histórica');
- const modernImageLoaded=await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').evaluate(el=>el.complete&&el.naturalWidth>0);
+ await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').scrollIntoViewIfNeeded();
+ const modernImageLoaded=await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').evaluate(async el=>{try{await el.decode()}catch{}return el.complete&&el.naturalWidth>0});
  if(!modernImageLoaded)throw Error('Fotografia contemporânea não carregou');
  if(!(await page.locator('main.historia-medicina-hiperbarica h1').innerText()).includes('HISTÓRIA DA MEDICINA HIPERBÁRICA'))throw Error('Título da página histórica incorreto');
  if(await page.locator('main.historia-medicina-hiperbarica dialog,main.historia-medicina-hiperbarica [aria-modal="true"]').count())throw Error('História abriu popup indevido');
