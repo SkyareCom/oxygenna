@@ -37,7 +37,7 @@ test('Card e página histórica completos em três idiomas, sem pop-ups nem refe
 });
 test('Imagem temática é uma ilustração SVG original completa e offline, não emoji nem ícone genérico',()=>{
  const art=hyperbaricHistoryIllustration('pt');
- for(const token of ['viewBox="0 0 640 320"','linearGradient','history-copper','history-steel','1660s','HOJE','role="img"','Câmara'])assert.ok(art.includes(token),token);
+ for(const token of ['viewBox="0 0 640 320"','linearGradient','history-copper','history-steel','1660s','HOJE','role="img"','câmaras hiperbáricas'])assert.ok(art.includes(token),token);
  assert.ok((art.match(/<path /g)||[]).length>9);
  assert.ok((art.match(/<rect /g)||[]).length>10);
  assert.doesNotMatch(art,/<image |https?:\/\/|data:image|onclick/);
