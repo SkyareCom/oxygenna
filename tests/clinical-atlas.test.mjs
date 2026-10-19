@@ -63,7 +63,7 @@ test('clinical records have one complete chapter and retain links from every rel
     assert.ok(html.includes(`data-condition="${c.id}"`));
     for(const field of ['title','selection','priority','care','regimen','review','scope'])assert.ok(html.includes(c[lang][field]),`${c.id}: chapter contains ${lang}.${field}`);
     assert.ok(html.includes(`href="#protocol/${c.id}"`));
-    for(const id of c.sources)assert.ok(html.includes(sources[id].url));
+    for(const id of c.sources){assert.ok(sources[id]?.url,'the clinical source remains registered');assert.ok(!html.includes(sources[id].url),'clinical references are no longer duplicated inside chapters');}
    }
    for(const c of references){
     assert.ok(html.includes(`data-condition="${c.id}" href="#module/${c.primaryModule}/protocols"`));
@@ -75,11 +75,15 @@ test('clinical records have one complete chapter and retain links from every rel
  }
 });
 
-test('protocol references cite each source once and identify the regimen source',()=>{
+test('protocol sources remain preserved in the central Profile bibliography',()=>{
+ const registry=Object.values(sources).map(item=>item.url);
  for(const lang of ['pt','en','es'])for(const c of clinicalConditions){
   const html=renderClinicalDetail('protocol',c.id,{lang,e,icon,back,sourceLinks,notFound:()=>''});
-  for(const id of new Set([...c.sources,'code','fda']))assert.equal(html.split(`href="${sources[id].url}"`).length-1,1,`${c.id}: ${id} is cited once`);
-  if(c.regimenSource)assert.ok(html.includes(clinicalUI[lang].regimenReference));
+  for(const id of new Set([...c.sources,'code','fda'])){
+   assert.ok(registry.includes(sources[id].url),c.id+': source registered');
+   assert.ok(!html.includes(sources[id].url),c.id+': inline source removed');
+  }
+  assert.ok(html.includes(clinicalUI[lang].safety),c.id+': safety drawer retained');
  }
 });
 
