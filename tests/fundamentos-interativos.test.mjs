@@ -46,6 +46,11 @@ test('SVGs ilustrados, controles acessíveis e três atividades nos três idioma
   assert.ok(markup.includes('<svg')&&markup.includes('fb-ocean-photo'));
   assert.ok(markup.includes('fb-bubble-art')&&markup.includes('fb-gas-art'));
   assert.ok(markup.includes('mergulhador-realista-aprovado.webp')&&markup.includes('data-depth-photo'),lang);
+  assert.equal((markup.match(/class="fb-depth-tick"/g)||[]).length,7,'7 numeric depth labels');
+  assert.equal((markup.match(/class="fb-depth-guide"/g)||[]).length,7,'7 full width guides');
+  for(let i=0;i<=60;i+=10)assert.ok(markup.includes('>'+i+' m</span>'),'Depth tick '+i+'m');
+  assert.ok(markup.includes('class="fb-depth-ruler"'),'visible vertical depth ruler');
+  assert.ok(markup.includes('data-depth-active'),'active horizontal guide');
   assert.ok(markup.includes(' kPa · ')&&markup.includes(' atm'),lang);
  }
 });
@@ -105,4 +110,9 @@ test('App conecta clique, arraste, teclado, faixa e inputs; CSS sem molduras dup
  assert.ok(css.includes('.fb-ocean-stage')&&css.includes('.fb-diver-handle'));
  assert.ok(css.includes('touch-action:none'));
  assert.ok(css.includes('border: 1px solid #857557'));
+ assert.ok(css.includes('object-fit:contain'),'Photo should not be cropped or zoomed');
+ assert.ok(css.includes('transform:none'),'Photo should not translate or scale with depth');
+ assert.ok(!css.includes('scale(1.28)'),'Old 128% photo zoom removed');
+ assert.ok(css.includes('.fb-depth-guide')&&css.includes('.fb-depth-ruler')&&css.includes('.fb-depth-active-line'),'Ruler and line styles included');
+ assert.ok(!app.includes('--fb-photo-y'),'Static background must not track slider position');
 });
