@@ -59,50 +59,16 @@ const locale={
 const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const hyperbaricHistoryContent=locale;
 
-// Vetor ilustrativo histórico: bronze, aço e medidores manométricos.
-// É uma imagem SVG completa, não um ícone nem um pop-up; renderiza offline.
+// Reaproveita fotografias do próprio aplicativo: sem ilustração vetorial,
+// ícones simulando equipamentos, dependências externas ou novos arquivos de imagem.
 export function hyperbaricHistoryIllustration(lang='pt'){
- const a=escapeHtml((locale[lang]||locale.pt).illustration),today=lang==='en'?'TODAY':lang==='es'?'HOY':'HOJE';
- return '<svg class="history-hyperbaric-art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="'+a+'">'+
-  '<defs><linearGradient id="history-bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#142f3a"/><stop offset=".52" stop-color="#0a2530"/><stop offset="1" stop-color="#061824"/></linearGradient>'+
-  '<linearGradient id="history-copper" x1="0" y1=".1" x2="1" y2=".9"><stop stop-color="#eddbac"/><stop offset=".2" stop-color="#967149"/><stop offset=".55" stop-color="#c09a66"/><stop offset=".85" stop-color="#564435"/><stop offset="1" stop-color="#ac8a60"/></linearGradient>'+
-  '<linearGradient id="history-steel" x1="0" x2="1"><stop stop-color="#849c9f"/><stop offset=".24" stop-color="#dce7dd"/><stop offset=".53" stop-color="#849d9b"/><stop offset=".79" stop-color="#e5dfc8"/><stop offset="1" stop-color="#536c75"/></linearGradient>'+
-  '<radialGradient id="history-glow"><stop stop-color="#d4bd85" stop-opacity=".23"/><stop offset="1" stop-color="#0b2730" stop-opacity="0"/></radialGradient></defs>'+
-  '<rect width="640" height="320" rx="15" fill="url(#history-bg)"/><circle cx="328" cy="148" r="210" fill="url(#history-glow)"/>'+
-  '<path d="M18 277H620M35 45H603" stroke="#a98b59" stroke-opacity=".35" stroke-width="1.5"/>'+
-  '<g opacity=".19" stroke="#ddc38d"><path d="M30 66H610M30 100H610M30 134H610M30 168H610M30 202H610M30 236H610" stroke-dasharray="2 16"/>'+
-  '<path d="M96 28V280M205 28V280M315 28V280M423 28V280M534 28V280" stroke-dasharray="2 16"/></g>'+
-  '<g transform="translate(35 38)"><path d="M31 239V111Q31 64 82 47H151Q206 69 206 116V239Z" fill="url(#history-copper)" stroke="#dec090" stroke-width="4"/>'+
-  '<path d="M48 232V113Q48 78 92 66H140Q188 77 188 116V232Z" fill="#192e33" stroke="#c9a474" stroke-width="3"/>'+
-  '<path d="M57 225V122Q57 93 96 85H137Q179 96 179 124V225Z" fill="#30454a" stroke="#735a3b" stroke-width="2"/>'+
-  '<path d="M86 152V207M113 135V207M140 152V207" stroke="#bd9f73" stroke-opacity=".55" stroke-width="4"/>'+
-  '<rect x="102" y="6" width="31" height="52" rx="9" fill="#c3a16f" stroke="#eed3a4" stroke-width="4"/>'+
-  '<path d="M117 6V-4M131 22H167V10H182V54" fill="none" stroke="#d9bf8f" stroke-width="7" stroke-linejoin="round"/>'+
-  '<circle cx="184" cy="64" r="26" fill="#132c32" stroke="#d6b889" stroke-width="7"/>'+
-  '<circle cx="184" cy="64" r="18" fill="#edf0dd"/><path d="M184 64l10-11" stroke="#39494d" stroke-width="3" stroke-linecap="round"/>'+
-  '<circle cx="184" cy="64" r="3" fill="#745f40"/>'+
-  '<path d="M24 237H215M46 247H194" stroke="#e7d0a1" stroke-width="5"/>'+
-  '<circle cx="63" cy="112" r="5" fill="#ead6ad"/><circle cx="173" cy="112" r="5" fill="#ead6ad"/>'+
-  '<circle cx="63" cy="221" r="5" fill="#ead6ad"/><circle cx="173" cy="221" r="5" fill="#ead6ad"/>'+
-  '<rect x="88" y="228" width="64" height="17" rx="5" fill="#b9a273"/></g>'+
-  '<g opacity=".85"><path d="M287 162H355" stroke="#d2b17d" stroke-width="5" stroke-linecap="round"/>'+
-  '<path d="M345 152l14 10-14 10" fill="none" stroke="#d2b17d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>'+
-  '<g transform="translate(358 71)"><rect x="8" y="72" width="230" height="137" rx="42" fill="url(#history-steel)" stroke="#d4d8c6" stroke-width="5"/>'+
-  '<rect x="27" y="91" width="170" height="101" rx="29" fill="#1f4650" stroke="#acc2bb" stroke-width="5"/>'+
-  '<rect x="39" y="101" width="146" height="80" rx="20" fill="#4f7880" stroke="#c4dfd8" stroke-width="3"/>'+
-  '<path d="M52 126Q100 100 164 123" stroke="#d3e8e3" stroke-opacity=".72" stroke-width="6" fill="none"/>'+
-  '<path d="M55 150H155" stroke="#eef0dc" stroke-width="3" opacity=".6"/>'+
-  '<circle cx="212" cy="140" r="25" fill="#173643" stroke="#f0e4bf" stroke-width="6"/>'+
-  '<circle cx="212" cy="140" r="13" fill="#86a7a6"/><path d="M24 199H219" stroke="#e9ddbe" stroke-width="6"/>'+
-  '<path d="M77 210v23M161 210v23" stroke="#9cad9d" stroke-width="10"/>'+
-  '<rect x="62" y="230" width="119" height="11" rx="4" fill="#acb5a8"/>'+
-  '<rect x="193" y="28" width="36" height="65" rx="6" fill="#d9dfcb" stroke="#718a8d" stroke-width="4"/>'+
-  '<rect x="201" y="37" width="20" height="19" rx="3" fill="#153c48"/>'+
-  '<path d="M211 56v25M197 71h28" stroke="#75c5bc" stroke-width="3"/>'+
-  '<path d="M110 70V48H183" stroke="#c8d8c8" stroke-width="6" fill="none"/>'+
-  '<circle cx="106" cy="69" r="10" fill="#122e3a" stroke="#efdfb6" stroke-width="4"/></g>'+
-  '<g fill="#ead1a0" font-family="sans-serif" letter-spacing="2" font-size="13"><text x="94" y="303">1660s</text><text x="479" y="303">'+today+'</text></g>'+
-  '</svg>';
+ const labels={
+  pt:'Cena fotográfica contextual de experimentações históricas com gases e pressão.',
+  en:'Contextual photographic scene of early pressure and gas experimentation.',
+  es:'Escena fotográfica contextual de experimentos históricos con gases y presión.'
+ };
+ return '<img class="history-real-photo" src="./assets/m01-foto-experimentacao.webp" '+
+  'alt="'+escapeHtml(labels[lang]||labels.pt)+'" width="960" height="600" loading="lazy" decoding="async">';
 }
 export function renderHyperbaricHistoryCard(lang='pt'){
  const v=locale[lang]||locale.pt;
@@ -114,10 +80,13 @@ export function renderHyperbaricHistoryCard(lang='pt'){
 }
 export function renderHyperbaricHistory(lang='pt',back=()=>'',safe=escapeHtml){
  const v=locale[lang]||locale.pt;
+ const modernAlt={pt:'Imagem contextual de prática hiperbárica moderna em ambiente clínico.',en:'Contextual photograph of contemporary hyperbaric practice in a clinical setting.',es:'Imagen contextual de la práctica hiperbárica moderna en un entorno clínico.'};
+ const modernCaption={pt:'Medicina hiperbárica contemporânea.',en:'Contemporary hyperbaric medicine.',es:'Medicina hiperbárica contemporánea.'};
  return back('#home')+
   '<header class="history-page-heading"><p class="tag">'+safe(v.eyebrow)+'</p><h1 class="display page-title">'+safe(v.title)+'</h1><p class="subtle">'+safe(v.intro)+'</p></header>'+
   '<figure class="history-page-figure">'+hyperbaricHistoryIllustration(lang)+'<figcaption>'+safe(v.caption)+'</figcaption></figure>'+
   '<section class="history-timeline" aria-label="'+safe(v.chronology)+'"><h2>'+safe(v.chronology)+'</h2>'+
   v.sections.map(([time,title,description])=>'<article class="history-timeline-item"><p class="tag">'+safe(time)+'</p><h3>'+safe(title)+'</h3><p>'+safe(description)+'</p></article>').join('')+'</section>'+
+  '<figure class="history-modern-figure"><img src="./assets/m01-foto-pratica-atual.webp" width="960" height="600" loading="lazy" decoding="async" alt="'+safe(modernAlt[lang]||modernAlt.pt)+'"><figcaption>'+safe(modernCaption[lang]||modernCaption.pt)+'</figcaption></figure>'+
   '<p class="history-editorial-note">'+safe(v.note)+'</p><p class="subtle history-reference-note">'+safe(v.references)+'</p>';
 }

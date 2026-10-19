@@ -17,8 +17,12 @@ main.home .history-home-card:focus-visible {
   outline-offset:3px;
 }
 main.home .history-home-card:is(:hover,:active) { border-color:#e1c68f; }
-.history-home-image { display:block; width:100%; background:#081d2a; line-height:0; }
-.history-hyperbaric-art { display:block; width:100%; height:auto; max-height:235px; }
+.history-home-image { display:block; width:100%; background:#081d2a; line-height:0; overflow:hidden; }
+.history-real-photo {
+  display:block; width:100%; height:auto; aspect-ratio:16/9;
+  object-fit:cover; object-position:center 48%;
+  max-height:265px; border:0; border-radius:0; box-shadow:none; filter:none;
+}
 .history-home-copy {
  display:flex; flex-direction:column; gap:8px; padding:14px 17px 17px;
 }
@@ -39,9 +43,23 @@ main.historia-medicina-hiperbarica .history-page-figure {
  border:1px solid #857557; border-radius:15px; overflow:hidden;
  background:#091f2b; box-shadow:none;
 }
-main.historia-medicina-hiperbarica .history-page-figure figcaption {
+main.historia-medicina-hiperbarica .history-page-figure figcaption,
+main.historia-medicina-hiperbarica .history-modern-figure figcaption {
  padding:11px 13px;
  font:400 12px/1.5 var(--sans); color:var(--muted);
+}
+main.historia-medicina-hiperbarica .history-page-figure .history-real-photo {
+ width:100%; max-height:none; aspect-ratio:16/10;
+ object-fit:cover; object-position:center;
+}
+main.historia-medicina-hiperbarica .history-modern-figure {
+ margin:12px 0 20px; padding:0; border:1px solid #857557;
+ border-radius:15px; background:#091f2b; overflow:hidden; box-shadow:none;
+}
+main.historia-medicina-hiperbarica .history-modern-figure img {
+ display:block; width:100%; height:auto; aspect-ratio:16/10;
+ object-fit:cover; object-position:center;
+ border:0; box-shadow:none;
 }
 main.historia-medicina-hiperbarica .history-timeline { margin:14px 0 20px; }
 main.historia-medicina-hiperbarica .history-timeline>h2 {
