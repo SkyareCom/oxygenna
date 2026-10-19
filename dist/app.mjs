@@ -91,7 +91,7 @@ function renderEmptySectionBase(){
 }
 function renderFisiologiaPresentation(){
  return '<figure class="oxygenna-fisiologia-presentation" aria-label="Apresentação da seção Fisiologia">'+
-  '<img src="./assets/fisiologia-camara-apresentacao.webp" width="800" height="522" loading="eager" decoding="async" alt="Câmara hiperbárica hospitalar com título FISIOLOGIA na base da imagem">'+
+  '<img src="./assets/fisiologia-camara-apresentacao.webp?rev=piso-antracito-20261019" width="800" height="522" loading="eager" decoding="async" alt="Câmara hiperbárica hospitalar com título FISIOLOGIA na base da imagem">'+
   '<figcaption class="sr-only">Fisiologia</figcaption></figure>';
 }
 function render(){

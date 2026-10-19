@@ -133,9 +133,12 @@ try{
  await page.locator('main.historia-medicina-hiperbarica .history-timeline-item').first().waitFor();
  if(await page.locator('.history-timeline-item').count()!==7)throw Error('Página histórica com cronologia incompleta');
  if(await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').count()!==1)throw Error('Fotografia contemporânea não encontrada na página histórica');
- await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').scrollIntoViewIfNeeded();
- const modernImageLoaded=await page.locator('main.historia-medicina-hiperbarica .history-modern-figure img').evaluate(async el=>{try{await el.decode()}catch{}return el.complete&&el.naturalWidth>0});
- if(!modernImageLoaded)throw Error('Fotografia contemporânea não carregou');
+ await page.waitForFunction(()=>{
+  const el=document.querySelector('main.historia-medicina-hiperbarica .history-modern-figure img');
+  if(!el?.isConnected)return false;
+  el.scrollIntoView({block:'nearest'});
+  return el.complete&&el.naturalWidth>0;
+ },null,{timeout:12000});
  if(!(await page.locator('main.historia-medicina-hiperbarica h1').innerText()).includes('HISTÓRIA DA MEDICINA HIPERBÁRICA'))throw Error('Título da página histórica incorreto');
  if(await page.locator('main.historia-medicina-hiperbarica dialog,main.historia-medicina-hiperbarica [aria-modal="true"]').count())throw Error('História abriu popup indevido');
  await page.locator('main.historia-medicina-hiperbarica a.back[href="#home"]').click();
@@ -199,6 +202,16 @@ try{
    });
    if(!props.loaded||!props.src.includes('fisiologia-camara-apresentacao.webp'))throw Error('Imagem aprovada não carregou: '+JSON.stringify(props));
    if(props.border!=='rgb(133, 117, 87)'||props.borderWidth!=='1px'||props.imageBorder!=='0px'||props.shadow!=='none'||props.imageShadow!=='none'||props.overflow!=='hidden'||props.figureWidth>props.viewport)throw Error('Sombra, transbordamento ou borda dupla: '+JSON.stringify(props));
+    const photoColor=await figure.evaluate(el=>{
+      const im=el.querySelector('img'),canvas=document.createElement('canvas');
+      canvas.width=im.naturalWidth;canvas.height=im.naturalHeight;
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});
+      ctx.drawImage(im,0,0);
+      const sample=(x,y)=>Array.from(ctx.getImageData(x,y,1,1).data).slice(0,3);
+      return {floor:sample(500,417),chamber:sample(550,180),title:sample(400,470),width:canvas.width,height:canvas.height,src:im.getAttribute('src')};
+    });
+    if(photoColor.width!==800||photoColor.height!==522||!photoColor.src.includes('piso-antracito-20261019'))throw Error('Versão editada de FISIOLOGIA ausente: '+JSON.stringify(photoColor));
+    if(photoColor.floor.reduce((a,b)=>a+b,0)>300||photoColor.chamber.reduce((a,b)=>a+b,0)<270)throw Error('Piso não ficou escuro ou a câmara foi escurecida: '+JSON.stringify(photoColor));
   }else if(await page.locator('main.oxygenna-blank-page .oxygenna-fisiologia-presentation').count()){
    throw Error('Imagem de Fisiologia apareceu em '+route);
   }
