@@ -91,6 +91,7 @@ test('skip fragment reload renders the app, changes language, and preserves less
   assert.ok(appHTML.includes('11 initial syntheses available'),'focused maps count their unique available lessons');
   for(const click of clicks)click({target:{closest:s=>s==='button'?spanish:null},preventDefault(){}});
   location.hash='#sources';windowEvents.hashchange();
-  assert.ok(appHTML.includes('Referencia bibliográfica aportada; libro completo no consultado'));
+  assert.ok(appHTML.includes('data-profile-references open'),'legacy sources link must reveal profile drawer');
+  assert.ok(appHTML.includes('FUENTES DE REFERENCIA'),'sources are consolidated within profile');
  }finally{for(const [k,v] of Object.entries(saved)){if(v===undefined)delete globalThis[k];else globalThis[k]=v;}}
 });
