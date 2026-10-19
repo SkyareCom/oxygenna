@@ -73,7 +73,7 @@ const copy={
 };
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const fundamentalsContent=copy;
-const convertUnits=['ATA','kPa','bar','hPa','mmHg','psi'];
+const convertUnits=['ATA','atm','kPa','bar','hPa','mmHg','psi'];
 const showTable=(rows)=>'<div class="fb-table-scroll"><table class="fb-table"><tbody>'+rows.map(([a,b])=>'<tr><th scope="row">'+escapeHTML(a)+'</th><td>'+escapeHTML(b)+'</td></tr>').join('')+'</tbody></table></div>';
 export function renderFundamentosBasicos(lang='pt',icon=()=>'',back=()=>'',escape=escapeHTML){
  const v=copy[lang]||copy.pt,format=n=>new Intl.NumberFormat(lang,{maximumFractionDigits:4}).format(n);
