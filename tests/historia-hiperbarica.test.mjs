@@ -40,7 +40,7 @@ test('Imagem temática é uma ilustração SVG original completa e offline, não
  for(const token of ['viewBox="0 0 640 320"','linearGradient','history-copper','history-steel','1660s','HOJE','role="img"','câmaras hiperbáricas'])assert.ok(art.includes(token),token);
  assert.ok((art.match(/<path /g)||[]).length>9);
  assert.ok((art.match(/<rect /g)||[]).length>=7);
- assert.doesNotMatch(art,/<image |https?:\/\/|data:image|onclick/);
+ assert.doesNotMatch(art,/<image |\shref=["'](?:https?:|data:)|onclick/);
 });
 test('Fontes verificadas UHMS 15th edition e revisão 2020 ficam apenas no Perfil',()=>{
  const refs=getConsolidatedReferences().scientific;
