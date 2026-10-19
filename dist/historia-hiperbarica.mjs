@@ -2,7 +2,7 @@
 // Fontes científicas reunidas exclusivamente no Perfil > FONTES DE REFERÊNCIA.
 const locale={
  pt:{
-  title:'HISTÓRIA DA MEDICINA HIPERBÁRICA',eyebrow:'O VOO DA PRESSÃO ATRAVÉS DOS SÉCULOS',
+  title:'HISTÓRIA DA MEDICINA HIPERBÁRICA',eyebrow:'DA PRESSÃO À OXIGENOTERAPIA',
   caption:'Da experimentação com ar comprimido à oxigenoterapia hiperbárica baseada em evidências.',
   open:'CONHECER A HISTÓRIA',illustration:'Evolução ilustrada das câmaras hiperbáricas, de uma instalação pneumática antiga à câmara médica moderna',
   intro:'A medicina hiperbárica não surgiu pronta. É o resultado de séculos de experimentação com pressão, pesquisa sobre o oxigênio, medicina do mergulho e avaliação clínica.',
@@ -62,7 +62,7 @@ export const hyperbaricHistoryContent=locale;
 // Vetor ilustrativo histórico: bronze, aço e medidores manométricos.
 // É uma imagem SVG completa, não um ícone nem um pop-up; renderiza offline.
 export function hyperbaricHistoryIllustration(lang='pt'){
- const a=escapeHtml((locale[lang]||locale.pt).illustration);
+ const a=escapeHtml((locale[lang]||locale.pt).illustration),today=lang==='en'?'TODAY':lang==='es'?'HOY':'HOJE';
  return '<svg class="history-hyperbaric-art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="'+a+'">'+
   '<defs><linearGradient id="history-bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#142f3a"/><stop offset=".52" stop-color="#0a2530"/><stop offset="1" stop-color="#061824"/></linearGradient>'+
   '<linearGradient id="history-copper" x1="0" y1=".1" x2="1" y2=".9"><stop stop-color="#eddbac"/><stop offset=".2" stop-color="#967149"/><stop offset=".55" stop-color="#c09a66"/><stop offset=".85" stop-color="#564435"/><stop offset="1" stop-color="#ac8a60"/></linearGradient>'+
@@ -101,7 +101,7 @@ export function hyperbaricHistoryIllustration(lang='pt'){
   '<path d="M211 56v25M197 71h28" stroke="#75c5bc" stroke-width="3"/>'+
   '<path d="M110 70V48H183" stroke="#c8d8c8" stroke-width="6" fill="none"/>'+
   '<circle cx="106" cy="69" r="10" fill="#122e3a" stroke="#efdfb6" stroke-width="4"/></g>'+
-  '<g fill="#ead1a0" font-family="sans-serif" letter-spacing="2" font-size="13"><text x="94" y="303">1660s</text><text x="479" y="303">HOJE</text></g>'+
+  '<g fill="#ead1a0" font-family="sans-serif" letter-spacing="2" font-size="13"><text x="94" y="303">1660s</text><text x="479" y="303">'+today+'</text></g>'+
   '</svg>';
 }
 export function renderHyperbaricHistoryCard(lang='pt'){
