@@ -43,9 +43,10 @@ test('SVGs ilustrados, controles acessíveis e três atividades nos três idioma
    assert.ok(markup.includes(sel),sel);
   }
   assert.ok(markup.includes('role="slider"')&&markup.includes('aria-valuemin="0"'));
-  assert.ok(markup.includes('<svg')&&markup.includes('fb-diver-illustration'));
+  assert.ok(markup.includes('<svg')&&markup.includes('fb-ocean-photo'));
   assert.ok(markup.includes('fb-bubble-art')&&markup.includes('fb-gas-art'));
-  assert.ok(markup.includes('fb-ocean-art'),lang);
+  assert.ok(markup.includes('mergulhador-realista-aprovado.webp')&&markup.includes('data-depth-photo'),lang);
+  assert.ok(markup.includes(' kPa · ')&&markup.includes(' atm'),lang);
  }
 });
 
