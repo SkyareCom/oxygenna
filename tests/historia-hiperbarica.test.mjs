@@ -70,8 +70,8 @@ test('Novos estilos preservam o desenho original e evitam sombra e modais',()=>{
  assert.ok(!css.includes('.history-hyperbaric-art'));
  assert.ok(css.includes('.history-modern-figure'));
 
- assert.ok(html.includes('historia-hiperbarica.css?rev=historia-medica-20261019'));
- assert.ok(html.includes('app.mjs?rev=history-home-20261019'));
+ assert.ok(html.includes('historia-hiperbarica.css?rev=historia-fotos-20261019'));
+ assert.ok(html.includes('app.mjs?rev=history-photographic-20261019'));
  assert.ok(app.includes("section==='historia-medicina-hiperbarica'"));
  assert.ok(app.includes('renderHyperbaricHistory(state.lang,back,e)'));
  assert.ok(app.includes("renderHyperbaricHistoryCard")===false); // card is owned by navigation view
