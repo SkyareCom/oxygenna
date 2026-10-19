@@ -46,6 +46,10 @@ test('SVGs ilustrados, controles acessíveis e três atividades nos três idioma
   assert.ok(markup.includes('<svg')&&markup.includes('fb-ocean-photo'));
   assert.ok(markup.includes('fb-bubble-art')&&markup.includes('fb-gas-art'));
   assert.ok(markup.includes('mergulhador-realista-aprovado.webp')&&markup.includes('data-depth-photo'),lang);
+  assert.ok(markup.includes('class="fb-real-diver-photo"'),'real diver is the draggable control');
+  assert.ok(markup.includes('clip-path="url(#fb-real-diver-mask)"'),'real diver is photo-masked');
+  assert.ok(!markup.includes('fb-depth-marker'),'old arrow badge removed');
+  assert.ok(markup.includes('style="top:11%"'),'slider avoids clipping at surface');
   assert.equal((markup.match(/class="fb-depth-tick"/g)||[]).length,7,'7 numeric depth labels');
   assert.equal((markup.match(/class="fb-depth-guide"/g)||[]).length,7,'7 full width guides');
   for(let i=0;i<=60;i+=10)assert.ok(markup.includes('>'+i+' m</span>'),'Depth tick '+i+'m');
@@ -67,7 +71,7 @@ test('Atualização visual muda pressão, posição do mergulhador e estados de 
  assert.equal(updatePhysicsActivity(range,'pt'),true);
  assert.ok(elements.get('[data-depth-absolute]').textContent.includes('1,99'));
  assert.equal(diver['aria-valuenow'],'10');
- assert.ok(parseFloat(diver.style.top)>5.5);
+ assert.ok(parseFloat(diver.style.top)>11);
  water.value='fresh';water.matches=s=>s.includes('data-depth-water');water.closest=()=>root;
  assert.equal(updatePhysicsActivity(water,'pt'),true);
  assert.ok(elements.get('[data-depth-absolute]').textContent.includes('1,97'));
@@ -96,7 +100,7 @@ test('Mergulhador recebe profundidade de toque vertical da imagem',()=>{
  const stage={getBoundingClientRect:()=>({top:100,height:400}),closest:()=>root};
  assert.ok(setDiverDepthFromPointer(stage,122,'pt'));
  assert.equal(Number(range.value),0);
- assert.ok(setDiverDepthFromPointer(stage,293.6,'pt'));
+ assert.ok(setDiverDepthFromPointer(stage,300,'pt'));
  assert.equal(Number(range.value),30);
  assert.ok(setDiverDepthFromPointer(stage,465.2,'pt'));
  assert.equal(Number(range.value),60);
@@ -110,7 +114,11 @@ test('App conecta clique, arraste, teclado, faixa e inputs; CSS sem molduras dup
  assert.ok(css.includes('.fb-ocean-stage')&&css.includes('.fb-diver-handle'));
  assert.ok(css.includes('touch-action:none'));
  assert.ok(css.includes('border: 1px solid #857557'));
- assert.ok(css.includes('object-fit:contain'),'Photo should not be cropped or zoomed');
+ assert.ok(css.includes('height:320%'),'Background crops only the upper water, not the baked-in large diver');
+ assert.ok(css.includes('object-fit:cover'),'Ocean backdrop fills the depth scene');
+ assert.ok(css.includes('width:148px; height:78px'),'Draggable diver photo must be small');
+ assert.ok(css.includes('z-index:8'),'Diver must render above ruler and guide lines');
+ assert.ok(css.includes('.fb-real-diver-photo'),'Photographic cutout is visible on the drag button');
  assert.ok(css.includes('transform:none'),'Photo should not translate or scale with depth');
  assert.ok(!css.includes('scale(1.28)'),'Old 128% photo zoom removed');
  assert.ok(css.includes('.fb-depth-guide')&&css.includes('.fb-depth-ruler')&&css.includes('.fb-depth-active-line'),'Ruler and line styles included');
