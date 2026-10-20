@@ -8,9 +8,9 @@ const mobile=readFileSync(new URL('../.github/workflows/consulta-32-mobile.yml',
 const photoURL=new URL('../dist/assets/oxygenna-fisiologia-premium-20261019.webp',import.meta.url);
 
 test('Imagem de apresentação de FISIOLOGIA é a fotografia distinta do laboratório',()=>{
- assert.match(app,/fisiologia-camara-futurista-aprovada\.webp\?rev=footer-premium-photos-20261019/);
+ assert.match(app,/oxygenna-fisiologia-premium-20261019\.webp/);
  assert.match(app,/width="800" height="600"/);
- assert.match(index,/app\.mjs\?rev=fisiologia-footer-premium-photos-20261019/);
+ assert.match(index,/app\.mjs\?rev=footer-premium-photos-20261019/);
  assert.match(app,/oxygenna-fisiologia-presentation/);
  assert.doesNotMatch(app,/fisiologia-camara-apresentacao\.webp/);
 });
