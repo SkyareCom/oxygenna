@@ -77,15 +77,19 @@ test('A Home antiga volta na entrada do OXYGENNA sem alterar rotas internas', as
       assert.match(mainHtml,/oxygenna-logo\.png/);
       assert.match(mainHtml,/PH4 DEV &amp; HEALTH/);
       assert.doesNotMatch(mainHtml,/<h[1-6]|class="panel"|class="lesson-link"|data-consulta-busca/);
-      if(section==='fisiologia'){
-        assert.match(mainHtml,/class="oxygenna-fisiologia-presentation"/);
-        assert.match(mainHtml,/fisiologia-camara-futurista-aprovada\.webp/);
-        assert.match(mainHtml,/alt="Câmara hiperbárica hospitalar/);
-        assert.ok(mainHtml.indexOf('oxygenna-fisiologia-presentation')<mainHtml.indexOf('oxygenna-section-base'),'Card deve ficar antes dos créditos');
-      } else {
+      const titles={fisiologia:'Fisiologia',clinica:'Clínica',camara:'Câmara',operacao:'Operação'};
+      const filename='oxygenna-'+section+'-premium-20261019.webp';
+      assert.match(mainHtml,new RegExp('data-section-photo="'+section+'"'));
+      assert.ok(mainHtml.includes(filename),'Imagem única não aplicada: '+section);
+      assert.match(mainHtml,/width="800" height="600"/);
+      assert.match(mainHtml,/loading="eager" decoding="async"/);
+      assert.ok(mainHtml.indexOf('data-section-photo')<mainHtml.indexOf('oxygenna-section-base'),'Imagem antes dos créditos');
+      if(section==='fisiologia')assert.match(mainHtml,/class="oxygenna-fisiologia-presentation"/);
+      else {
+        assert.match(mainHtml,/class="oxygenna-section-presentation"/);
         assert.doesNotMatch(mainHtml,/oxygenna-fisiologia-presentation/);
-        assert.doesNotMatch(mainHtml,/fisiologia-camara-futurista-aprovada/);
       }
+      assert.ok(mainHtml.includes(titles[section]),'Legenda da seção ausente: '+section);
       assert.equal((markup.match(/<nav class="bottom-nav[^>]*>/g)||[]).length,1);
       assert.match(markup,/data-consulta-link/);
     }
