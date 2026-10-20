@@ -65,5 +65,5 @@ test('rotas inválidas não abrem texto e o CSS da HOME permanece isolado',()=>{
  assert.ok(css.includes('.module .module-topic-title'));
  assert.ok(css.includes('.topic .topic-reading'));
  const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
- assert.ok(html.includes('app.mjs?rev=fisiologia-foto-escura-saira-20261019'));
+ assert.ok(html.includes('app.mjs?rev=footer-premium-photos-20261019'));
 });

@@ -89,10 +89,20 @@ function renderEmptySectionBase(){
   '<img class="oxygenna-section-base-logo" src="./assets/oxygenna-logo.png" width="38" height="38" alt="OXYGENNA">'+
   '<span class="oxygenna-section-base-right">PH4 DEV &amp; HEALTH</span></div>';
 }
-function renderFisiologiaPresentation(){
- return '<figure class="oxygenna-fisiologia-presentation" aria-label="Apresentação da seção Fisiologia">'+
-  '<img src="./assets/fisiologia-camara-futurista-aprovada.webp?rev=foto-escura-saira-20261019" width="800" height="600" loading="eager" decoding="async" alt="Câmara hiperbárica hospitalar com título FISIOLOGIA na base da imagem">'+
-  '<figcaption class="sr-only">Fisiologia</figcaption></figure>';
+// Fotografias aprovadas: uma cena distinta por aba, mantendo o front original.
+const FOOTER_SECTION_PHOTOS={
+ '/fisiologia':{title:'Fisiologia',file:'oxygenna-fisiologia-premium-20261019.webp',alt:'Profissional analisando oxigenação, pulmões e respostas fisiológicas em laboratório hiperbárico'},
+ '/clinica':{title:'Clínica',file:'oxygenna-clinica-premium-20261019.webp',alt:'Consulta médica em clínica hiperbárica com profissional e paciente'},
+ '/camara':{title:'Câmara',file:'oxygenna-camara-premium-20261019.webp',alt:'Câmara hiperbárica com detalhes de estrutura, instrumentos e escotilha'},
+ '/operacao':{title:'Operação',file:'oxygenna-operacao-premium-20261019.webp',alt:'Equipe técnica monitorando uma sessão hiperbárica em sala de controle'}
+};
+function renderFooterSectionPresentation(route){
+ const item=FOOTER_SECTION_PHOTOS[route];
+ if(!item)return '';
+ const section=route.slice(1),cls=section==='fisiologia'?'oxygenna-fisiologia-presentation':'oxygenna-section-presentation';
+ return '<figure class="'+cls+'" data-section-photo="'+section+'" aria-label="Apresentação da seção '+item.title+'">'+
+  '<img src="./assets/'+item.file+'" width="800" height="600" loading="eager" decoding="async" alt="'+item.alt+'">'+
+  '<figcaption class="sr-only">'+item.title+'</figcaption></figure>';
 }
 function render(){
  if(showConsulta()){
@@ -101,7 +111,7 @@ function render(){
   if(item){consultaUltimo=chapter;saveConsulta();}
   const filter=item?.filtro||route.slice(1);
   const blank=EMPTY_SECTION_ROUTES.has(route);
-  const main=withInlineDrawers(blank?(route==='/fisiologia'?renderFisiologiaPresentation():'')+renderEmptySectionBase():renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}}));
+  const main=withInlineDrawers(blank?renderFooterSectionPresentation(route)+renderEmptySectionBase():renderConsultaPage(route,{query:consultaBusca,lastId:consultaUltimo,illustration:art('home-art'),icon,answers:consultaRespostas.get(chapter)||{}}));
   document.documentElement.lang='pt-BR';
   document.title='OXYGENNA — Medicina Hiperbárica';
   document.querySelector('.skip').textContent='Ir ao conteúdo';

@@ -5,12 +5,12 @@ const app=readFileSync(new URL('../dist/app.mjs',import.meta.url),'utf8');
 const index=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
 const pages=readFileSync(new URL('../.github/workflows/github-pages.yml',import.meta.url),'utf8');
 const mobile=readFileSync(new URL('../.github/workflows/consulta-32-mobile.yml',import.meta.url),'utf8');
-const photoURL=new URL('../dist/assets/fisiologia-camara-futurista-aprovada.webp',import.meta.url);
+const photoURL=new URL('../dist/assets/oxygenna-fisiologia-premium-20261019.webp',import.meta.url);
 
-test('Imagem de apresentação de FISIOLOGIA é a fotografia escura aprovada',()=>{
- assert.match(app,/fisiologia-camara-futurista-aprovada\.webp\?rev=foto-escura-saira-20261019/);
+test('Imagem de apresentação de FISIOLOGIA é a fotografia distinta do laboratório',()=>{
+ assert.match(app,/oxygenna-fisiologia-premium-20261019\.webp/);
  assert.match(app,/width="800" height="600"/);
- assert.match(index,/app\.mjs\?rev=fisiologia-foto-escura-saira-20261019/);
+ assert.match(index,/app\.mjs\?rev=footer-premium-photos-20261019/);
  assert.match(app,/oxygenna-fisiologia-presentation/);
  assert.doesNotMatch(app,/fisiologia-camara-apresentacao\.webp/);
 });

@@ -52,7 +52,7 @@ test('não há gerador de catálogo duplicado e módulos 07/08 ficam fora de CÂ
  assert.ok(!view.includes('camara-chapter-grid'),'nenhum card paralelo');
  assert.ok(!app.includes('renderCamaraCatalog'),'não inserir catálogo na aba');
  assert.ok(!css.includes('.camara-chapter-grid'),'CSS antigo eliminado');
- assert.ok(html.includes('app.mjs?rev=fisiologia-foto-escura-saira-20261019'),'novo JS deve carregar com versão');
+ assert.ok(html.includes('app.mjs?rev=footer-premium-photos-20261019'),'novo JS deve carregar com versão');
  assert.equal(Object.values(CAMARA_MODULE_LESSONS).flat().length,8);
  assert.ok(!('07' in CAMARA_MODULE_LESSONS));
  assert.ok(!('08' in CAMARA_MODULE_LESSONS));

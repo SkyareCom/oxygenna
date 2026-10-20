@@ -191,31 +191,28 @@ try{
    return {color:a.color,icon:svg.color,bg:a.backgroundColor,shadow:a.boxShadow};
   });
   if(selected.color!=='rgb(133, 117, 87)'||selected.icon!=='rgb(133, 117, 87)'||selected.bg!=='rgba(0, 0, 0, 0)'||selected.shadow!=='none')throw Error('Destaque dourado sem fundo falhou em '+route+': '+JSON.stringify(selected));
-  const expectedChildren=route==='fisiologia'?2:1;
-  if(await page.locator('main.oxygenna-blank-page > *').count()!==expectedChildren)throw Error('Estrutura inesperada em '+route);
-  if(route==='fisiologia'){
-   const figure=page.locator('main.oxygenna-blank-page > .oxygenna-fisiologia-presentation');
+  const expectedPhotos={
+    fisiologia:'oxygenna-fisiologia-premium-20261019.webp',
+    clinica:'oxygenna-clinica-premium-20261019.webp',
+    camara:'oxygenna-camara-premium-20261019.webp',
+    operacao:'oxygenna-operacao-premium-20261019.webp'
+   };
+   if(await page.locator('main.oxygenna-blank-page > *').count()!==2)throw Error('Faltou card fotográfico em '+route);
+   const figure=page.locator('main.oxygenna-blank-page > figure[data-section-photo="'+route+'"]');
    await figure.waitFor();
-   const props=await figure.evaluate(el=>{
-     const im=el.querySelector('img'),cs=getComputedStyle(el),imageStyle=getComputedStyle(im),r=el.getBoundingClientRect();
-     return {src:im.getAttribute('src'),loaded:im.complete&&im.naturalWidth>0,width:im.naturalWidth,border:cs.borderColor,borderWidth:cs.borderTopWidth,shadow:cs.boxShadow,overflow:cs.overflow,imageBorder:imageStyle.borderTopWidth,imageShadow:imageStyle.boxShadow,figureWidth:r.width,viewport:window.innerWidth};
+   const props=await figure.evaluate(async el=>{
+     const im=el.querySelector('img');
+     try{await im.decode()}catch{}
+     const cs=getComputedStyle(el),imageStyle=getComputedStyle(im),r=el.getBoundingClientRect();
+     return {src:im.getAttribute('src'),loaded:im.complete&&im.naturalWidth>0,width:im.naturalWidth,height:im.naturalHeight,
+      border:cs.borderColor,borderWidth:cs.borderTopWidth,shadow:cs.boxShadow,overflow:cs.overflow,
+      imageBorder:imageStyle.borderTopWidth,imageShadow:imageStyle.boxShadow,
+      figureWidth:r.width,figureHeight:r.height,viewport:window.innerWidth,alt:im.getAttribute('alt')};
    });
-   if(!props.loaded||!props.src.includes('fisiologia-camara-futurista-aprovada.webp'))throw Error('Imagem aprovada não carregou: '+JSON.stringify(props));
-   if(props.border!=='rgb(133, 117, 87)'||props.borderWidth!=='1px'||props.imageBorder!=='0px'||props.shadow!=='none'||props.imageShadow!=='none'||props.overflow!=='hidden'||props.figureWidth>props.viewport)throw Error('Sombra, transbordamento ou borda dupla: '+JSON.stringify(props));
-    const photoColor=await figure.evaluate(el=>{
-      const im=el.querySelector('img'),canvas=document.createElement('canvas');
-      canvas.width=im.naturalWidth;canvas.height=im.naturalHeight;
-      const ctx=canvas.getContext('2d',{willReadFrequently:true});
-      ctx.drawImage(im,0,0);
-      const sample=(x,y)=>Array.from(ctx.getImageData(x,y,1,1).data).slice(0,3);
-      return {floor:sample(390,550),chamber:sample(510,285),width:canvas.width,height:canvas.height,src:im.getAttribute('src')};
-    });
-    if(photoColor.width!==800||photoColor.height!==600||!photoColor.src.includes('foto-escura-saira-20261019'))throw Error('Nova foto aprovada ausente: '+JSON.stringify(photoColor));
-    if(photoColor.floor.reduce((a,b)=>a+b,0)>150||photoColor.chamber.reduce((a,b)=>a+b,0)<250)throw Error('Foto perdeu piso escuro ou câmara branca: '+JSON.stringify(photoColor));
-  }else if(await page.locator('main.oxygenna-blank-page .oxygenna-fisiologia-presentation').count()){
-   throw Error('Imagem de Fisiologia apareceu em '+route);
-  }
-  if(await page.locator('main.oxygenna-blank-page h1,main.oxygenna-blank-page h2,main.oxygenna-blank-page .lesson-link,main.oxygenna-blank-page .panel,main.oxygenna-blank-page .home-card').count())throw Error('Página '+route+' não está em branco');
+   if(!props.loaded||!props.src.includes(expectedPhotos[route])||props.width!==800||props.height!==600||!props.alt)throw Error('Fotografia incorreta ou ausente em '+route+': '+JSON.stringify(props));
+   if(props.border!=='rgb(133, 117, 87)'||props.borderWidth!=='1px'||props.imageBorder!=='0px'||props.shadow!=='none'||props.imageShadow!=='none'||props.overflow!=='hidden'||props.figureWidth>props.viewport)throw Error('Sombra, transbordamento ou borda dupla em '+route+': '+JSON.stringify(props));
+   if(await page.locator('main.oxygenna-blank-page > figure[data-section-photo]').count()!==1)throw Error('Fotografias duplicadas em '+route);
+   if(await page.locator('main.oxygenna-blank-page h1,main.oxygenna-blank-page h2,main.oxygenna-blank-page .lesson-link,main.oxygenna-blank-page .panel,main.oxygenna-blank-page .home-card').count())throw Error('Página '+route+' não está em branco');
   const signature=page.locator('.oxygenna-section-base');
   if((await signature.locator('.oxygenna-section-base-left').innerText()).trim()!=='PAPOS DE ALTITUDE')throw Error('Coluna esquerda incorreta');
   if((await signature.locator('.oxygenna-section-base-right').innerText()).trim()!=='PH4 DEV & HEALTH')throw Error('Coluna direita incorreta');

@@ -113,9 +113,10 @@ main.home > .oxygenna-section-base {
 .oxygenna-section-base-logo { width: 38px; height: 38px; object-fit: contain; justify-self: center; }
 .oxygenna-section-base-right { text-align: right; }
 
-/* Card de apresentação aprovado — somente a tela FISIOLOGIA.
-   A imagem não possui moldura externa: há uma única borda CSS, sem sombras. */
-.oxygenna-blank-page .oxygenna-fisiologia-presentation {
+/* Cards fotográficos das quatro páginas do rodapé.
+   Uma borda CSS, sem sombra ou moldura duplicada; proporção natural 4:3. */
+.oxygenna-blank-page .oxygenna-fisiologia-presentation,
+.oxygenna-blank-page .oxygenna-section-presentation {
   display: block;
   width: 100%;
   max-width: 440px;
@@ -128,7 +129,8 @@ main.home > .oxygenna-section-base {
   box-shadow: none !important;
   filter: none;
 }
-.oxygenna-blank-page .oxygenna-fisiologia-presentation img {
+.oxygenna-blank-page .oxygenna-fisiologia-presentation img,
+.oxygenna-blank-page .oxygenna-section-presentation img {
   display: block;
   width: 100%;
   height: auto;
