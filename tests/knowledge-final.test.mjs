@@ -46,5 +46,5 @@ test('sete fotos limpas substituem pôsteres com títulos e mantêm borda única
  assert.ok(css.includes('.module .chamber-lesson .m01-context-figure{border:1px'));
  assert.ok(css.includes('.module .chamber-lesson .m01-context-figure img{display:block;width:100%;height:auto;border:0'));
  const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
- assert.ok(html.includes('app.mjs?rev=fisiologia-foto-escura-saira-20261019'));
+ assert.ok(html.includes('app.mjs?rev=footer-premium-photos-20261019'));
 });
